@@ -3,20 +3,21 @@
 
   inputs = {
     # not cool enough for unstable (yet)
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11"; 
-    # window manager
-    niri.url = "github:sodiboo/niri-flake/main";
-    # hardware bodges
-    nixos-hardware.url = "github:NixOS/nixos-hardware/main";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    # home-manager (a regañadientes)
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    }; 
   };
 
   outputs = inputs @ { 
     # list of outputs goes here
     self,
     nixpkgs,
-    niri,
-    nixos-hardware
-  }: let
+    home-manager,
+    ...
+ }: let
     # define helpers that we'll use to set up our environment
     
     system = "x86_64-linux";
