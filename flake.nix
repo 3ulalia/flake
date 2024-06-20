@@ -36,4 +36,5 @@
       #   which is called on an attribute set containing a `system` attribute and a `modules` list.
       nixosConfigurations = list-to-attrs-from-key "hostname" (map generateSystem (mapHosts import ./hosts));
     };
-  }
+  }#a
+#a

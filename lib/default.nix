@@ -23,11 +23,18 @@
  */
 
 {
+  inputs,
+  outputs,
   lib,
   ...
 }:
   let
-    inherit (lib) foldl' readDir;
+    inherit (lib) attrValues foldl' makeExtensible readDir;
+    inherit (modules) mapModules;
+
+    modules = import ./modules.nix {
+      inherit lib inputs;
+    };
 
     individual-files = readDir ./.;
 
@@ -39,6 +46,8 @@
     combine-files = starter: next: 
       starter // import next;
 
-  in {
-    lib = foldl' combine-files {} individual-files;
-  }
+    eulib = makeExtensible (self: mapModules (file: import file {inherit self lib inputs outputs;}) ./.);
+
+  in 
+    eulib.extend (self: super: foldl' (a: b: a // b) {} (attrValues super))
+  
