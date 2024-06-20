@@ -19,7 +19,7 @@
     ...
  }: let
       inherit (self) outputs; # required so we can pass it through to our lib
-      inherit (lib.eula) generateSystem mapHosts;
+      inherit (lib.eula) generateSystem list-to-attrs-from-key mapHosts;
 
       lib = nixpkgs.lib.extend ( # extend the given `lib` with our helpers
         self: super: {
@@ -34,6 +34,6 @@
       # nixosConfigurations: {hostName : nixosHost}
       # nixosHosts are generated with nix(-darwin, pkgs).lib.(darwin, nixos)System
       #   which is called on an attribute set containing a `system` attribute and a `modules` list.
-      nixosConfigurations = map generateSystem (mapHosts import ./hosts);
+      nixosConfigurations = list-to-attrs-from-key "hostname" (map generateSystem (mapHosts import ./hosts));
     };
   }
