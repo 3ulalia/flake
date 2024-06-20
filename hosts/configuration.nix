@@ -17,9 +17,7 @@
   inputs,
   ...
 } : 
-  let 
-    a = 1;
-  in {
+  {
     
 
     networking = {

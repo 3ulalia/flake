@@ -19,7 +19,7 @@
     ...
  }: let
       inherit (self) outputs; # required so we can pass it through to our lib
-      inherit (lib.eula) generateSystem mapModules mapHosts;
+      inherit (lib.eula) generateSystem mapHosts;
 
       lib = nixpkgs.lib.extend ( # extend the given `lib` with our helpers
         self: super: {
