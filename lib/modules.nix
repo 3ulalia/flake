@@ -7,7 +7,8 @@
   ...
 } : 
   let
-    inherit (lib) attrNames baseNameOf filterAttrs hasPrefix hasSuffix pathExists readDir;
+    inherit (builtins) readDir; # TODO: why
+    inherit (lib) attrNames baseNameOf filterAttrs hasPrefix hasSuffix pathExists;
   in {
     /**
       Applies (maps) a function to each module located in a given folder path.
@@ -44,7 +45,7 @@
             ((file-type == "directory") && pathExists "${path}/default.nix");
 
 
-        nix-modules-in-dir = filterAttrs valid-nix-module-huh (readDir path);
+        nix-modules-in-dir = filterAttrs (a: valid-nix-module-huh ("${path}/" + a)) (readDir path);
       in 
         map fn (attrNames nix-modules-in-dir);
 
