@@ -34,19 +34,23 @@
       This is mainly a wrapper around nixpkgs.lib.nixosSystem, but it uses special 
       attributes that are placed in the individual host file (by the user) to specify
       things like system architecture, hostname, and more.
+
+      generate-system :: {modules: {...}; nixpkgs: {lib: {...}}; system: string; users = [string];} -> {...}
+
+      generate-system :: host-configuration -> {hostname: system-configuration}
      */
     generateSystem = host:
       let 
         host-pkgs = host.nixpkgs;
       in 
         host-pkgs.lib.nixosSystem {
-          inherit (host) system modules;
+          inherit (host) modules system;
 
           users.users = generateUsers host.users;
 
           # TODO: handle home-manager, sops-nix, etc here?
 
-        };
+        } // {inherit (host) hostname}; # add this key so we can use it to convert into an attrset later
 
 
   }
