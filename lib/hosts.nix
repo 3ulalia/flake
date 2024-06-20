@@ -44,13 +44,17 @@
         host-pkgs = host.nixpkgs;
       in 
         host-pkgs.lib.nixosSystem {
-          inherit (host) modules system;
+          inherit (host) system;
 
-          users.users = generateUsers host.users;
+          modules = [
+            host.modules
+            (host // {users.users = generateUsers host.users;})
+            ./hosts/configuration.nix
+          ];
 
           # TODO: handle home-manager, sops-nix, etc here?
 
-        } // {inherit (host) hostname}; # add this key so we can use it to convert into an attrset later
+        } // {inherit (host.networking) hostname;}; # add this key so we can use it to convert into an attrset later
 
 
   }
