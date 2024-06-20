@@ -21,7 +21,7 @@
       mapModules :: (path -> module) -> path -> [module]
     */
 
-    mapModules = path: fn: 
+    mapModules = fn: path: 
       let 
 
         /**
