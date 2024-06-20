@@ -6,7 +6,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
     # home-manager (a regañadientes)
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager?ref=release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     }; 
   };
@@ -18,25 +18,22 @@
     home-manager,
     ...
  }: let
-    # define helpers that we'll use to set up our environment
-    
-    system = "x86_64-linux";
-    
-    # lets us compose an input pkgs with our custom overlays
-    mkPkgs = pkgs: extraOverlays:
-      import pkgs {
-        inherit system;
-	config.allowUnfree = true;
-	overlay = extraOverlays;
-      };
-    
-    pkgs = mkPkgs nixpkgs [];
+      inherit (self) outputs; # required so we can pass it through to our lib
+      inherit (lib.eula) generateSystem mapModules mapHosts;
+
+      lib = nixpkgs.lib.extend ( # extend the given `lib` with our helpers
+        self: super: {
+          eula = import ./lib {
+            inherit inputs outputs;
+            lib = self;
+          };
+        }
+      );
 
     in {
-
-	nixosModules = {dotfiles = import ./.;} // mapModulesRec ./modules import;
-
-	nixosConfigurations = mapHosts ./hosts {};
-
+      # nixosConfigurations: {hostName : nixosHost}
+      # nixosHosts are generated with nix(-darwin, pkgs).lib.(darwin, nixos)System
+      #   which is called on an attribute set containing a `system` attribute and a `modules` list.
+      nixosConfigurations = map generateSystem (mapHosts import ./hosts);
     };
-  };
+  }
