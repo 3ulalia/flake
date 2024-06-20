@@ -1,0 +1,145 @@
+warning: Git tree '/home/eula/flake' is dirty
+error:
+       … while evaluating the attribute 'eula'
+
+         at /nix/store/rp0bprsx3wr46d4d5r99gsj8cwg25dxj-source/flake.nix:26:11:
+
+           25|         self: super: {
+           26|           eula = import ./lib {
+             |           ^
+           27|             inherit inputs outputs;
+
+       … from call site
+
+         at /nix/store/rp0bprsx3wr46d4d5r99gsj8cwg25dxj-source/flake.nix:26:18:
+
+           25|         self: super: {
+           26|           eula = import ./lib {
+             |                  ^
+           27|             inherit inputs outputs;
+
+       … while calling anonymous lambda
+
+         at /nix/store/rp0bprsx3wr46d4d5r99gsj8cwg25dxj-source/lib/default.nix:25:1:
+
+           24|
+           25| {
+             | ^
+           26|   inputs,
+
+       … from call site
+
+         at /nix/store/rp0bprsx3wr46d4d5r99gsj8cwg25dxj-source/lib/default.nix:49:13:
+
+           48|
+           49|     eulib = makeExtensible (self: mapModules (file: import file {inherit self lib inputs outputs;}) ./.);
+             |             ^
+           50|
+
+       … while calling 'makeExtensibleWithCustomName'
+
+         at /nix/store/lnhl2ay443f0613flcik423gg989skc1-source/lib/fixed-points.nix:193:48:
+
+          192|   */
+          193|   makeExtensibleWithCustomName = extenderName: rattrs:
+             |                                                ^
+          194|     fix' (self: (rattrs self) // {
+
+       … from call site
+
+         at /nix/store/lnhl2ay443f0613flcik423gg989skc1-source/lib/fixed-points.nix:194:5:
+
+          193|   makeExtensibleWithCustomName = extenderName: rattrs:
+          194|     fix' (self: (rattrs self) // {
+             |     ^
+          195|       ${extenderName} = f: makeExtensibleWithCustomName extenderName (extends f rattrs);
+
+       … while calling 'fix''
+
+         at /nix/store/lnhl2ay443f0613flcik423gg989skc1-source/lib/fixed-points.nix:84:10:
+
+           83|   */
+           84|   fix' = f: let x = f x // { __unfix__ = f; }; in x;
+             |          ^
+           85|
+
+       … from call site
+
+         at /nix/store/lnhl2ay443f0613flcik423gg989skc1-source/lib/fixed-points.nix:84:21:
+
+           83|   */
+           84|   fix' = f: let x = f x // { __unfix__ = f; }; in x;
+             |                     ^
+           85|
+
+       … while calling anonymous lambda
+
+         at /nix/store/lnhl2ay443f0613flcik423gg989skc1-source/lib/fixed-points.nix:194:11:
+
+          193|   makeExtensibleWithCustomName = extenderName: rattrs:
+          194|     fix' (self: (rattrs self) // {
+             |           ^
+          195|       ${extenderName} = f: makeExtensibleWithCustomName extenderName (extends f rattrs);
+
+       … from call site
+
+         at /nix/store/lnhl2ay443f0613flcik423gg989skc1-source/lib/fixed-points.nix:194:18:
+
+          193|   makeExtensibleWithCustomName = extenderName: rattrs:
+          194|     fix' (self: (rattrs self) // {
+             |                  ^
+          195|       ${extenderName} = f: makeExtensibleWithCustomName extenderName (extends f rattrs);
+
+       … while calling anonymous lambda
+
+         at /nix/store/rp0bprsx3wr46d4d5r99gsj8cwg25dxj-source/lib/default.nix:49:29:
+
+           48|
+           49|     eulib = makeExtensible (self: mapModules (file: import file {inherit self lib inputs outputs;}) ./.);
+             |                             ^
+           50|
+
+       … from call site
+
+         at /nix/store/rp0bprsx3wr46d4d5r99gsj8cwg25dxj-source/lib/default.nix:49:35:
+
+           48|
+           49|     eulib = makeExtensible (self: mapModules (file: import file {inherit self lib inputs outputs;}) ./.);
+             |                                   ^
+           50|
+
+       … while calling 'mapModules'
+
+         at /nix/store/rp0bprsx3wr46d4d5r99gsj8cwg25dxj-source/lib/modules.nix:24:22:
+
+           23|
+           24|     mapModules = fn: path:
+             |                      ^
+           25|       let
+
+       … from call site
+
+         at /nix/store/rp0bprsx3wr46d4d5r99gsj8cwg25dxj-source/lib/modules.nix:47:30:
+
+           46|
+           47|         nix-modules-in-dir = filterAttrs valid-nix-module-huh (readDir path);
+             |                              ^
+           48|       in
+
+       … while calling 'filterAttrs'
+
+         at /nix/store/lnhl2ay443f0613flcik423gg989skc1-source/lib/attrsets.nix:381:5:
+
+          380|     # The attribute set to filter
+          381|     set:
+             |     ^
+          382|     listToAttrs (concatMap (name: let v = set.${name}; in if pred name v then [(nameValuePair name v)] else []) (attrNames set));
+
+       error: attribute 'readDir' missing
+
+       at /nix/store/rp0bprsx3wr46d4d5r99gsj8cwg25dxj-source/lib/modules.nix:9:6:
+
+            8| } :
+            9|   let
+             |      ^
+           10|     inherit (lib) attrNames baseNameOf filterAttrs hasPrefix hasSuffix pathExists readDir;
