@@ -4,7 +4,7 @@
 } : 
   let 
 
-    inherit (lib) elemAt findFirst matchAttrs;
+    inherit (lib) elemAt findFirst listToAttrs matchAttrs;
 
 
     /**
@@ -46,5 +46,13 @@
         x: (if_let v (elemAt x 0)) != null
       ) null l
     ) 1;
+
+    /**
+      Given a list of attrsets, and a key present in each attrset, create an attrset mapping from
+      the value of that key to the attrset itself.
+
+      list-to-attrs-from-key :: string -> [{...}] -> {...}
+     */
+    list-to-attrs-from-key = field: list: listToAttrs (map (v: {name = v.${field}; value = v;}) list);
 
   }
