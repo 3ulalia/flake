@@ -7,7 +7,8 @@
   ...
 } : 
   let
-    inherit (lib) attrVals filterAttrs pathExists readDir;
+    inherit (builtins) readDir;
+    inherit (lib) attrNames filterAttrs pathExists;
     inherit (lib.eula) generateUsers;
   in {
 
@@ -23,10 +24,12 @@
      */
     mapHosts = fn: path: 
       let
-        valid-host-huh = path: pathExists "${path}/configuration.nix"; # self-documenting
+        valid-host-huh = p: v: pathExists "${path}/${p}/configuration.nix"; # self-documenting
       in 
-        map fn (attrVals (filterAttrs valid-host-huh (filterAttrs (n: v: v == "directory") (readDir path))));
+        map fn (map (n: "${path}/${n}") (attrNames (filterAttrs valid-host-huh (filterAttrs (n: v: v == "directory") (readDir path)))));
 
+
+    importHost = path: import "${path}/configuration.nix" {};
 
     /**
       Generates a system configuration from a given host. 
@@ -43,18 +46,17 @@
       let 
         host-pkgs = host.nixpkgs;
       in 
-        host-pkgs.lib.nixosSystem {
+        lib.nixosSystem {
           inherit (host) system;
 
           modules = [
-            host.modules
             (host // {users.users = generateUsers host.users;})
             ./hosts/configuration.nix
           ];
 
           # TODO: handle home-manager, sops-nix, etc here?
 
-        } // {inherit (host.networking) hostname;}; # add this key so we can use it to convert into an attrset later
+        } // {inherit (host.networking) hostName;}; # add this key so we can use it to convert into an attrset later
 
 
   }
