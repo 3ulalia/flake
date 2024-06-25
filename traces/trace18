@@ -1,0 +1,28 @@
+$ nix --extra-experimental-features nix-command flakes build --out-link /tmp/nixos-rebuild.2oj8lo/nixos-rebuild .#nixosConfigurations."sunlanii".config.system.build.nixos-rebuild --show-trace -v
+evaluating derivation 'git+file:///home/eula/flake#nixosConfigurations."sunlanii".config.system.build.nixos-rebuild'...
+[K[Kusing revision dc1a8792ad16f2d37fb6a1ab2ced970bfa5a139f of repo '/home/eula/flake'
+evaluating file '/nix/store/dw2k5ckblq6xq80874ym756lz1anzdl1-source/flake.nix'
+evaluating file '/nix/store/yqy82fn77fy3rv7lpwa9m11w3a2nnqg5-source/flake.nix'
+evaluating file '/nix/store/yqy82fn77fy3rv7lpwa9m11w3a2nnqg5-source/lib/default.nix'
+evaluating file '/nix/store/yqy82fn77fy3rv7lpwa9m11w3a2nnqg5-source/lib/fixed-points.nix'
+evaluating file '/nix/store/yqy82fn77fy3rv7lpwa9m11w3a2nnqg5-source/lib/flake-version-info.nix'
+evaluating file '/nix/store/dw2k5ckblq6xq80874ym756lz1anzdl1-source/lib/default.nix'
+evaluating file '/nix/store/dw2k5ckblq6xq80874ym756lz1anzdl1-source/lib/modules.nix'
+evaluating file '/nix/store/yqy82fn77fy3rv7lpwa9m11w3a2nnqg5-source/lib/attrsets.nix'
+evaluating file '/nix/store/yqy82fn77fy3rv7lpwa9m11w3a2nnqg5-source/lib/lists.nix'
+trace: /nix/store/dw2k5ckblq6xq80874ym756lz1anzdl1-source/lib/default.nix
+evaluating file '/nix/store/yqy82fn77fy3rv7lpwa9m11w3a2nnqg5-source/lib/strings.nix'
+evaluating file '/nix/store/yqy82fn77fy3rv7lpwa9m11w3a2nnqg5-source/lib/trivial.nix'
+trace: /nix/store/dw2k5ckblq6xq80874ym756lz1anzdl1-source/lib/helpers.nix
+trace: /nix/store/dw2k5ckblq6xq80874ym756lz1anzdl1-source/lib/hosts.nix
+trace: /nix/store/dw2k5ckblq6xq80874ym756lz1anzdl1-source/lib/modules.nix
+trace: /nix/store/dw2k5ckblq6xq80874ym756lz1anzdl1-source/lib/users.nix
+trace: [ ]
+error: attribute 'list-to-attrs-from-key' missing
+
+       at /nix/store/dw2k5ckblq6xq80874ym756lz1anzdl1-source/flake.nix:20:8:
+
+           19|     ...
+           20|  }: let
+             |        ^
+           21|       inherit (self) outputs; # required so we can pass it through to our lib
