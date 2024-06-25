@@ -37,7 +37,7 @@
         valid-nix-module-huh = path: 
           let 
             file-name = trace path (baseNameOf path);
-            file-type = (readDir (dirOf path))."${file-name}";
+            file-type = trace (readDir (dirOf path)) (readDir (dirOf path))."${file-name}";
           in 
             # the path is to a single nix file
             ((file-type == "regular") && (hasSuffix file-name ".nix") && (!hasPrefix file-name "_")) ||

@@ -29,7 +29,7 @@
   ...
 }:
   let
-    inherit (builtins)  foldl'  trace;
+    inherit (builtins)  foldl' trace;
     inherit (modules) mapModules;
 
     modules = import ./modules.nix {
