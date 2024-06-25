@@ -1,0 +1,89 @@
+warning: Git tree '/home/eula/flake' is dirty
+trace: /nix/store/sawxbri16lbjawbl9n2kvxcmx837aszc-source/lib/default.nix
+trace: /nix/store/sawxbri16lbjawbl9n2kvxcmx837aszc-source/lib/helpers.nix
+trace: /nix/store/sawxbri16lbjawbl9n2kvxcmx837aszc-source/lib/hosts.nix
+trace: /nix/store/sawxbri16lbjawbl9n2kvxcmx837aszc-source/lib/modules.nix
+trace: /nix/store/sawxbri16lbjawbl9n2kvxcmx837aszc-source/lib/users.nix
+error:
+       … while evaluating the attribute 'eula'
+
+         at /nix/store/sawxbri16lbjawbl9n2kvxcmx837aszc-source/flake.nix:26:11:
+
+           25|         self: super: {
+           26|           eula = import ./lib {
+             |           ^
+           27|             inherit inputs outputs;
+
+       … from call site
+
+         at /nix/store/sawxbri16lbjawbl9n2kvxcmx837aszc-source/flake.nix:26:18:
+
+           25|         self: super: {
+           26|           eula = import ./lib {
+             |                  ^
+           27|             inherit inputs outputs;
+
+       … while calling anonymous lambda
+
+         at /nix/store/sawxbri16lbjawbl9n2kvxcmx837aszc-source/lib/default.nix:25:1:
+
+           24|
+           25| {
+             | ^
+           26|   inputs,
+
+       … from call site
+
+         at /nix/store/sawxbri16lbjawbl9n2kvxcmx837aszc-source/lib/default.nix:49:13:
+
+           48|
+           49|     eulib = makeExtensible (self: mapModules (file: import file {inherit self lib inputs outputs;}) ./.);
+             |             ^
+           50|
+
+       … while calling 'makeExtensibleWithCustomName'
+
+         at /nix/store/lnhl2ay443f0613flcik423gg989skc1-source/lib/fixed-points.nix:193:48:
+
+          192|   */
+          193|   makeExtensibleWithCustomName = extenderName: rattrs:
+             |                                                ^
+          194|     fix' (self: (rattrs self) // {
+
+       … from call site
+
+         at /nix/store/lnhl2ay443f0613flcik423gg989skc1-source/lib/fixed-points.nix:194:5:
+
+          193|   makeExtensibleWithCustomName = extenderName: rattrs:
+          194|     fix' (self: (rattrs self) // {
+             |     ^
+          195|       ${extenderName} = f: makeExtensibleWithCustomName extenderName (extends f rattrs);
+
+       … while calling 'fix''
+
+         at /nix/store/lnhl2ay443f0613flcik423gg989skc1-source/lib/fixed-points.nix:84:10:
+
+           83|   */
+           84|   fix' = f: let x = f x // { __unfix__ = f; }; in x;
+             |          ^
+           85|
+
+       … from call site
+
+         at /nix/store/lnhl2ay443f0613flcik423gg989skc1-source/lib/fixed-points.nix:84:21:
+
+           83|   */
+           84|   fix' = f: let x = f x // { __unfix__ = f; }; in x;
+             |                     ^
+           85|
+
+       … while calling anonymous lambda
+
+         at /nix/store/lnhl2ay443f0613flcik423gg989skc1-source/lib/fixed-points.nix:194:11:
+
+          193|   makeExtensibleWithCustomName = extenderName: rattrs:
+          194|     fix' (self: (rattrs self) // {
+             |           ^
+          195|       ${extenderName} = f: makeExtensibleWithCustomName extenderName (extends f rattrs);
+
+       error: value is a list while a set was expected

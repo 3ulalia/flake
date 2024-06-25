@@ -1,0 +1,19 @@
+warning: Git tree '/home/eula/flake' is dirty
+trace: /nix/store/vlbp1d88rjyq5j8bfkg12riyicf26qsx-source/lib/default.nix
+trace: /nix/store/vlbp1d88rjyq5j8bfkg12riyicf26qsx-source/lib/helpers.nix
+trace: /nix/store/vlbp1d88rjyq5j8bfkg12riyicf26qsx-source/lib/hosts.nix
+trace: /nix/store/vlbp1d88rjyq5j8bfkg12riyicf26qsx-source/lib/modules.nix
+trace: /nix/store/vlbp1d88rjyq5j8bfkg12riyicf26qsx-source/lib/users.nix
+trace: /nix/store/vlbp1d88rjyq5j8bfkg12riyicf26qsx-source/lib/default.nix
+trace: /nix/store/vlbp1d88rjyq5j8bfkg12riyicf26qsx-source/lib/helpers.nix
+trace: /nix/store/vlbp1d88rjyq5j8bfkg12riyicf26qsx-source/lib/hosts.nix
+trace: /nix/store/vlbp1d88rjyq5j8bfkg12riyicf26qsx-source/lib/modules.nix
+trace: /nix/store/vlbp1d88rjyq5j8bfkg12riyicf26qsx-source/lib/users.nix
+error: attribute 'list-to-attrs-from-key' missing
+
+       at /nix/store/vlbp1d88rjyq5j8bfkg12riyicf26qsx-source/flake.nix:20:8:
+
+           19|     ...
+           20|  }: let
+             |        ^
+           21|       inherit (self) outputs; # required so we can pass it through to our lib

@@ -5,7 +5,7 @@
     (a) lame
     (b) against the Design Recipe
   
-  To preseve my sanity, I've added type signatures in comments above each one
+  To preserve my sanity, I've added type signatures in comments above each one
   of the functions that I define. These type signatures will look mostly like 
   OCaml type signatures (blame my Compilers professor), with the modification 
   that I use ['a] instead of 'a list, because it's shorter and neater.
@@ -29,12 +29,18 @@
   ...
 }:
   let
+    inherit (helpers) list-to-attrs-from-key;
     inherit (lib) attrValues foldl' makeExtensible readDir;
     inherit (modules) mapModules;
+
+    helpers = import ./helpers.nix {
+      inherit lib inputs;
+    };
 
     modules = import ./modules.nix {
       inherit lib inputs;
     };
+
 
     individual-files = readDir ./.;
 
@@ -46,8 +52,8 @@
     combine-files = starter: next: 
       starter // import next;
 
-    eulib = makeExtensible (self: mapModules (file: import file {inherit self lib inputs outputs;}) ./.);
+    eulib = makeExtensible (self: (list-to-attrs-from-key "filename" (mapModules (file: (import file {inherit self lib inputs outputs;}) // {filename = file;}) ./.)));
 
   in 
-    eulib.extend (self: super: foldl' (a: b: a // b) {} (attrValues super))
+    eulib.extend (starter: next: foldl' (a: b: a // b) {} (attrValues next))
   

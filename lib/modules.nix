@@ -7,8 +7,8 @@
   ...
 } : 
   let
-    inherit (builtins) readDir; # TODO: why
-    inherit (lib) attrNames baseNameOf filterAttrs hasPrefix hasSuffix pathExists;
+    inherit (builtins) baseNameOf dirOf readDir trace; # TODO: why
+    inherit (lib) attrNames filterAttrs hasPrefix hasSuffix pathExists;
   in {
     /**
       Applies (maps) a function to each module located in a given folder path.
@@ -36,16 +36,16 @@
          */
         valid-nix-module-huh = path: 
           let 
-            file-name = baseNameOf path;
-            file-type = (readDir path)."${file-name}";
+            file-name = trace path (baseNameOf path);
+            file-type = (readDir (dirOf path))."${file-name}";
           in 
             # the path is to a single nix file
             ((file-type == "regular") && (hasSuffix file-name ".nix") && (!hasPrefix file-name "_")) ||
             # the path is to a directory containing a `default.nix`
-            ((file-type == "directory") && pathExists "${path}/default.nix");
+            ((file-type == "directory") && pathExists (path + "/default.nix"));
 
 
-        nix-modules-in-dir = filterAttrs (a: valid-nix-module-huh ("${path}/" + a)) (readDir path);
+        nix-modules-in-dir = filterAttrs (name: value: (valid-nix-module-huh (path + ("/" + name)))) (readDir path);
       in 
         map fn (attrNames nix-modules-in-dir);
 
