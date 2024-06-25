@@ -36,7 +36,7 @@
       inherit lib inputs;
     };
 
-    eulib = (mapModules (file: (import file {inherit lib inputs outputs;})) ./.);
+    eulib = (mapModules (file: (import file {inherit lib inputs outputs;})) ./. __curPos.file);
 
   in 
     (foldl' (a: b: a // b) {} eulib)

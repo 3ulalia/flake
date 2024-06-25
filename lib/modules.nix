@@ -7,8 +7,8 @@
   ...
 } : 
   let
-    inherit (builtins) attrNames baseNameOf dirOf pathExists readDir trace; # TODO: why
-    inherit (lib) filterAttrs hasPrefix hasSuffix;
+    inherit (builtins) attrNames baseNameOf dirOf pathExists readDir trace toString; # TODO: why
+    inherit (lib) filterAttrs hasSuffix;
   in {
     /**
       Applies (maps) a function to each module located in a given folder path.
@@ -22,7 +22,7 @@
       mapModules :: (path -> module) -> path -> [module]
     */
 
-    mapModules = fn: path: 
+    mapModules = fn: path: toIgnore: 
       let 
 
         /**
@@ -35,19 +35,23 @@
           valid-nix-module-huh :: path -> bool
          */
         valid-nix-module-huh = path: 
-          let 
-            file-name = trace path (baseNameOf path);
-            file-type = trace (readDir (dirOf path)) (readDir (dirOf path))."${file-name}";
-          in 
+          let
+	    pth = trace ("path: " + (toString path) + " toIgnore: ${toIgnore}") path; 
+            file-name = trace (baseNameOf pth) (baseNameOf pth);
+            file-type = trace (readDir (dirOf path))."${file-name}" (readDir (dirOf path))."${file-name}";
+	  in 
             # the path is to a single nix file
-            ((file-type == "regular") && (hasSuffix file-name ".nix") && (!hasPrefix file-name "_")) ||
+            (((file-type == "regular") && (hasSuffix ".nix" file-name)) ||
             # the path is to a directory containing a `default.nix`
-            ((file-type == "directory") && pathExists (path + "/default.nix"));
+            ((file-type == "directory") && pathExists ("${path}/default.nix"))) && 
+	    # the path is not to our recursion-preventing canary
+	    ((toString path) != "${toIgnore}");
 
 
-        nix-modules-in-dir = filterAttrs (name: value: (valid-nix-module-huh (path + ("/" + name)))) (readDir path);
+        nix-modules-in-dir = filterAttrs (name: value: (valid-nix-module-huh (path + "/${name}"))) (readDir path);
+	nmid = trace nix-modules-in-dir nix-modules-in-dir;
       in 
-        map fn (attrNames nix-modules-in-dir);
+        map fn (map (name: path + "/${name}") (attrNames nmid));
 
 
     /**
