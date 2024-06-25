@@ -4,7 +4,7 @@
 } : 
   let 
 
-    inherit (lib) elemAt findFirst listToAttrs matchAttrs;
+    inherit (builtins) elemAt findFirst listToAttrs matchAttrs;
 
 
     /**

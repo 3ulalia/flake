@@ -30,7 +30,7 @@
 }:
   let
     inherit (helpers) list-to-attrs-from-key;
-    inherit (lib) attrValues foldl' makeExtensible readDir;
+    inherit (builtins) attrValues foldl' readDir trace;
     inherit (modules) mapModules;
 
     helpers = import ./helpers.nix {
@@ -52,8 +52,9 @@
     combine-files = starter: next: 
       starter // import next;
 
-    eulib = (list-to-attrs-from-key "filename" (mapModules (file: (import file {inherit lib inputs outputs;}) // {filename = file;}) ./.));
+    eulib = (mapModules (file: {${file} = (import file {inherit lib inputs outputs;});}) ./.);
+    _ignore = trace eulib eulib;
 
   in 
-    eulib.extend (starter: next: foldl' (a: b: a // b) {} (attrValues next))
+    (foldl' (a: b: a // b) {} _ignore)
   

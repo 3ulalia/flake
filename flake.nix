@@ -3,7 +3,7 @@
 
   inputs = {
     # not cool enough for unstable (yet)
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     # home-manager (a regañadientes)
     home-manager = {
       url = "github:nix-community/home-manager?ref=release-23.11";
@@ -39,5 +39,6 @@
       nixosConfigurations = list-to-attrs-from-key "hostname" (map generateSystem (mapHosts import ./hosts));
     };
   }
+#a
 #a
 #a

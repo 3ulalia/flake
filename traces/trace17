@@ -1,0 +1,28 @@
+$ nix --extra-experimental-features nix-command flakes build --out-link /tmp/nixos-rebuild.ThGwdx/nixos-rebuild .#nixosConfigurations."sunlanii".config.system.build.nixos-rebuild --show-trace -v
+evaluating derivation 'git+file:///home/eula/flake#nixosConfigurations."sunlanii".config.system.build.nixos-rebuild'...
+warning: Git tree '/home/eula/flake' is dirty
+evaluating file '/nix/store/37j9xfb8qfmwphqnqwy462nh3l59p0dr-source/flake.nix'
+evaluating file '/nix/store/yqy82fn77fy3rv7lpwa9m11w3a2nnqg5-source/flake.nix'
+evaluating file '/nix/store/yqy82fn77fy3rv7lpwa9m11w3a2nnqg5-source/lib/default.nix'
+evaluating file '/nix/store/yqy82fn77fy3rv7lpwa9m11w3a2nnqg5-source/lib/fixed-points.nix'
+evaluating file '/nix/store/yqy82fn77fy3rv7lpwa9m11w3a2nnqg5-source/lib/flake-version-info.nix'
+evaluating file '/nix/store/37j9xfb8qfmwphqnqwy462nh3l59p0dr-source/lib/default.nix'
+evaluating file '/nix/store/37j9xfb8qfmwphqnqwy462nh3l59p0dr-source/lib/helpers.nix'
+evaluating file '/nix/store/37j9xfb8qfmwphqnqwy462nh3l59p0dr-source/lib/modules.nix'
+evaluating file '/nix/store/yqy82fn77fy3rv7lpwa9m11w3a2nnqg5-source/lib/attrsets.nix'
+evaluating file '/nix/store/yqy82fn77fy3rv7lpwa9m11w3a2nnqg5-source/lib/lists.nix'
+trace: /nix/store/37j9xfb8qfmwphqnqwy462nh3l59p0dr-source/lib/default.nix
+evaluating file '/nix/store/yqy82fn77fy3rv7lpwa9m11w3a2nnqg5-source/lib/strings.nix'
+evaluating file '/nix/store/yqy82fn77fy3rv7lpwa9m11w3a2nnqg5-source/lib/trivial.nix'
+trace: /nix/store/37j9xfb8qfmwphqnqwy462nh3l59p0dr-source/lib/helpers.nix
+trace: /nix/store/37j9xfb8qfmwphqnqwy462nh3l59p0dr-source/lib/hosts.nix
+trace: /nix/store/37j9xfb8qfmwphqnqwy462nh3l59p0dr-source/lib/modules.nix
+trace: /nix/store/37j9xfb8qfmwphqnqwy462nh3l59p0dr-source/lib/users.nix
+error: attribute 'list-to-attrs-from-key' missing
+
+       at /nix/store/37j9xfb8qfmwphqnqwy462nh3l59p0dr-source/flake.nix:20:8:
+
+           19|     ...
+           20|  }: let
+             |        ^
+           21|       inherit (self) outputs; # required so we can pass it through to our lib

@@ -1,0 +1,41 @@
+$ nix --extra-experimental-features nix-command flakes build --out-link /tmp/nixos-rebuild.HE8D5r/nixos-rebuild .#nixosConfigurations."sunlanii".config.system.build.nixos-rebuild -v --show-trace
+evaluating derivation 'git+file:///home/eula/flake#nixosConfigurations."sunlanii".config.system.build.nixos-rebuild'...
+warning: Git tree '/home/eula/flake' is dirty
+evaluating file '/nix/store/87sscjh6c4jcni5mz81wh6xxhbdgn1i6-source/flake.nix'
+downloading 'https://api.github.com/repos/NixOS/nixpkgs/commits/nixos-unstable'...
+downloading 'https://github.com/NixOS/nixpkgs/archive/a71e967ef3694799d0c418c98332f7ff4cc5f6af.tar.gz'...
+evaluating file '/nix/store/yqy82fn77fy3rv7lpwa9m11w3a2nnqg5-source/flake.nix'
+warning: updating lock file '/home/eula/flake/flake.lock':
+• Updated input 'nixpkgs':
+    'github:NixOS/nixpkgs/842253bf992c3a7157b67600c2857193f126563a' (2024-06-15)
+  → 'github:NixOS/nixpkgs/a71e967ef3694799d0c418c98332f7ff4cc5f6af' (2024-06-22)
+warning: Git tree '/home/eula/flake' is dirty
+evaluating file '/nix/store/r04w2riph7a1wyhyy51ka7z6pcspjsys-source/flake.nix'
+evaluating file '/nix/store/yqy82fn77fy3rv7lpwa9m11w3a2nnqg5-source/lib/default.nix'
+evaluating file '/nix/store/yqy82fn77fy3rv7lpwa9m11w3a2nnqg5-source/lib/fixed-points.nix'
+evaluating file '/nix/store/yqy82fn77fy3rv7lpwa9m11w3a2nnqg5-source/lib/flake-version-info.nix'
+evaluating file '/nix/store/r04w2riph7a1wyhyy51ka7z6pcspjsys-source/lib/default.nix'
+evaluating file '/nix/store/r04w2riph7a1wyhyy51ka7z6pcspjsys-source/lib/helpers.nix'
+evaluating file '/nix/store/yqy82fn77fy3rv7lpwa9m11w3a2nnqg5-source/lib/attrsets.nix'
+evaluating file '/nix/store/r04w2riph7a1wyhyy51ka7z6pcspjsys-source/lib/modules.nix'
+evaluating file '/nix/store/yqy82fn77fy3rv7lpwa9m11w3a2nnqg5-source/lib/lists.nix'
+trace: /nix/store/r04w2riph7a1wyhyy51ka7z6pcspjsys-source/lib/default.nix
+evaluating file '/nix/store/yqy82fn77fy3rv7lpwa9m11w3a2nnqg5-source/lib/strings.nix'
+evaluating file '/nix/store/yqy82fn77fy3rv7lpwa9m11w3a2nnqg5-source/lib/trivial.nix'
+trace: /nix/store/r04w2riph7a1wyhyy51ka7z6pcspjsys-source/lib/helpers.nix
+trace: /nix/store/r04w2riph7a1wyhyy51ka7z6pcspjsys-source/lib/hosts.nix
+trace: /nix/store/r04w2riph7a1wyhyy51ka7z6pcspjsys-source/lib/modules.nix
+trace: /nix/store/r04w2riph7a1wyhyy51ka7z6pcspjsys-source/lib/users.nix
+trace: /nix/store/r04w2riph7a1wyhyy51ka7z6pcspjsys-source/lib/default.nix
+trace: /nix/store/r04w2riph7a1wyhyy51ka7z6pcspjsys-source/lib/helpers.nix
+trace: /nix/store/r04w2riph7a1wyhyy51ka7z6pcspjsys-source/lib/hosts.nix
+trace: /nix/store/r04w2riph7a1wyhyy51ka7z6pcspjsys-source/lib/modules.nix
+trace: /nix/store/r04w2riph7a1wyhyy51ka7z6pcspjsys-source/lib/users.nix
+error: attribute 'list-to-attrs-from-key' missing
+
+       at /nix/store/r04w2riph7a1wyhyy51ka7z6pcspjsys-source/flake.nix:20:8:
+
+           19|     ...
+           20|  }: let
+             |        ^
+           21|       inherit (self) outputs; # required so we can pass it through to our lib

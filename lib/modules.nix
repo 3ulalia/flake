@@ -7,8 +7,8 @@
   ...
 } : 
   let
-    inherit (builtins) baseNameOf dirOf readDir trace; # TODO: why
-    inherit (lib) attrNames filterAttrs hasPrefix hasSuffix pathExists;
+    inherit (builtins) attrNames baseNameOf dirOf pathExists readDir trace; # TODO: why
+    inherit (lib) filterAttrs hasPrefix hasSuffix;
   in {
     /**
       Applies (maps) a function to each module located in a given folder path.
