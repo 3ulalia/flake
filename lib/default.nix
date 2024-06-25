@@ -29,32 +29,15 @@
   ...
 }:
   let
-    inherit (helpers) list-to-attrs-from-key;
-    inherit (builtins) attrValues foldl' readDir trace;
+    inherit (builtins)  foldl'  trace;
     inherit (modules) mapModules;
-
-    helpers = import ./helpers.nix {
-      inherit lib inputs;
-    };
 
     modules = import ./modules.nix {
       inherit lib inputs;
     };
 
-
-    individual-files = readDir ./.;
-
-    /**
-      Combines an attrset of libfunctions with a "next" libfile
-
-      combine-files :: {...} -> path -> {...}
-     */
-    combine-files = starter: next: 
-      starter // import next;
-
-    eulib = (mapModules (file: {${file} = (import file {inherit lib inputs outputs;});}) ./.);
-    _ignore = trace eulib eulib;
+    eulib = (mapModules (file: (import file {inherit lib inputs outputs;})) ./.);
 
   in 
-    (foldl' (a: b: a // b) {} _ignore)
+    (foldl' (a: b: a // b) {} eulib)
   

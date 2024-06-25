@@ -24,7 +24,7 @@
         self: super: {
           eula = import ./lib {
             inherit inputs outputs;
-            lib = self;
+            lib = self.lib; # maybe
           };
         }
       );
