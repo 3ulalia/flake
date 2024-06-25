@@ -52,7 +52,7 @@
     combine-files = starter: next: 
       starter // import next;
 
-    eulib = makeExtensible (self: (list-to-attrs-from-key "filename" (mapModules (file: (import file {inherit self lib inputs outputs;}) // {filename = file;}) ./.)));
+    eulib = (list-to-attrs-from-key "filename" (mapModules (file: (import file {inherit lib inputs outputs;}) // {filename = file;}) ./.));
 
   in 
     eulib.extend (starter: next: foldl' (a: b: a // b) {} (attrValues next))
