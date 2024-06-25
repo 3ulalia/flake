@@ -4,10 +4,15 @@
 
 {
   lib,
+  inputs,
   ...
 } : 
+
+  with inputs;
+
   let
     inherit (builtins) readDir;
+    inherit (nixpkgs.lib) nixosSystem;
     inherit (lib) attrNames filterAttrs pathExists;
     inherit (lib.eula) generateUsers;
   in {
