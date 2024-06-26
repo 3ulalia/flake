@@ -11,7 +11,7 @@
 
     isNormalUser = true;
 
-    pkgs = import ./packages.nix {inherit pkgs;}; # TODO: abstract this out, since this will be true for all users
+    #packages = import ./packages.nix {inherit pkgs;}; # TODO: abstract this out, since this will be true for all users
 
-    shell = pkgs.zsh;
+    #shell = pkgs.zsh;
   }
