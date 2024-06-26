@@ -41,6 +41,8 @@
 
   networking.hostName = "sunlanii"; # Define your hostname.
 
+  users = ["eulalia"];
+
   # Configure keymap in X11
   services.xserver = {
     layout = "us";
