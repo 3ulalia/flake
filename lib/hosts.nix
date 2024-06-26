@@ -51,12 +51,12 @@
       let 
         host-pkgs = host.nixpkgs;
       in 
-        lib.nixosSystem {
+        nixosSystem {
           inherit (host) system;
 
           modules = [
             (host // {users.users = generateUsers host.users;})
-            ./hosts/configuration.nix
+            ../hosts/configuration.nix
           ];
 
           # TODO: handle home-manager, sops-nix, etc here?
