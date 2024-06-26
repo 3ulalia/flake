@@ -1,12 +1,13 @@
 {
   lib,
+  pkgs,
   ...
 } : 
   let 
 
     inherit (lib) listToAttrs;
 
-    resolve-user = user: import ../users/${user};
+    resolve-user = user: import ../users/${user} {inherit pkgs;};
 
 
     /**

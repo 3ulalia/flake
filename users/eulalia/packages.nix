@@ -2,8 +2,7 @@
 pkgs,
 ...
 } :
-{
-  environment.systemPackages = with pkgs; [git];
-}
+
+  [pkgs.git]
 
 
