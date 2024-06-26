@@ -1,6 +1,6 @@
 * compositor: niri
 * dm: ly
-* fs: ext4 + impermanence
+* fs: ext4 (?) + impermanence
 * notif: mako
 * launcher: (kickoff | anyrun | yofi)
 * wallpaper: (swww | rwpspread)

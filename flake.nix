@@ -30,9 +30,7 @@
         }
       );
 
-      inherit (lib.eula) generateSystem importHost list-to-attrs list-to-attrs-from-key mapHosts;
-
-# [{a: ...}, {b: ...}, {c: ...}] -> {a: {...}, b: {...}, c: {...}}
+      inherit (lib.eula) generateSystem importHost list-to-attrs mapHosts;
 
     in {
       # nixosConfigurations: {hostName : nixosHost}

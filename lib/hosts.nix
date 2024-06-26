@@ -29,7 +29,7 @@
      */
     mapHosts = fn: path: 
       let
-        valid-host-huh = p: v: pathExists "${path}/${p}/configuration.nix"; # self-documenting
+        valid-host-huh = p: v: pathExists "${path}/${p}/default.nix"; # self-documenting
       in 
         map fn (map (n: "${path}/${n}") (attrNames (filterAttrs valid-host-huh (filterAttrs (n: v: v == "directory") (readDir path)))));
 
@@ -53,7 +53,7 @@
 
           modules = [
             (host // {users.users = generateUsers host.users;})
-            ../hosts/configuration.nix
+            ../hosts/default.nix
           ];
 
           # TODO: handle home-manager, sops-nix, etc here?
