@@ -4,7 +4,7 @@
 } : 
   let 
 
-    inherit (builtins) elemAt findFirst listToAttrs matchAttrs;
+    inherit (builtins) elemAt findFirst foldl' listToAttrs matchAttrs;
 
 
     /**
@@ -46,6 +46,15 @@
         x: (if_let v (elemAt x 0)) != null
       ) null l
     ) 1;
+
+    /**
+      Given a list of attrsets, combines them into one attrset.
+
+      list-to-attrs: [{...}] -> {...}
+
+     */
+    list-to-attrs = list: (foldl' (a: b: a // b) {} list);
+
 
     /**
       Given a list of attrsets, and a key present in each attrset, create an attrset mapping from

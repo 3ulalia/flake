@@ -48,10 +48,7 @@
       generate-system :: host-configuration -> {hostname: system-configuration}
      */
     generateSystem = host:
-      let 
-        host-pkgs = host.nixpkgs;
-      in 
-        nixosSystem {
+	{ ${host.networking.hostName} = nixosSystem {
           inherit (host) system;
 
           modules = [
@@ -61,7 +58,6 @@
 
           # TODO: handle home-manager, sops-nix, etc here?
 
-        } // {inherit (host.networking) hostName;}; # add this key so we can use it to convert into an attrset later
-
-
+        };
+      };
   }
