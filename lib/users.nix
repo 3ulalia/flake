@@ -7,7 +7,28 @@
 
     inherit (lib) listToAttrs;
 
-    resolve-user = user: import ../users/${user} {inherit pkgs;};
+
+    /**
+      Given a username, import the corresponding user configuration file, and construct from that
+      the corresponding home-manager config.
+
+      resolve-user :: string -> {...}
+     */
+    resolve-user = user: 
+      let 
+        user-level-config = import ../users/${user} {inherit pkgs;};
+      in 
+        {
+          home = {
+            username = user;
+            homeDirectory = "/home/${user}";
+            packages = user-level-config.packages;
+            stateVersion = "24.05";
+
+          };
+
+          programs.home-manager.enable = true;
+        };
 
 
     /**

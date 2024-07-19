@@ -1,17 +1,15 @@
 {
+  config,
   pkgs,
   ...
 } : 
   {
-    cryptHomeLuks = null; # TODO: LUKS
+    home.username = "eulalia";
+    home.homeDirectory = "/home/eulalia";
 
-    description = "eulalia";
+    home.packages = [];
 
-    extraGroups = [ "networkmanager" "wheel" ];
+    home.stateVersion = "";
 
-    isNormalUser = true;
-
-    #packages = import ./packages.nix {inherit pkgs;}; # TODO: abstract this out, since this will be true for all users
-
-    #shell = pkgs.zsh;
+    programs.home-manager.enable = true;
   }

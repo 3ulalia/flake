@@ -52,7 +52,14 @@
           inherit (host) system;
 
           modules = [
-            (host // {users.users = generateUsers host.users;})
+              (
+                host // home-manager.nixosModules.home-manager 
+                {
+                  home-manager.useGlobalPkgs = true;
+                  home-manager.useUserPackages = true;
+                  home-manager.users = generateUsers host.users;
+                } 
+              )
             ../hosts/default.nix
           ];
 
