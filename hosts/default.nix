@@ -14,11 +14,10 @@
 
 { 
   pkgs,
-  inputs,
   ...
 } : 
   {
-    
+    nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
     networking = {
       networkmanager.enable = true;
@@ -26,8 +25,8 @@
 
     i18n.defaultLocale = "en_US.UTF-8";
 
-    time.timeZone = "Europe/Madrid"; # close enough
+    # time.timeZone = "Europe/Madrid"; # close enough
+    time.timeZone = "America/New_York";
 
-    
-
+    environment.systemPackages = with pkgs; [git vim curl];
   }
