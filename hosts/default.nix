@@ -13,14 +13,23 @@
  */
 
 { 
+  inputs,
+  outputs,
+  config,
   pkgs,
   ...
 } : 
   {
+
+    imports = [
+      ../users # all hosts will import the default user settings
+      inputs.home-manager.nixosModules.home-manager # all hosts will use home-manager
+    ];
+
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
     networking = {
-      networkmanager.enable = true;
+      networkmanager.enable = true; # nixos without internet seems silly
     };
 
     i18n.defaultLocale = "en_US.UTF-8";
@@ -28,5 +37,5 @@
     # time.timeZone = "Europe/Madrid"; # close enough
     time.timeZone = "America/New_York";
 
-    environment.systemPackages = with pkgs; [git vim curl];
+    environment.systemPackages = with pkgs; [git vim curl]; # bare necessities
   }
