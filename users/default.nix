@@ -14,7 +14,8 @@
 } : 
   let
 
-  inherit (lib.eula) generateUsers patch-extra-groups;
+  inherit (lib) attrNames;
+  inherit (lib.eula) generate-homes generate-users patch-extra-groups;
 
   in {
     config = {
@@ -25,7 +26,15 @@
         defaultUserShell = pkgs.zsh;
 
         # derived from config.modules.users, which is defined in the module for the individual host
-        users = patch-extra-groups config.users.extraGroups (generateUsers config.modules.users);
+        users = patch-extra-groups config.users.extraGroups (generate-users config.modules.users);
+      };
+
+      home-manager = {
+
+        useGlobalPkgs = true;
+        useUserPackages = true;
+
+        users = generate-homes (attrNames config.modules.users);
       };
     };
   }

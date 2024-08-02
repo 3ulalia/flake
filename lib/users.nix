@@ -15,7 +15,7 @@
 
       resolve-user :: {name: string; {...}} -> {...}
 
-      resolve-user :: user -> home
+      resolve-user :: user -> user-configuration
      */
     resolve-user = user: 
       let 
@@ -35,6 +35,29 @@
           extraGroups = (if user.privileged then ["wheel"] else []) ++ ["video" "input"]; # TODO mkDefault
         };
 
+    /**
+      Given a username, import the corresponding user configuration file, and construct from that
+      the corresponding home-manager configuration to be stored in home-manager.users.
+      
+      resolve-home :: string -> {...}
+
+      resolve-home :: user -> home
+
+       */
+    resolve-home = user: 
+      {
+
+        imports = [
+          ../users/home.nix
+          ../users/${user.name}/packages.nix
+        ];
+
+        home = {
+          homeDirectory = "/home/${user.name}";
+          username = user.name;
+          stateVersion = "23.11";
+        };
+      };
 
     /**
       Given a list of strings of usernames, returns an attrset from usernames to the configurations
@@ -42,7 +65,7 @@
 
       resolve-users :: [string] -> {string: {...}}
      */
-    resolve-users = users: listToAttrs (map (x: {name = x.name; value = resolve-user x;}) users);
+    map-list-to-attrset = fn: users: listToAttrs (map (x: {name = x.name; value = fn x;}) users);
   in {
     mapUsers = fn: path: 1;
 
@@ -60,5 +83,9 @@
 
       TODO sig
      */
-    generateUsers = users: resolve-users users;
-  }
+    generate-users = users: map-list-to-attrset resolve-user users;
+
+    generate-homes = users: map-list-to-attrset resolve-home users;
+
+
+    }
