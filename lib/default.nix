@@ -36,9 +36,9 @@
     modules = import ./modules.nix {
       inherit lib inputs;
     };
-
+    _unusable = trace "established modules import in default" 1;
     eulib = (mapModules (file: (import file {inherit lib inputs outputs pkgs;})) ./. __curPos.file);
-
+    _unused = trace "evaluated let side of module default" 1;
+    _one = _unused + _unusable;
   in 
-    (foldl' (a: b: a // b) {} eulib)
-  
+    if _one != 0 then (foldl' (a: b: a // b) {} eulib) else 0  

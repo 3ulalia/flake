@@ -1,0 +1,248 @@
+warning: Git tree '/home/eulalia/flake' is dirty
+trace: evaluated let side of module default
+trace: established modules import in default
+trace: path: /nix/store/wz82znzdand3rwi1magixkyb1k57v98s-source/lib/default.nix toIgnore: /nix/store/wz82znzdand3rwi1magixkyb1k57v98s-source/lib/default.nix
+trace: default.nix
+trace: regular
+trace: path: /nix/store/wz82znzdand3rwi1magixkyb1k57v98s-source/lib/helpers.nix toIgnore: /nix/store/wz82znzdand3rwi1magixkyb1k57v98s-source/lib/default.nix
+trace: helpers.nix
+trace: regular
+trace: path: /nix/store/wz82znzdand3rwi1magixkyb1k57v98s-source/lib/hosts.nix toIgnore: /nix/store/wz82znzdand3rwi1magixkyb1k57v98s-source/lib/default.nix
+trace: hosts.nix
+trace: regular
+trace: path: /nix/store/wz82znzdand3rwi1magixkyb1k57v98s-source/lib/modules.nix toIgnore: /nix/store/wz82znzdand3rwi1magixkyb1k57v98s-source/lib/default.nix
+trace: modules.nix
+trace: regular
+trace: path: /nix/store/wz82znzdand3rwi1magixkyb1k57v98s-source/lib/users.nix toIgnore: /nix/store/wz82znzdand3rwi1magixkyb1k57v98s-source/lib/default.nix
+trace: users.nix
+trace: regular
+trace: { "helpers.nix" = <CODE>; "hosts.nix" = <CODE>; "modules.nix" = <CODE>; "users.nix" = <CODE>; }
+trace: established the valid-nix-module-huh function
+trace: established a list of nix modules present in the directory:
+trace: reached end of let in mapmodules
+trace: mapHosts called: /nix/store/r93m9q26v57gv95hj008nhm6a5rsc9d7-hosts
+error:
+       … while calling the 'seq' builtin
+
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:320:18:
+
+          319|         options = checked options;
+          320|         config = checked (removeAttrs config [ "_module" ]);
+             |                  ^
+          321|         _module = checked (config._module);
+
+       … while evaluating a branch condition
+
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:261:9:
+
+          260|       checkUnmatched =
+          261|         if config._module.check && config._module.freeformType == null && merged.unmatchedDefns != [] then
+             |         ^
+          262|           let
+
+       … in the left operand of the AND (&&) operator
+
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:261:72:
+
+          260|       checkUnmatched =
+          261|         if config._module.check && config._module.freeformType == null && merged.unmatchedDefns != [] then
+             |                                                                        ^
+          262|           let
+
+       … in the left operand of the AND (&&) operator
+
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:261:33:
+
+          260|       checkUnmatched =
+          261|         if config._module.check && config._module.freeformType == null && merged.unmatchedDefns != [] then
+             |                                 ^
+          262|           let
+
+       … while evaluating a branch condition
+
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:254:12:
+
+          253|
+          254|         in if declaredConfig._module.freeformType == null then declaredConfig
+             |            ^
+          255|           # Because all definitions that had an associated option ended in
+
+       … from call site
+
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:242:28:
+
+          241|           # For definitions that have an associated option
+          242|           declaredConfig = mapAttrsRecursiveCond (v: ! isOption v) (_: v: v.value) options;
+             |                            ^
+          243|
+
+       … while calling 'mapAttrsRecursiveCond'
+
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/attrsets.nix:696:5:
+
+          695|     # Attribute set to recursively map over.
+          696|     set:
+             |     ^
+          697|     let
+
+       … from call site
+
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:234:33:
+
+          233|           ({ inherit lib options config specialArgs; } // specialArgs);
+          234|         in mergeModules prefix (reverseList collected);
+             |                                 ^
+          235|
+
+       … while calling 'reverseList'
+
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/lists.nix:510:17:
+
+          509|   */
+          510|   reverseList = xs:
+             |                 ^
+          511|     let l = length xs; in genList (n: elemAt xs (l - n - 1)) l;
+
+       … from call site
+
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:229:25:
+
+          228|       merged =
+          229|         let collected = collectModules
+             |                         ^
+          230|           class
+
+       … while calling anonymous lambda
+
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:443:37:
+
+          442|
+          443|     in modulesPath: initialModules: args:
+             |                                     ^
+          444|       filterModules modulesPath (collectStructuredModules unknownModule "" initialModules args);
+
+       … from call site
+
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:444:7:
+
+          443|     in modulesPath: initialModules: args:
+          444|       filterModules modulesPath (collectStructuredModules unknownModule "" initialModules args);
+             |       ^
+          445|
+
+       … while calling 'filterModules'
+
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:411:36:
+
+          410|       # modules recursively. It returns the final list of unique-by-key modules
+          411|       filterModules = modulesPath: { disabled, modules }:
+             |                                    ^
+          412|         let
+
+       … while calling anonymous lambda
+
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:437:31:
+
+          436|           disabledKeys = concatMap ({ file, disabled }: map (moduleKey file) disabled) disabled;
+          437|           keyFilter = filter (attrs: ! elem attrs.key disabledKeys);
+             |                               ^
+          438|         in map (attrs: attrs.module) (builtins.genericClosure {
+
+       … from call site
+
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:398:22:
+
+          397|           let
+          398|             module = checkModule (loadModule args parentFile "${parentKey}:anon-${toString n}" x);
+             |                      ^
+          399|             collectedImports = collectStructuredModules module._file module.key module.imports args;
+
+       … while calling anonymous lambda
+
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:357:11:
+
+          356|         then
+          357|           m:
+             |           ^
+          358|             if m._class != null -> m._class == class
+
+       … from call site
+
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:398:35:
+
+          397|           let
+          398|             module = checkModule (loadModule args parentFile "${parentKey}:anon-${toString n}" x);
+             |                                   ^
+          399|             collectedImports = collectStructuredModules module._file module.key module.imports args;
+
+       … while calling 'loadModule'
+
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:334:53:
+
+          333|       # Like unifyModuleSyntax, but also imports paths and calls functions if necessary
+          334|       loadModule = args: fallbackFile: fallbackKey: m:
+             |                                                     ^
+          335|         if isFunction m then
+
+       … from call site
+
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:352:14:
+
+          351|           throw "Module imports can't be nested lists. Perhaps you meant to remove one level of lists? Definitions: ${showDefs defs}"
+          352|         else unifyModuleSyntax (toString m) (toString m) (applyModuleArgsIfFunction (toString m) (import m) args);
+             |              ^
+          353|
+
+       … while calling 'unifyModuleSyntax'
+
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:452:34:
+
+          451|      of ‘options’, ‘config’ and ‘imports’ attributes. */
+          452|   unifyModuleSyntax = file: key: m:
+             |                                  ^
+          453|     let
+
+       … from call site
+
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:352:59:
+
+          351|           throw "Module imports can't be nested lists. Perhaps you meant to remove one level of lists? Definitions: ${showDefs defs}"
+          352|         else unifyModuleSyntax (toString m) (toString m) (applyModuleArgsIfFunction (toString m) (import m) args);
+             |                                                           ^
+          353|
+
+       … while calling 'applyModuleArgsIfFunction'
+
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:486:39:
+
+          485|
+          486|   applyModuleArgsIfFunction = key: f: args@{ config, options, lib, ... }:
+             |                                       ^
+          487|     if isFunction f then applyModuleArgs key f args else f;
+
+       … from call site
+
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:487:8:
+
+          486|   applyModuleArgsIfFunction = key: f: args@{ config, options, lib, ... }:
+          487|     if isFunction f then applyModuleArgs key f args else f;
+             |        ^
+          488|
+
+       … while calling 'isFunction'
+
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/trivial.nix:448:16:
+
+          447|   */
+          448|   isFunction = f: builtins.isFunction f ||
+             |                ^
+          449|     (f ? __functor && isFunction (f.__functor f));
+
+       error: undefined variable 'inputs'
+
+       at /nix/store/wz82znzdand3rwi1magixkyb1k57v98s-source/hosts/default.nix:26:7:
+
+           25|       ../users # all hosts will import the default user settings
+           26|       inputs.home-manager.nixosModules.home-manager # all hosts will use home-manager
+             |       ^
+           27|     ];

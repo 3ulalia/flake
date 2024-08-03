@@ -11,7 +11,7 @@
   with inputs;
 
   let
-    inherit (builtins) readDir;
+    inherit (builtins) readDir trace;
     inherit (nixpkgs.lib) nixosSystem;
     inherit (lib) attrNames filterAttrs pathExists;
     inherit (lib.eula) generateUsers;
@@ -29,12 +29,13 @@
      */
     mapHosts = fn: path: 
       let
-        valid-host-huh = p: v: pathExists "${path}/${p}/default.nix"; # self-documenting
+        _u = trace "mapHosts called: ${path}" path;
+	valid-host-huh = (p: v: pathExists "${_u}/${p}/default.nix"); # self-documenting
       in 
         map fn (map (n: "${path}/${n}") (attrNames (filterAttrs valid-host-huh (filterAttrs (n: v: v == "directory") (readDir path)))));
 
 
-    importHost = path: import "${path}/configuration.nix" {};
+    importHost = path: import path {inherit inputs; inherit lib;};
 
     /**
       Generates a system configuration from a given host. 
@@ -52,8 +53,8 @@
           inherit (host) system;
 
           modules = [
-            ( host // home-manager.nixosModules.home-manager )
-            ../hosts/default.nix
+            #( host )#// home-manager.nixosModules.home-manager )
+	    ../hosts
           ];
 
           # TODO: handle sops-nix, etc here?

@@ -25,7 +25,7 @@
           eula = import ./lib {
             inherit inputs outputs;
             lib = self;
-	          pkgs = nixpkgs;
+	    pkgs = nixpkgs;
           };
         }
       );
@@ -59,3 +59,5 @@
 #a
 #a
 #a
+#A
+#A

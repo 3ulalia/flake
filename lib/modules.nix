@@ -17,9 +17,9 @@
       The reason for this is that most operations when determining specific elements 
       to include can really be conceived of as mapping over a list of Nix modules.
 
-      mapModules :: (path -> 'a) -> path -> ['a]
+      mapModules :: (path -> 'a) -> path -> path -> ['a]
       
-      mapModules :: (path -> module) -> path -> [module]
+      mapModules :: (path -> module) -> path -> path -> [module]
     */
 
     mapModules = fn: path: toIgnore: 
@@ -47,11 +47,14 @@
 	    # the path is not to our recursion-preventing canary
 	    ((toString path) != "${toIgnore}");
 
-
+	_unusurious = trace "established the valid-nix-module-huh function" 1;
         nix-modules-in-dir = filterAttrs (name: value: (valid-nix-module-huh (path + "/${name}"))) (readDir path);
+	_unusable = trace "established a list of nix modules present in the directory:" 1;
 	nmid = trace nix-modules-in-dir nix-modules-in-dir;
+	_unused = trace "reached end of let in mapmodules" 1;
+	_one = _unusurious + _unusable + _unused;
       in 
-        map fn (map (name: path + "/${name}") (attrNames nmid));
+        map fn (map (name: path + "/${if _one != 0 then name else name}") (attrNames nmid));
 
 
     /**
