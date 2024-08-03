@@ -75,16 +75,16 @@
 
       TODO sig
      */
-    patch-extra-groups = users: groups: mapAttrs (name: value: value // {extraGroups = groups ++ value.extraGroups;});
+    patch-extra-groups = users: groups: mapAttrs (name: value: value // {extraGroups = groups ++ value.extraGroups;}) users;
 
     /** 
       Literally just a wrapper around resolve-users for consistent verbiage.
 
       TODO sig
      */
-    generate-users = users: map-list-to-attrset resolve-user users;
+    generate-users = users: mapAttrs resolve-user users;
 
-    generate-homes = users: map-list-to-attrset resolve-home users;
+    generate-homes = users: mapAttrs resolve-home users;
 
 
     }

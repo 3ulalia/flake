@@ -5,6 +5,7 @@
 {
   lib,
   inputs,
+  outputs,
   ...
 } : 
 
@@ -35,7 +36,7 @@
         map fn (map (n: "${path}/${n}") (attrNames (filterAttrs valid-host-huh (filterAttrs (n: v: v == "directory") (readDir path)))));
 
 
-    importHost = path: import path {inherit inputs; inherit lib;};
+    importHost = path: import path {inherit inputs lib;};
 
     /**
       Generates a system configuration from a given host. 
@@ -51,7 +52,7 @@
     generateSystem = host:
 	{ ${host.networking.hostName} = nixosSystem {
           inherit (host) system;
-
+	  specialArgs = {inherit inputs outputs lib;};
           modules = [
             #( host )#// home-manager.nixosModules.home-manager )
 	    ../hosts

@@ -33,10 +33,12 @@
       inherit (lib.eula) generateSystem importHost list-to-attrs mapHosts;
 
     in {
+
       # nixosConfigurations: {hostName : nixosHost}
       # nixosHosts are generated with nix(-darwin, pkgs).lib.(darwin, nixos)System
       #   which is called on an attribute set containing a `system` attribute and a `modules` list.    
       nixosConfigurations = list-to-attrs (map generateSystem (mapHosts importHost ./hosts));
+
     };
   }
 #a
@@ -61,3 +63,5 @@
 #a
 #A
 #A
+#a
+#a

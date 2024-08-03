@@ -15,8 +15,11 @@
 } : 
   let
 
-  inherit (lib) attrNames;
+  inherit (lib) attrNames trace;
   inherit (lib.eula) generate-homes generate-users patch-extra-groups;
+
+  cfg = config.users;
+
 
   in {
     config = {
@@ -27,7 +30,7 @@
         defaultUserShell = pkgs.zsh;
 
         # derived from config.modules.users, which is defined in the module for the individual host
-        users = patch-extra-groups config.users.extraGroups (generate-users config.modules.users);
+        users = (generate-users cfg);
       };
 
       home-manager = {
@@ -35,7 +38,7 @@
         useGlobalPkgs = true;
         useUserPackages = true;
 
-        users = generate-homes (attrNames config.modules.users);
+        users = generate-homes cfg.users; 
       };
     };
   }

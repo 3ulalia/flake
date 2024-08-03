@@ -38,4 +38,6 @@
     time.timeZone = "America/New_York";
 
     environment.systemPackages = with pkgs; [git vim curl]; # bare necessities
+
+    system.stateVersion = "23.11";
   }
