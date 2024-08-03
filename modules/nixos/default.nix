@@ -1,5 +1,4 @@
 {
-  options,
   lib,
   ...
 } : 
@@ -11,5 +10,5 @@
     map-list-to-attrs = list: foldl' (a: b: a // b) {} list;
 
   in {
-    options =  map-list-to-attrs (mapModules import ./. __curPos.file);
+    options =  (mapModules import ./. __curPos.file);
   }

@@ -45,7 +45,6 @@
        */
     resolve-home = user: 
       {
-
         imports = [
           ../users/home.nix
           ../users/${user.name}/packages.nix
@@ -66,17 +65,6 @@
      */
     map-list-to-attrset = fn: users: listToAttrs (map (x: {name = x.name; value = fn x;}) users);
   in {
-    mapUsers = fn: path: 1;
-
-
-    /**
-      Given an existing user configuration and a list of groups to be added, combine the given list and the 
-      existing list of extra groups for that user.
-
-      TODO sig
-     */
-    patch-extra-groups = users: groups: mapAttrs (name: value: value // {extraGroups = groups ++ value.extraGroups;}) users;
-
     /** 
       Literally just a wrapper around resolve-users for consistent verbiage.
 
@@ -85,6 +73,4 @@
     generate-users = users: mapAttrs resolve-user users;
 
     generate-homes = users: mapAttrs resolve-home users;
-
-
-    }
+  }

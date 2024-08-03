@@ -16,10 +16,9 @@
   let
 
   inherit (lib) attrNames trace;
-  inherit (lib.eula) generate-homes generate-users patch-extra-groups;
+  inherit (lib.eula) generate-homes generate-users;
 
   cfg = config.users;
-
 
   in {
     config = {
@@ -29,8 +28,8 @@
         mutableUsers = false; # don't touch this! go add a folder to ../users like you're supposed to
         defaultUserShell = pkgs.zsh;
 
-        # derived from config.modules.users, which is defined in the module for the individual host
-        users = (generate-users cfg);
+        # derived from config.users, which is defined in the module for the individual host
+        users = generate-users cfg;
       };
 
       home-manager = {
@@ -38,7 +37,7 @@
         useGlobalPkgs = true;
         useUserPackages = true;
 
-        users = generate-homes cfg.users; 
+        users = generate-homes cfg; 
       };
     };
   }
