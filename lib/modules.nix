@@ -36,33 +36,25 @@
          */
         valid-nix-module-huh = path: 
           let
-	    pth = trace ("path: " + (toString path) + " toIgnore: ${toIgnore}") path; 
+	          pth = trace ("path: " + (toString path) + " toIgnore: ${toIgnore}") path; 
             file-name = trace (baseNameOf pth) (baseNameOf pth);
             file-type = trace (readDir (dirOf path))."${file-name}" (readDir (dirOf path))."${file-name}";
-	  in 
+          in 
             # the path is to a single nix file
             (((file-type == "regular") && (hasSuffix ".nix" file-name)) ||
             # the path is to a directory containing a `default.nix`
             ((file-type == "directory") && pathExists ("${path}/default.nix"))) && 
-	    # the path is not to our recursion-preventing canary
-	    ((toString path) != "${toIgnore}");
+            # the path is not to our recursion-preventing canary
+            ((toString path) != "${toIgnore}");
 
-	_unusurious = trace "established the valid-nix-module-huh function" 1;
         nix-modules-in-dir = filterAttrs (name: value: (valid-nix-module-huh (path + "/${name}"))) (readDir path);
-	_unusable = trace "established a list of nix modules present in the directory:" 1;
-	nmid = trace nix-modules-in-dir nix-modules-in-dir;
-	_unused = trace "reached end of let in mapmodules" 1;
-	_one = _unusurious + _unusable + _unused;
+
+        nmid = trace nix-modules-in-dir nix-modules-in-dir;
+
+        _unused = trace "reached end of let in mapmodules" 1;
+
+        _one = _unused;
       in 
         map fn (map (name: path + "/${if _one != 0 then name else name}") (attrNames nmid));
 
-
-    /**
-      Applies (maps) a function to each module located in a given folder path,
-      _including modules in subfolders_.
-      
-      mapModulesRec :: (path -> 'a) -> [path] -> ['a]
-      */
-    mapModulesRec = path: fn: 0; # cheating, for now
-       
   }
