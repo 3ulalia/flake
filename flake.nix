@@ -34,7 +34,7 @@
 
     in {
 
-      nixosModules = mapModules import  ./modules/nixos ./.;
+      nixosModules = mapModules import ./modules/nixos ./.;
 
       # nixosConfigurations: {hostName : nixosHost}
       # nixosHosts are generated with nix(-darwin, pkgs).lib.(darwin, nixos)System

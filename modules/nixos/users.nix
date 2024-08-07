@@ -7,7 +7,7 @@
     inherit (lib.eula) mkOpt;
   in {
 
-    users = mkOpt types.listOf (
+    users = mkOpt types.attrsOf (
       types.submodule {
         options = {
           name = mkOpt types.str "user";

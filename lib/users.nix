@@ -70,7 +70,7 @@
 
       TODO sig
      */
-    generate-users = users: mapAttrs resolve-user users;
+    generate-users = users: mapAttrs (name: value: resolve-user value) users;
 
-    generate-homes = users: mapAttrs resolve-home users;
+    generate-homes = users: mapAttrs (name: value: resolve-home value) users;
   }
