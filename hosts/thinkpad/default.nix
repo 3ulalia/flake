@@ -5,6 +5,7 @@
 { 
   lib,
   inputs,
+  pkgs,
   ...
 }:
 
@@ -45,7 +46,7 @@
 
   networking.hostName = "sunlanii"; # Define your hostname.
 
-  users = ["eulalia"];
+  users = {"eulalia" = {privileged = true; shell= pkgs.zsh;};};
 
   # Configure keymap in X11
   services.xserver = {
