@@ -39,7 +39,7 @@
       Given a username, import the corresponding user configuration file, and construct from that
       the corresponding home-manager configuration to be stored in home-manager.users.
       
-      resolve-home :: string -> {...}
+      resolve-home :: {name: string; {...}} -> {...}
 
       resolve-home :: user -> home
 
@@ -48,7 +48,6 @@
       {
         imports = [
           ../users/home.nix
-          ../users/${user.name}/packages.nix
         ];
 
         home = {
@@ -71,7 +70,7 @@
 
       TODO sig
      */
-    generate-users = users: mapAttrs (name: value: resolve-user value) users;
+    generate-users = users: map resolve-user users;
 
-    generate-homes = users: mapAttrs (name: value: resolve-home value) users;
+    generate-homes = users: map resolve-home users;
   }

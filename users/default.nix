@@ -21,8 +21,8 @@
 
   # config (as loaded from hosts/<hostname>/default.nix) will hold a custom option `users`
   # this is defined in modules/nixos/users.nix, which is loaded as into flake.nix::nixosModules.
-  # it is an attrset mapping user name to user configuration.
-  cfg = config.users;
+  # it is a list of attrsets containing basic user configurations.
+  cfg = trace config.users config.users;
 
   in {
 
@@ -34,7 +34,7 @@
         defaultUserShell = pkgs.zsh;
 
         # derived from config.users, which is defined in the module for the individual host
-        users = generate-users cfg;
+        users = generate-users cfg [];
       };
 
       home-manager = {

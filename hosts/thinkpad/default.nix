@@ -49,7 +49,13 @@ in
 
   networking.hostName = "sunlanii"; # Define your hostname.
 
-  users = [{name = (trace "hit this point in thinkpad default" "eulalia"); privileged = true; shell = inputs.nixpkgs.zsh;}];
+  users = [
+    {
+      name = (trace "hit this point in thinkpad default" "eulalia"); 
+      privileged = true; 
+      shell = inputs.nixpkgs.zsh;
+    }
+  ];
 
   # Configure keymap in X11
   services.xserver = {

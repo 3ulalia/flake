@@ -1,13 +1,14 @@
 {
   lib,
   nixpkgs,
+  options,
   ...
 } :
   let
     inherit (lib) types;
     inherit (lib.eula) mkOpt;
   in {
-    users = mkOpt types.listOf (
+    options.users = mkOpt types.listOf (
       types.submodule {
         options = {
           name = mkOpt types.str "user";
