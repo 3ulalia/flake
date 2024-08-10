@@ -5,7 +5,7 @@
 } : 
   let 
 
-    inherit (lib) listToAttrs mapAttrs;
+    inherit (lib) listToAttrs mapAttrs mkDefault;
 
 
     /**
@@ -16,22 +16,23 @@
 
       resolve-user :: user -> user-configuration
      */
-    resolve-user = user: 
+    resolve-user = user: extraGroups:
       let 
         pass = null; # TODO sops
       in 
-        {
-          home = "/home/${user.name}";
-          initialPassword = if pass == null then "${user.name}" else pass; # TODO sops TODO mkDefault
-          isNormalUser = true; # TODO mkDefault
-          createHome = true; # TODO mkDefault
-          shell = user.shell; # TODO mkDefault
-          cryptHomeLuks = null; # TODO mkDefault
+        rec {
+          home = mkDefault "/home/${user.name}";
+          initialPassword = if pass == null then "${user.name}" else pass; # TODO sops
+          isNormalUser = mkDefault true;
+          createHome = mkDefault true; 
+          useDefaultShell = mkDefault (!(user ? shell)); # TODO mkDefault
+          shell = if useDefaultShell then null else user.shell; # ditto
+          cryptHomeLuks = mkDefault null; # TODO luks
 
           # NOTE: config.users.extraUserGroups has things we want to add to this,
           # but it's messy to require the entire system config for this function.
-          # so instead we add it on after the fact at the call site and document.
-          extraGroups = (if user.privileged then ["wheel"] else []) ++ ["video" "input"]; # TODO mkDefault
+          # so instead we include it as an argument.
+          extraGroups = mkDefault ((if user.privileged then ["wheel"] else []) ++ ["video" "input"] ++ extraGroups); # TODO mkDefault
         };
 
     /**

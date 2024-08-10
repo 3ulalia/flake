@@ -25,6 +25,11 @@
   cfg = config.users;
 
   in {
+
+    imports = [
+      ./home.nix
+    ];
+
     config = {
 
       users = {

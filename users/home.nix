@@ -1,7 +1,7 @@
-# Default home-manager config for each user's home
+# Default configuration options relating to home-manager for each user.
+# Imported by the user-wide `default.nix`. 
 {
   lib,
-  outputs,
   ...
 }: let
   inherit (lib) mkDefault;

@@ -14,8 +14,6 @@
 
 { 
   inputs,
-  outputs,
-  config,
   pkgs,
   ...
 } : 

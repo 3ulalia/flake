@@ -3,5 +3,13 @@
   pkgs,
   ...
 } : 
-  {
+
+  { 
+
+    config = {
+      niri.enable = true;
+    };
+
+
+
   }

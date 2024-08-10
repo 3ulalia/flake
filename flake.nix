@@ -9,6 +9,9 @@
       url = "github:nix-community/home-manager?ref=release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     }; 
+
+    niri.url = "github:sodiboo/niri-flake"; # TODO stop the madness
+
   };
 
   outputs = inputs @ { 
@@ -25,7 +28,7 @@
           eula = import ./lib {
             inherit inputs outputs;
             lib = self;
-	    pkgs = nixpkgs;
+	          pkgs = nixpkgs;
           };
         }
       );
@@ -35,6 +38,8 @@
     in {
 
       nixosModules = mapModules import ./modules/nixos ./.;
+
+      homeManagerModules = mapModules import ./modules/home-manager ./.;
 
       # nixosConfigurations: {hostName : nixosHost}
       # nixosHosts are generated with nix(-darwin, pkgs).lib.(darwin, nixos)System

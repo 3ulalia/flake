@@ -46,7 +46,7 @@
 
   networking.hostName = "sunlanii"; # Define your hostname.
 
-  users = {"eulalia" = {privileged = true; shell= pkgs.zsh;};};
+  users = {"eulalia" = {privileged = true;};};
 
   # Configure keymap in X11
   services.xserver = {
