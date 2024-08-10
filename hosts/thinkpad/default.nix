@@ -49,7 +49,7 @@ in
 
   networking.hostName = "sunlanii"; # Define your hostname.
 
-  users = [
+  modules.users = [
     {
       name = (trace "hit this point in thinkpad default" "eulalia"); 
       privileged = true; 

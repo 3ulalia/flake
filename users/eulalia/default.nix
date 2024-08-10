@@ -7,7 +7,7 @@
   { 
 
     config = {
-      niri.enable = true;
+      modules.niri.enable = true;
     };
 
 

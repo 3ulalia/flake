@@ -22,7 +22,7 @@
   # config (as loaded from hosts/<hostname>/default.nix) will hold a custom option `users`
   # this is defined in modules/nixos/users.nix, which is loaded as into flake.nix::nixosModules.
   # it is a list of attrsets containing basic user configurations.
-  cfg = trace config.users config.users;
+  cfg = trace config.modules.users config.modules.users;
 
   in {
 

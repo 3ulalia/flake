@@ -14,11 +14,11 @@
 
     imports = [inputs.niri.nixosModules.niri];
 
-    options.niri = {
+    options.modules.niri = {
       enable = mkOpt types.bool true;  
     };
 
-    config = mkIf config.niri.enable {
+    config = mkIf config.modules.niri.enable {
       home-manager.users.eulalia.home = {
 
 	imports = [inputs.niri.homeModules.niri];
