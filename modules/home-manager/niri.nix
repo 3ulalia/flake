@@ -1,8 +1,8 @@
 {
   lib,
-  niri,
   pkgs,
   inputs,
+  config,
   ...
 } : 
   let 
@@ -12,23 +12,23 @@
 
   in {
 
-    imports = [niri.nixosModules.niri];
+    imports = [inputs.niri.nixosModules.niri];
 
     options.niri = {
       enable = mkOpt types.bool true;  
     };
 
-    config = mkIf inputs.niri.enable {
-      home = {
-        packages = with pkgs; [
-          yofi
-          swww
-          mako
+    config = mkIf config.niri.enable {
+      home-manager.users.eulalia.home = {
+
+	imports = [inputs.niri.homeModules.niri];
+
+	packages = [
+          pkgs.wofi
+          pkgs.swww
+          pkgs.mako
         ];
       };
-
       programs.niri.enable = true;
-
-
     };
   }

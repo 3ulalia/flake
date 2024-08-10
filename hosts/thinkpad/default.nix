@@ -5,10 +5,13 @@
 { 
   lib,
   inputs,
-  pkgs,
   ...
 }:
 
+let 
+
+inherit (lib) trace;
+in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -46,7 +49,7 @@
 
   networking.hostName = "sunlanii"; # Define your hostname.
 
-  users = {"eulalia" = {privileged = true;};};
+  users = [{name = (trace "hit this point in thinkpad default" "eulalia"); privileged = true; shell = inputs.nixpkgs.zsh;}];
 
   # Configure keymap in X11
   services.xserver = {
@@ -76,6 +79,6 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  system = "x86_64-linux";
+  system = "x86_64-linux"; # TODO: this should not be needed, it should be imported from ./hardware_configuration.nix
 
 }

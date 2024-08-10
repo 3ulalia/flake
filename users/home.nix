@@ -2,18 +2,17 @@
 # Imported by the user-wide `default.nix`. 
 {
   lib,
+  outputs,
   ...
 }: let
   inherit (lib) mkDefault;
 in {
-  # imports = outputs.homeManagerModules;
+  #imports = outputs.homeManagerModules;
 
   programs.home-manager.enable = mkDefault true;
   programs.git.enable = mkDefault true;
 
   nixpkgs.config.allowUnfree = mkDefault true;
 
-  home = {
-    stateVersion = mkDefault "21.05";
-  };
 }
+

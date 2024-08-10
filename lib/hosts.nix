@@ -12,10 +12,13 @@
   with inputs;
 
   let
-    inherit (builtins) readDir trace;
+    inherit (builtins) readDir foldl' trace;
     inherit (nixpkgs.lib) nixosSystem;
     inherit (lib) attrNames filterAttrs pathExists;
     inherit (lib.eula) generateUsers;
+
+    concat-list = list: foldl' (x: y: x + " " + y) "" list;
+
   in {
 
     /**
@@ -33,10 +36,10 @@
         _u = trace "mapHosts called: ${path}" path;
 	valid-host-huh = (p: v: pathExists "${_u}/${p}/default.nix"); # self-documenting
       in 
-        map fn (map (n: "${path}/${n}") (attrNames (filterAttrs valid-host-huh (filterAttrs (n: v: v == "directory") (readDir path)))));
+        map (a: trace "mapping some function onto ${a} in mapHosts call over ${path}" (fn a)) (let b = (map (n: "${path}/${n}") (let a = attrNames (filterAttrs valid-host-huh (filterAttrs (n: v: v == "directory") (readDir path))); in trace "valid entries to be mapped as hosts in ${path}: ${concat-list a}" a)); in trace "mapped over the valid entries to generate these paths: ${concat-list b}" b);
 
 
-    importHost = path: import path {inherit inputs lib;};
+    importHost = path: import (trace "importing host: ${path}" path) {inherit inputs lib;};
 
     /**
       Generates a system configuration from a given host. 
@@ -54,7 +57,7 @@
           inherit (host) system;
 	  specialArgs = {inherit inputs outputs lib;};
           modules = [
-            #( host )#// home-manager.nixosModules.home-manager )
+            home-manager.nixosModules.home-manager 
 	    ../hosts
           ];
 

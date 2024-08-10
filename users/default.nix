@@ -26,10 +26,6 @@
 
   in {
 
-    imports = [
-      ./home.nix
-    ];
-
     config = {
 
       users = {

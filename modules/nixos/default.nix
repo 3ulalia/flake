@@ -10,5 +10,5 @@
     map-list-to-attrs = list: foldl' (a: b: a // b) {} list;
 
   in {
-    options =  (mapModules import ./. __curPos.file);
+    options = map-list-to-attrs (mapModules (a: {${a} = import a;}) ./. __curPos.file);
   }
