@@ -23,22 +23,32 @@
  */
 
 {
-  inputs,
-  outputs,
+  eula,
   lib,
-  pkgs,
   ...
 }:
-  let
-    inherit (builtins)  foldl' trace;
-    inherit (modules) mapModules;
+  # let
+  #   inherit (builtins)  foldl' trace;
+  #   inherit (modules) mapModules;
 
-    modules = import ./modules.nix {
-      inherit lib inputs;
-    };
-    _unusable = trace "established modules import in default" 1;
-    eulib = (mapModules (file: (import file {inherit lib inputs outputs pkgs;})) ./. __curPos.file);
-    _unused = trace "evaluated let side of module default" 1;
-    _one = _unused + _unusable;
-  in 
-    if _one != 0 then (foldl' (a: b: a // b) {} eulib) else 0  
+  #   modules = import ./modules.nix {
+  #     inherit lib inputs;
+  #   };
+  #   _unusable = trace "established modules import in default" 1;
+  #   eulib = (mapModules (file: (import file {inherit lib inputs outputs pkgs;})) ./. __curPos.file);
+  #   _unused = trace "evaluated let side of module default" 1;
+  #   _one = _unused + _unusable;
+  # in 
+  #   if _one != 0 then (foldl' (a: b: a // b) {} eulib) else 0  
+
+
+let 
+  inherit (builtins) baseNameOf dirOf pathExists readDir trace toString; # TODO: why;
+  inherit (lib) filterAttrs hasSuffix mkOption types;
+
+in {
+
+  options.eula.lib = mkOption (types.attrsOf (types.attrsOf (types.anything)));
+
+  imports = eula.lib.modules.nix-modules-in-dir __curPos.file ./.;
+}
