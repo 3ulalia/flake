@@ -1,11 +1,10 @@
 {
   lib,
-  pkgs,
   ...
 } : 
   let 
 
-    inherit (lib) listToAttrs mapAttrs mkDefault;
+    inherit (lib) listToAttrs mapAttrs mkDefault mkForce trace;
 
 
     /**
@@ -16,23 +15,24 @@
 
       resolve-user :: user -> user-configuration
      */
-    resolve-user = user: extraGroups:
+    resolve-user = user: 
       let 
         pass = null; # TODO sops
+	_u = trace (user ? shell) user;
       in 
-        rec {
+        {
           home = mkDefault "/home/${user.name}";
-          initialPassword = if pass == null then "${user.name}" else pass; # TODO sops
+          initialPassword = if pass == null then "${_u.name}" else pass; # TODO sops
           isNormalUser = mkDefault true;
           createHome = mkDefault true; 
-          useDefaultShell = mkDefault (!(user ? shell)); # TODO mkDefault
-          shell = if useDefaultShell then null else user.shell; # ditto
+          useDefaultShell = mkForce (!(user ? shell));
+          shell = if (user ? shell) then user.shell else null;
           cryptHomeLuks = mkDefault null; # TODO luks
 
           # NOTE: config.users.extraUserGroups has things we want to add to this,
           # but it's messy to require the entire system config for this function.
           # so instead we include it as an argument.
-          extraGroups = mkDefault ((if user.privileged then ["wheel"] else []) ++ ["video" "input"] ++ extraGroups); # TODO mkDefault
+          extraGroups = mkDefault ((if user.privileged then ["wheel"] else []) ++ ["video" "input"] ++ user.extraGroups); # TODO mkDefault
         };
 
     /**
@@ -70,7 +70,7 @@
 
       TODO sig
      */
-    generate-users = users: map resolve-user users;
+    generate-users = users: map-list-to-attrset resolve-user users;
 
-    generate-homes = users: map resolve-home users;
+    generate-homes = users: map-list-to-attrset resolve-home users;
   }

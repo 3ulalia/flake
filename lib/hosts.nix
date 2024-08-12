@@ -54,15 +54,11 @@
      */
     generateSystem = host:
 	{ ${host.networking.hostName} = nixosSystem {
-          inherit (host) system;
 	  specialArgs = {inherit inputs outputs lib;};
           modules = [
-            home-manager.nixosModules.home-manager 
 	    ../hosts
+	    host
           ];
-
-          # TODO: handle sops-nix, etc here?
-
         };
       };
   }

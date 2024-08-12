@@ -28,7 +28,7 @@
           eula = import ./lib {
             inherit inputs outputs;
             lib = self;
-	          pkgs = nixpkgs;
+	    pkgs = nixpkgs;
           };
         }
       );
@@ -37,9 +37,9 @@
 
     in {
 
-      nixosModules = mapModules import ./modules/nixos ./.;
+      nixosModules = import ./modules/nixos {inherit lib; pkgs=nixpkgs;}; 
 
-      homeManagerModules = mapModules import ./modules/home-manager ./.;
+      homeManagerModules = import ./modules/home-manager {inherit lib; pkgs=nixpkgs;};
 
       # nixosConfigurations: {hostName : nixosHost}
       # nixosHosts are generated with nix(-darwin, pkgs).lib.(darwin, nixos)System

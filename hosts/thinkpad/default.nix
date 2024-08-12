@@ -51,9 +51,8 @@ in
 
   modules.users = [
     {
-      name = (trace "hit this point in thinkpad default" "eulalia"); 
-      privileged = true; 
-      shell = inputs.nixpkgs.zsh;
+      name = (trace "now evaluating thinkpad configuration!" "eulalia"); 
+      privileged = true;
     }
   ];
 
@@ -84,7 +83,4 @@ in
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
-
-  system = "x86_64-linux"; # TODO: this should not be needed, it should be imported from ./hardware_configuration.nix
-
 }

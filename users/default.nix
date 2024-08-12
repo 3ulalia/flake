@@ -34,7 +34,7 @@
         defaultUserShell = pkgs.zsh;
 
         # derived from config.users, which is defined in the module for the individual host
-        users = generate-users cfg [];
+        users = generate-users cfg;
       };
 
       home-manager = {

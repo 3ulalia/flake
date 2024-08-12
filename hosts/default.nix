@@ -14,6 +14,7 @@
 
 { 
   inputs,
+  outputs,
   pkgs,
   ...
 } : 
@@ -22,8 +23,10 @@
     imports = [
       ../users # all hosts will import the default user settings
       inputs.home-manager.nixosModules.home-manager # all hosts will use home-manager
+      outputs.nixosModules
     ];
 
+    # TODO cachix
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
     networking = {
@@ -35,7 +38,7 @@
     # time.timeZone = "Europe/Madrid"; # close enough
     time.timeZone = "America/New_York";
 
-    environment.systemPackages = with pkgs; [git vim curl]; # bare necessities
-
     system.stateVersion = "23.11";
+    
+    environment.systemPackages = with pkgs; [git vim curl]; # bare necessities
   }

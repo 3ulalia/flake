@@ -1,35 +1,64 @@
 warning: Git tree '/home/eulalia/flake' is dirty
-building the system configuration...
-warning: Git tree '/home/eulalia/flake' is dirty
+evaluating flake...
+warning: unknown flake output 'homeManagerModules'
 trace: evaluated let side of module default
 trace: established modules import in default
-trace: path: /nix/store/zkrl3c49ahp5r4gyy2sxxcgh4ih04lkw-source/lib/default.nix toIgnore: /nix/store/zkrl3c49ahp5r4gyy2sxxcgh4ih04lkw-source/lib/default.nix
+trace: path: /nix/store/7225wjvvjmhm0506i7f4xnw5kx5h00fq-source/lib/default.nix toIgnore: /nix/store/7225wjvvjmhm0506i7f4xnw5kx5h00fq-source/lib/default.nix
 trace: default.nix
 trace: regular
-trace: path: /nix/store/zkrl3c49ahp5r4gyy2sxxcgh4ih04lkw-source/lib/helpers.nix toIgnore: /nix/store/zkrl3c49ahp5r4gyy2sxxcgh4ih04lkw-source/lib/default.nix
+trace: path: /nix/store/7225wjvvjmhm0506i7f4xnw5kx5h00fq-source/lib/helpers.nix toIgnore: /nix/store/7225wjvvjmhm0506i7f4xnw5kx5h00fq-source/lib/default.nix
 trace: helpers.nix
 trace: regular
-trace: path: /nix/store/zkrl3c49ahp5r4gyy2sxxcgh4ih04lkw-source/lib/hosts.nix toIgnore: /nix/store/zkrl3c49ahp5r4gyy2sxxcgh4ih04lkw-source/lib/default.nix
+trace: path: /nix/store/7225wjvvjmhm0506i7f4xnw5kx5h00fq-source/lib/hosts.nix toIgnore: /nix/store/7225wjvvjmhm0506i7f4xnw5kx5h00fq-source/lib/default.nix
 trace: hosts.nix
 trace: regular
-trace: path: /nix/store/zkrl3c49ahp5r4gyy2sxxcgh4ih04lkw-source/lib/modules.nix toIgnore: /nix/store/zkrl3c49ahp5r4gyy2sxxcgh4ih04lkw-source/lib/default.nix
+trace: path: /nix/store/7225wjvvjmhm0506i7f4xnw5kx5h00fq-source/lib/modules.nix toIgnore: /nix/store/7225wjvvjmhm0506i7f4xnw5kx5h00fq-source/lib/default.nix
 trace: modules.nix
 trace: regular
-trace: path: /nix/store/zkrl3c49ahp5r4gyy2sxxcgh4ih04lkw-source/lib/options.nix toIgnore: /nix/store/zkrl3c49ahp5r4gyy2sxxcgh4ih04lkw-source/lib/default.nix
+trace: path: /nix/store/7225wjvvjmhm0506i7f4xnw5kx5h00fq-source/lib/options.nix toIgnore: /nix/store/7225wjvvjmhm0506i7f4xnw5kx5h00fq-source/lib/default.nix
 trace: options.nix
 trace: regular
-trace: path: /nix/store/zkrl3c49ahp5r4gyy2sxxcgh4ih04lkw-source/lib/users.nix toIgnore: /nix/store/zkrl3c49ahp5r4gyy2sxxcgh4ih04lkw-source/lib/default.nix
+trace: path: /nix/store/7225wjvvjmhm0506i7f4xnw5kx5h00fq-source/lib/users.nix toIgnore: /nix/store/7225wjvvjmhm0506i7f4xnw5kx5h00fq-source/lib/default.nix
 trace: users.nix
 trace: regular
 trace: { "helpers.nix" = <CODE>; "hosts.nix" = <CODE>; "modules.nix" = <CODE>; "options.nix" = <CODE>; "users.nix" = <CODE>; }
 trace: reached end of let in mapmodules
-trace: mapHosts called: /nix/store/0lbfgp1xxcj64nl7irmx8013x20dh12f-hosts
-trace: valid entries to be mapped as hosts in /nix/store/0lbfgp1xxcj64nl7irmx8013x20dh12f-hosts:  thinkpad
-trace: mapped over the valid entries to generate these paths:  /nix/store/0lbfgp1xxcj64nl7irmx8013x20dh12f-hosts/thinkpad
-trace: mapping some function onto /nix/store/0lbfgp1xxcj64nl7irmx8013x20dh12f-hosts/thinkpad in mapHosts call over /nix/store/0lbfgp1xxcj64nl7irmx8013x20dh12f-hosts
-trace: importing host: /nix/store/0lbfgp1xxcj64nl7irmx8013x20dh12f-hosts/thinkpad
-trace: { allowNoPasswordLogin = <CODE>; defaultUserShell = <CODE>; enforceIdUniqueness = <CODE>; extraGroups = <CODE>; extraUsers = <CODE>; groups = <CODE>; ldap = <CODE>; motd = <CODE>; motdFile = <CODE>; mutableUsers = <CODE>; mysql = <CODE>; users = <CODE>; }
+trace: mapHosts called: /nix/store/xb66jpaj3w9hvzqi4ld2pjn5qi32x6gv-hosts
+trace: valid entries to be mapped as hosts in /nix/store/xb66jpaj3w9hvzqi4ld2pjn5qi32x6gv-hosts:  thinkpad
+trace: mapped over the valid entries to generate these paths:  /nix/store/xb66jpaj3w9hvzqi4ld2pjn5qi32x6gv-hosts/thinkpad
+trace: mapping some function onto /nix/store/xb66jpaj3w9hvzqi4ld2pjn5qi32x6gv-hosts/thinkpad in mapHosts call over /nix/store/xb66jpaj3w9hvzqi4ld2pjn5qi32x6gv-hosts
+trace: importing host: /nix/store/xb66jpaj3w9hvzqi4ld2pjn5qi32x6gv-hosts/thinkpad
+trace: path: /nix/store/7225wjvvjmhm0506i7f4xnw5kx5h00fq-source/modules/nixos/default.nix toIgnore: /nix/store/7225wjvvjmhm0506i7f4xnw5kx5h00fq-source/modules/nixos/default.nix
+trace: default.nix
+trace: regular
+trace: path: /nix/store/7225wjvvjmhm0506i7f4xnw5kx5h00fq-source/modules/nixos/users.nix toIgnore: /nix/store/7225wjvvjmhm0506i7f4xnw5kx5h00fq-source/modules/nixos/default.nix
+trace: users.nix
+trace: regular
+trace: { "users.nix" = <CODE>; }
+trace: reached end of let in mapmodules
+trace: { users = <CODE>; }
+trace: [ <CODE> ]
+trace: now evaluating thinkpad configuration!
+trace: true
 error:
+       … while checking flake output 'nixosConfigurations'
+
+         at /nix/store/7225wjvvjmhm0506i7f4xnw5kx5h00fq-source/flake.nix:47:7:
+
+           46|       #   which is called on an attribute set containing a `system` attribute and a `modules` list.
+           47|       nixosConfigurations = list-to-attrs (map generateSystem (mapHosts importHost ./hosts));
+             |       ^
+           48|
+
+       … while checking the NixOS configuration 'nixosConfigurations.sunlanii'
+
+         at /nix/store/7225wjvvjmhm0506i7f4xnw5kx5h00fq-source/lib/hosts.nix:56:4:
+
+           55|     generateSystem = host:
+           56|  { ${host.networking.hostName} = nixosSystem {
+             |    ^
+           57|          specialArgs = {inherit inputs outputs lib;};
+
        … while calling anonymous lambda
 
          at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/attrsets.nix:918:24:
@@ -133,6 +162,15 @@ error:
              |               ^
            57|         if n == len
 
+       … while calling anonymous lambda
+
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/nixos/modules/system/activation/top-level.nix:64:50:
+
+           63|
+           64|   failedAssertions = map (x: x.message) (filter (x: !x.assertion) config.assertions);
+             |                                                  ^
+           65|
+
        … while calling 'g'
 
          at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/attrsets.nix:701:19:
@@ -160,7 +198,7 @@ error:
              |                                                                        ^
           243|
 
-       … while evaluating the option `assertions':
+       … while evaluating the option `users.users.eulalia.shell':
 
        … while calling anonymous lambda
 
@@ -171,7 +209,7 @@ error:
              |                            ^
           823|           map (value: { inherit (m) file; inherit value; }) (builtins.addErrorContext "while evaluating definitions from `${m.file}':" (dischargeProperties m.value))
 
-       … while evaluating definitions from `/nix/store/n2hszn7p77406si50ghhzdxglc794262-source/nixos/common.nix':
+       … while evaluating definitions from `/nix/store/7225wjvvjmhm0506i7f4xnw5kx5h00fq-source/users':
 
        … from call site
 
@@ -218,53 +256,22 @@ error:
              |                                                                        ^
           243|
 
-       … while evaluating the option `home-manager.users':
+       … while evaluating the option `modules.users."[definition 1-entry 1]".shell':
 
        … while calling anonymous lambda
 
-         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:822:28:
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:832:19:
 
-          821|         # Process mkMerge and mkIf properties.
-          822|         defs' = concatMap (m:
-             |                            ^
-          823|           map (value: { inherit (m) file; inherit value; }) (builtins.addErrorContext "while evaluating definitions from `${m.file}':" (dischargeProperties m.value))
+          831|           # Avoid sorting if we don't have to.
+          832|           if any (def: def.value._type or "" == "order") defs''.values
+             |                   ^
+          833|           then sortProperties defs''.values
 
-       … while evaluating definitions from `/nix/store/zkrl3c49ahp5r4gyy2sxxcgh4ih04lkw-source/users':
+       error: attribute 'zsh' missing
 
-       … from call site
+       at /nix/store/7225wjvvjmhm0506i7f4xnw5kx5h00fq-source/modules/nixos/users.nix:16:39:
 
-         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:823:137:
-
-          822|         defs' = concatMap (m:
-          823|           map (value: { inherit (m) file; inherit value; }) (builtins.addErrorContext "while evaluating definitions from `${m.file}':" (dischargeProperties m.value))
-             |                                                                                                                                         ^
-          824|         ) defs;
-
-       … while calling 'dischargeProperties'
-
-         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:894:25:
-
-          893|   */
-          894|   dischargeProperties = def:
-             |                         ^
-          895|     if def._type or "" == "merge" then
-
-       … from call site
-
-         at /nix/store/zkrl3c49ahp5r4gyy2sxxcgh4ih04lkw-source/users/default.nix:45:17:
-
-           44|
-           45|         users = generate-homes cfg;
-             |                 ^
-           46|       };
-
-       … while calling 'generate-homes'
-
-         at /nix/store/zkrl3c49ahp5r4gyy2sxxcgh4ih04lkw-source/lib/users.nix:75:22:
-
-           74|
-           75|     generate-homes = users: map resolve-home users;
-             |                      ^
-           76|   }
-
-       error: value is a set while a list was expected
+           15|           privileged = mkOpt types.bool false;
+           16|           shell = mkOpt types.package pkgs.zsh;
+             |                                       ^
+           17|         };

@@ -1,14 +1,19 @@
 {
   lib,
+  pkgs,
   ...
 } : 
   let
-    inherit (lib) foldl' mapAttrs mkOption types;
+    inherit (builtins) baseNameOf;
+    inherit (lib) foldl' mapAttrs mkOption trace types removeSuffix;
 
     inherit (lib.eula) mapModules;
 
     map-list-to-attrs = list: foldl' (a: b: a // b) {} list;
 
+    a = map-list-to-attrs (mapModules (a: {${removeSuffix ".nix" (baseNameOf a)} = (import a {inherit lib pkgs;});}) ./. __curPos.file);
+ 
   in {
-    options = map-list-to-attrs (mapModules (a: {${a} = import a;}) ./. __curPos.file);
-  }
+  options.modules = trace a a;
+
+ }

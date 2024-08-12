@@ -1,19 +1,21 @@
 {
   lib,
-  nixpkgs,
+  pkgs,
   ...
 } :
   let
-    inherit (lib) types;
+    inherit (lib) mkOption types;
     inherit (lib.eula) mkOpt;
-  in {
-    options.modules.users = mkOpt types.listOf (
+  in 
+    mkOption { type = types.listOf (
       types.submodule {
         options = {
+	  extraGroups = mkOpt (types.listOf types.str) [];
           name = mkOpt types.str "user";
           privileged = mkOpt types.bool false;
-          shell = mkOpt types.package nixpkgs.zsh;
+          shell = mkOpt types.package pkgs.zsh;
         };
       }
     );
-  }
+    }
+  
