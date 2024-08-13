@@ -21,17 +21,12 @@
     home-manager,
     ...
  }: let
-      inherit (self) outputs; # required so we can pass it through to our lib
-      bootstrap = import ./bootstrap.nix {inherit inputs outputs; lib = nixpkgs.lib;};
+      bootstrap = import ./bootstrap.nix {inherit inputs; lib = nixpkgs.lib;};
     in {
-
-      nixosModules = import ./lib {lib = nixpkgs.lib;};
-
       # nixosConfigurations: {hostName : nixosHost}
       # nixosHosts are generated with nix(-darwin, pkgs).lib.(darwin, nixos)System
       #   which is called on an attribute set containing a `system` attribute and a `modules` list.    
-      nixosConfigurations = bootstrap.helpers.list-to-attrs (map bootstrap.hosts.generateSystem (bootstrap.hosts.mapHosts bootstrap.hosts.importHost ./hosts));
-
+      nixosConfigurations = bootstrap.generate-systems ./hosts [./toplevel.nix];
     };
   }
 #a

@@ -1,9 +1,0 @@
-warning: Git tree '/home/eula/flake' is dirty
-error: undefined variable 'list-to-attrs-from-key'
-
-       at /nix/store/xfqfvrcc2z8619yc4viiywgk1j1r3691-source/flake.nix:38:29:
-
-           37|       #   which is called on an attribute set containing a `system` attribute and a `modules` list.
-           38|       nixosConfigurations = list-to-attrs-from-key "hostname" (map generateSystem (mapHosts import ./hosts));
-             |                             ^
-           39|     };

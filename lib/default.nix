@@ -42,8 +42,8 @@
 
 
 let 
-  inherit (builtins) attrNames baseNameOf dirOf pathExists readDir trace toString; # TODO: why;
-  inherit (lib) filterAttrs hasSuffix mkOption types;
+  inherit (builtins) attrNames; # TODO: why;
+  inherit (lib) mkOption types;
 
   eulib = import ./modules.nix {inherit lib;};
 
