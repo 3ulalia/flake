@@ -1,7 +1,7 @@
 {
-  eula,
+  config,
   ...
 } :
 {
-  imports = [(eula.lib.modules.nix-modules-in-dir __curPos.file ./.)];
+  imports = [(config.eula.lib.modules.nix-modules-in-dir __curPos.file ./.)];
 }

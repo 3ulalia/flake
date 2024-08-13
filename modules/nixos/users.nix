@@ -1,13 +1,15 @@
 {
+  config,
   lib,
   pkgs,
   ...
 } :
   let
     inherit (lib) mkOption types;
-    inherit (lib.eula) mkOpt;
+    mkOpt = config.eula.lib.options.mkOpt;
   in 
-    mkOption { type = types.listOf (
+    options.eula.modules.nixos.users = mkOption { 
+      type = types.listOf (
       types.submodule {
         options = {
 	  extraGroups = mkOpt (types.listOf types.str) [];

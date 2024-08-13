@@ -1,17 +1,15 @@
 {
-  eula,
+  config,
   lib,
   pkgs,
   ...
 } : 
   let
-    inherit (builtins) baseNameOf;
-    inherit (lib) foldl' trace removeSuffix;
+    inherit (builtins) attrNames;
+    inherit (lib) foldl' trace;
 
     map-list-to-attrs = list: foldl' (a: b: a // b) {} list;
 
-    a = map-list-to-attrs (eula.lib.modules.mapModules (a: {${removeSuffix ".nix" (baseNameOf a)} = (import a {inherit lib pkgs;});}) ./. __curPos.file);
- 
   in {
-  options.modules = trace a a;
- }
+    imports = attrNames (config.eula.lib.modules.nix-modules-in-dir __curPos.file ./.);
+  }

@@ -5,7 +5,7 @@
   let 
     inherit (lib) mkOption;
   in {
-    eula.lib.options = {
+    config.eula.lib.options = {
 
     mkOpt = type: default: mkOption {inherit type default;};
 

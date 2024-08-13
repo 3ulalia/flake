@@ -16,8 +16,6 @@
   let
 
   inherit (lib) attrNames trace elemAt;
-  inherit (lib.eula) generate-homes generate-users;
-
 
   # config (as loaded from hosts/<hostname>/default.nix) will hold a custom option `users`
   # this is defined in modules/nixos/users.nix, which is loaded as into flake.nix::nixosModules.
@@ -34,7 +32,7 @@
         defaultUserShell = pkgs.zsh;
 
         # derived from config.users, which is defined in the module for the individual host
-        users = generate-users cfg;
+        users = config.eula.lib.users.generate-users cfg;
       };
 
       home-manager = {
@@ -42,7 +40,7 @@
         useGlobalPkgs = true;
         useUserPackages = true;
 
-        users = generate-homes cfg; 
+        users = config.eula.lib.users.generate-homes cfg; 
       };
     };
   }

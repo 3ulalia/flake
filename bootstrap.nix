@@ -7,11 +7,11 @@
   ...
 } : 
   let
-    inherit (builtins) attrNames foldl' listToAttrs pathExists readDir trace; # TODO: why
+    inherit (builtins) attrNames foldl' listToAttrs pathExists readDir trace unsafeDiscardStringContext; # TODO: why
     inherit (lib) filterAttrs removeSuffix;
     inherit (inputs.nixpkgs.lib) nixosSystem;
-
-  helpers = {
+  in rec {
+  helpers = rec {
     /**
       Given a list of attrsets, combines them into one attrset.
 
@@ -30,7 +30,7 @@
     list-to-attrs-from-key = field: list: listToAttrs (map (v: {name = v.${field}; value = v;}) list);
   };
 
-  hosts = {
+  hosts = rec {
     /**
       Retrieves all valid hosts (really, just NixOS modules) at a given path.
 
@@ -51,6 +51,9 @@
             (filterAttrs valid-host-huh 
               (filterAttrs (n: v: v == "directory") (readDir path))));
 
+
+    hostfile-to-hostname = host-file: unsafeDiscardStringContext (removeSuffix ".nix" (baseNameOf host-file));
+
     /**
       Generates a system configuration from a given host. 
 
@@ -63,14 +66,14 @@
       generate-system :: host-configuration -> {hostname: system-configuration}
      */
     generate-system = modules: host-file: 
-      { ${removeSuffix ".nix" (baseNameOf host-file)} = nixosSystem {
+      { ${hostfile-to-hostname host-file} = nixosSystem {
           modules = [
-	          host-file
+	    host-file
           ] ++ modules;
         };
       };
   };
-  in
-{
+  
+
   generate-systems = path: modules: helpers.list-to-attrs (map (hosts.generate-system modules) (hosts.get-hosts path));
 }

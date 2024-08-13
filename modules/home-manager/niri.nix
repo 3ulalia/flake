@@ -8,18 +8,18 @@
   let 
 
   inherit (lib) types mkIf;
-  inherit (lib.eula) mkOpt;
+  mkOpt = config.eula.lib.options.mkOpt;
 
   in {
 
     imports = [inputs.niri.nixosModules.niri];
 
-    options.modules.niri = {
+    options.eula.modules.niri = {
       enable = mkOpt types.bool true;  
     };
 
-    config = mkIf config.modules.niri.enable {
-      home-manager.users.eulalia.home = {
+    config = mkIf config.eula.modules.niri.enable {
+      home-manager.users.eulalia.home = { # TODO FIX USERNAME MAPPING
 
 	imports = [inputs.niri.homeModules.niri];
 

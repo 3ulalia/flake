@@ -26,21 +26,6 @@
   lib,
   ...
 }:
-  # let
-  #   inherit (builtins)  foldl' trace;
-  #   inherit (modules) mapModules;
-
-  #   modules = import ./modules.nix {
-  #     inherit lib inputs;
-  #   };
-  #   _unusable = trace "established modules import in default" 1;
-  #   eulib = (mapModules (file: (import file {inherit lib inputs outputs pkgs;})) ./. __curPos.file);
-  #   _unused = trace "evaluated let side of module default" 1;
-  #   _one = _unused + _unusable;
-  # in 
-  #   if _one != 0 then (foldl' (a: b: a // b) {} eulib) else 0  
-
-
 let 
   inherit (builtins) attrNames; # TODO: why;
   inherit (lib) mkOption types;
@@ -48,7 +33,6 @@ let
   eulib = import ./modules.nix {inherit lib;};
 
 in {
-
   options.eula.lib = mkOption {type = (types.attrsOf (types.attrsOf (types.anything)));};
 
   imports = attrNames (eulib.eula.lib.modules.nix-modules-in-dir __curPos.file ./.);

@@ -7,7 +7,7 @@
 }: let
   inherit (lib) mkDefault;
 in {
-  #imports = outputs.homeManagerModules;
+  imports = outputs.homeManagerModules;
 
   programs.home-manager.enable = mkDefault true;
   programs.git.enable = mkDefault true;

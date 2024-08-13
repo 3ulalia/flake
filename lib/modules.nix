@@ -11,7 +11,7 @@
     inherit (lib) filterAttrs hasSuffix;
   in {
 
-    eula.lib.modules = rec {
+    config.eula.lib.modules = rec {
 
     /**
       Determines whether a given path is a valid Nix module path.

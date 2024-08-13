@@ -19,7 +19,7 @@
     concat-list = list: foldl' (x: y: x + " " + y) "" list;
 
   in {
-    eula.lib.hosts = {
+    config.eula.lib.hosts = {
     /**
       Applies a given function to each host in a given folder.
 

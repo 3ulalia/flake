@@ -1,46 +1,23 @@
 warning: Git tree '/home/eulalia/flake' is dirty
 evaluating flake...
-trace: path: /nix/store/nsjs67apn2li7179y3nvckkcl4hcw7j8-source/lib/default.nix toIgnore: /nix/store/nsjs67apn2li7179y3nvckkcl4hcw7j8-source/lib/default.nix
-trace: default.nix
-trace: regular
-trace: path: /nix/store/nsjs67apn2li7179y3nvckkcl4hcw7j8-source/lib/helpers.nix toIgnore: /nix/store/nsjs67apn2li7179y3nvckkcl4hcw7j8-source/lib/default.nix
-trace: helpers.nix
-trace: regular
-trace: path: /nix/store/nsjs67apn2li7179y3nvckkcl4hcw7j8-source/lib/hosts.nix toIgnore: /nix/store/nsjs67apn2li7179y3nvckkcl4hcw7j8-source/lib/default.nix
-trace: hosts.nix
-trace: regular
-trace: path: /nix/store/nsjs67apn2li7179y3nvckkcl4hcw7j8-source/lib/modules.nix toIgnore: /nix/store/nsjs67apn2li7179y3nvckkcl4hcw7j8-source/lib/default.nix
-trace: modules.nix
-trace: regular
-trace: path: /nix/store/nsjs67apn2li7179y3nvckkcl4hcw7j8-source/lib/options.nix toIgnore: /nix/store/nsjs67apn2li7179y3nvckkcl4hcw7j8-source/lib/default.nix
-trace: options.nix
-trace: regular
-trace: path: /nix/store/nsjs67apn2li7179y3nvckkcl4hcw7j8-source/lib/users.nix toIgnore: /nix/store/nsjs67apn2li7179y3nvckkcl4hcw7j8-source/lib/default.nix
-trace: users.nix
-trace: regular
-trace: mapHosts called: /nix/store/xb66jpaj3w9hvzqi4ld2pjn5qi32x6gv-hosts
-trace: valid entries to be mapped as hosts in /nix/store/xb66jpaj3w9hvzqi4ld2pjn5qi32x6gv-hosts:  thinkpad
-trace: mapped over the valid entries to generate these paths:  /nix/store/xb66jpaj3w9hvzqi4ld2pjn5qi32x6gv-hosts/thinkpad
-trace: mapping some function onto /nix/store/xb66jpaj3w9hvzqi4ld2pjn5qi32x6gv-hosts/thinkpad in mapHosts call over /nix/store/xb66jpaj3w9hvzqi4ld2pjn5qi32x6gv-hosts
-trace: importing host: /nix/store/xb66jpaj3w9hvzqi4ld2pjn5qi32x6gv-hosts/thinkpad
 error:
        … while checking flake output 'nixosConfigurations'
 
-         at /nix/store/nsjs67apn2li7179y3nvckkcl4hcw7j8-source/flake.nix:33:7:
+         at /nix/store/whq45ajmb52k74if3327jk2gyq929wdb-source/flake.nix:29:7:
 
-           32|       #   which is called on an attribute set containing a `system` attribute and a `modules` list.
-           33|       nixosConfigurations = bootstrap.helpers.list-to-attrs (map bootstrap.hosts.generateSystem (bootstrap.hosts.mapHosts bootstrap.hosts.importHost ./hosts));
+           28|       #   which is called on an attribute set containing a `system` attribute and a `modules` list.
+           29|       nixosConfigurations = bootstrap.generate-systems ./hosts [./toplevel.nix];
              |       ^
-           34|
+           30|     };
 
        … while checking the NixOS configuration 'nixosConfigurations.sunlanii'
 
-         at /nix/store/nsjs67apn2li7179y3nvckkcl4hcw7j8-source/bootstrap.nix:164:4:
+         at /nix/store/whq45ajmb52k74if3327jk2gyq929wdb-source/bootstrap.nix:69:9:
 
-          163|     generateSystem = host:
-          164|       { ${host.networking.hostName} = nixosSystem {
-             |    ^
-          165|           modules = [
+           68|     generate-system = modules: host-file:
+           69|       { ${hostfile-to-hostname host-file} = nixosSystem {
+             |         ^
+           70|           modules = [
 
        … while calling the 'seq' builtin
 
@@ -231,7 +208,7 @@ error:
              |                                            ^
           505|         builtins.addErrorContext (context name)
 
-       … while evaluating the module argument `inputs' in "/nix/store/nsjs67apn2li7179y3nvckkcl4hcw7j8-source/hosts":
+       … while evaluating the module argument `inputs' in "/nix/store/whq45ajmb52k74if3327jk2gyq929wdb-source/hosts":
 
        error: infinite recursion encountered
 

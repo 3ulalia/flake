@@ -6,10 +6,8 @@
 
   { 
 
-    config = {
+    config.eula = {
       modules.niri.enable = true;
     };
-
-
 
   }
