@@ -7,7 +7,7 @@
   let
     inherit (lib) mkOption types;
     mkOpt = config.eula.lib.options.mkOpt;
-  in 
+  in { 
     options.eula.modules.nixos.users = mkOption { 
       type = types.listOf (
       types.submodule {
@@ -19,5 +19,5 @@
         };
       }
     );
-    }
+    };}
   

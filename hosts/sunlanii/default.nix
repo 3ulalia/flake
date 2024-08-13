@@ -48,7 +48,7 @@ in
 
   networking.hostName = "sunlanii"; # Define your hostname.
 
-  modules.users = [
+  eula.modules.nixos.users = [
     {
       name = (trace "now evaluating thinkpad configuration!" "eulalia"); 
       privileged = true;

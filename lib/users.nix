@@ -44,18 +44,19 @@
       resolve-home :: user -> home
 
        */
-    resolve-home = user: 
+    resolve-home = extra-settings: user: 
       {
         imports = [
           ../users/home.nix
+	  ../users/${user.name}
         ];
 
         home = {
           homeDirectory = "/home/${user.name}";
           username = user.name;
           stateVersion = "23.11";
-        };
-      };
+        }; 
+      } // extra-settings;
 
     /**
       Given a list of strings of usernames, returns an attrset from usernames to the configurations
@@ -74,5 +75,5 @@
      */
     generate-users = users: map-list-to-attrset resolve-user users;
 
-    generate-homes = users: map-list-to-attrset resolve-home users;
+    generate-homes = extra-settings: users: map-list-to-attrset (resolve-home extra-settings) users;
   };}

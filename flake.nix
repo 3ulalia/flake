@@ -3,10 +3,10 @@
 
   inputs = {
     # not cool enough for unstable (yet)
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     # home-manager (a regañadientes)
     home-manager = {
-      url = "github:nix-community/home-manager?ref=release-23.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     }; 
 
@@ -15,7 +15,6 @@
   };
 
   outputs = inputs @ { 
-    # list of outputs goes here
     self,
     nixpkgs,
     home-manager,
@@ -26,7 +25,7 @@
       # nixosConfigurations: {hostName : nixosHost}
       # nixosHosts are generated with nix(-darwin, pkgs).lib.(darwin, nixos)System
       #   which is called on an attribute set containing a `system` attribute and a `modules` list.    
-      nixosConfigurations = bootstrap.generate-systems ./hosts {inherit bootstrap inputs;} [./toplevel.nix];
+      nixosConfigurations = bootstrap.hosts.generate-systems ./hosts {inherit bootstrap inputs;} [./toplevel.nix];
     };
   }
 #a

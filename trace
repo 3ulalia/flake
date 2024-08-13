@@ -1,202 +1,53 @@
 warning: Git tree '/home/eulalia/flake' is dirty
 evaluating flake...
-trace: path: /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/lib/default.nix toIgnore: /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/lib/default.nix
+trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/lib/default.nix toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/lib/default.nix
 trace: default.nix
 trace: regular
-trace: path: /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/lib/helpers.nix toIgnore: /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/lib/default.nix
+trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/lib/helpers.nix toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/lib/default.nix
 trace: helpers.nix
 trace: regular
-trace: path: /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/lib/hosts.nix toIgnore: /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/lib/default.nix
+trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/lib/hosts.nix toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/lib/default.nix
 trace: hosts.nix
 trace: regular
-trace: path: /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/lib/modules.nix toIgnore: /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/lib/default.nix
+trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/lib/modules.nix toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/lib/default.nix
 trace: modules.nix
 trace: regular
-trace: path: /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/lib/options.nix toIgnore: /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/lib/default.nix
+trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/lib/options.nix toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/lib/default.nix
 trace: options.nix
 trace: regular
-trace: path: /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/lib/users.nix toIgnore: /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/lib/default.nix
+trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/lib/users.nix toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/lib/default.nix
 trace: users.nix
 trace: regular
-error:
-       … while checking flake output 'nixosConfigurations'
-
-         at /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/flake.nix:29:7:
-
-           28|       #   which is called on an attribute set containing a `system` attribute and a `modules` list.
-           29|       nixosConfigurations = bootstrap.generate-systems ./hosts inputs [./toplevel.nix];
-             |       ^
-           30|     };
-
-       … while checking the NixOS configuration 'nixosConfigurations.sunlanii'
-
-         at /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/bootstrap.nix:69:9:
-
-           68|     generate-system = modules: put-ins: host-file:
-           69|       { ${hostfile-to-hostname host-file} = nixosSystem {
-             |         ^
-           70|           specialArgs = {inputs = put-ins;};
-
-       … while calling the 'seq' builtin
-
-         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:320:18:
-
-          319|         options = checked options;
-          320|         config = checked (removeAttrs config [ "_module" ]);
-             |                  ^
-          321|         _module = checked (config._module);
-
-       … while evaluating a branch condition
-
-         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:261:9:
-
-          260|       checkUnmatched =
-          261|         if config._module.check && config._module.freeformType == null && merged.unmatchedDefns != [] then
-             |         ^
-          262|           let
-
-       … in the left operand of the AND (&&) operator
-
-         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:261:72:
-
-          260|       checkUnmatched =
-          261|         if config._module.check && config._module.freeformType == null && merged.unmatchedDefns != [] then
-             |                                                                        ^
-          262|           let
-
-       … in the left operand of the AND (&&) operator
-
-         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:261:33:
-
-          260|       checkUnmatched =
-          261|         if config._module.check && config._module.freeformType == null && merged.unmatchedDefns != [] then
-             |                                 ^
-          262|           let
-
-       … while evaluating a branch condition
-
-         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:254:12:
-
-          253|
-          254|         in if declaredConfig._module.freeformType == null then declaredConfig
-             |            ^
-          255|           # Because all definitions that had an associated option ended in
-
-       … from call site
-
-         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:242:28:
-
-          241|           # For definitions that have an associated option
-          242|           declaredConfig = mapAttrsRecursiveCond (v: ! isOption v) (_: v: v.value) options;
-             |                            ^
-          243|
-
-       … while calling 'mapAttrsRecursiveCond'
-
-         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/attrsets.nix:696:5:
-
-          695|     # Attribute set to recursively map over.
-          696|     set:
-             |     ^
-          697|     let
-
-       … from call site
-
-         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:234:33:
-
-          233|           ({ inherit lib options config specialArgs; } // specialArgs);
-          234|         in mergeModules prefix (reverseList collected);
-             |                                 ^
-          235|
-
-       … while calling 'reverseList'
-
-         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/lists.nix:510:17:
-
-          509|   */
-          510|   reverseList = xs:
-             |                 ^
-          511|     let l = length xs; in genList (n: elemAt xs (l - n - 1)) l;
-
-       … from call site
-
-         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:229:25:
-
-          228|       merged =
-          229|         let collected = collectModules
-             |                         ^
-          230|           class
-
-       … while calling anonymous lambda
-
-         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:443:37:
-
-          442|
-          443|     in modulesPath: initialModules: args:
-             |                                     ^
-          444|       filterModules modulesPath (collectStructuredModules unknownModule "" initialModules args);
-
-       … from call site
-
-         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:444:7:
-
-          443|     in modulesPath: initialModules: args:
-          444|       filterModules modulesPath (collectStructuredModules unknownModule "" initialModules args);
-             |       ^
-          445|
-
-       … while calling 'filterModules'
-
-         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:411:36:
-
-          410|       # modules recursively. It returns the final list of unique-by-key modules
-          411|       filterModules = modulesPath: { disabled, modules }:
-             |                                    ^
-          412|         let
-
-       … while calling anonymous lambda
-
-         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:437:31:
-
-          436|           disabledKeys = concatMap ({ file, disabled }: map (moduleKey file) disabled) disabled;
-          437|           keyFilter = filter (attrs: ! elem attrs.key disabledKeys);
-             |                               ^
-          438|         in map (attrs: attrs.module) (builtins.genericClosure {
-
-       … from call site
-
-         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:396:73:
-
-          395|           };
-          396|         in parentFile: parentKey: initialModules: args: collectResults (imap1 (n: x:
-             |                                                                         ^
-          397|           let
-
-       … while calling 'imap1'
-
-         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/lists.nix:165:14:
-
-          164|   */
-          165|   imap1 = f: list: genList (n: f (n + 1) (elemAt list n)) (length list);
-             |              ^
-          166|
-
-       … while calling anonymous lambda
-
-         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:504:44:
-
-          503|       context = name: ''while evaluating the module argument `${name}' in "${key}":'';
-          504|       extraArgs = builtins.mapAttrs (name: _:
-             |                                            ^
-          505|         builtins.addErrorContext (context name)
-
-       … while evaluating the module argument `config' in "/nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/modules":
-
-       error: infinite recursion encountered
-
-       at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:233:21:
-
-          232|           (regularModules ++ [ internalModule ])
-          233|           ({ inherit lib options config specialArgs; } // specialArgs);
-             |                     ^
-          234|         in mergeModules prefix (reverseList collected);
+trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/TODO.md toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/default.nix
+trace: TODO.md
+trace: regular
+trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/default.nix toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/default.nix
+trace: default.nix
+trace: regular
+trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/home-manager toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/default.nix
+trace: home-manager
+trace: directory
+trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/nixos toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/default.nix
+trace: nixos
+trace: directory
+trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/home-manager/default.nix toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/home-manager/default.nix
+trace: default.nix
+trace: regular
+trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/home-manager/ly.nix toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/home-manager/default.nix
+trace: ly.nix
+trace: regular
+trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/home-manager/niri.nix toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/home-manager/default.nix
+trace: niri.nix
+trace: regular
+trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/nixos/default.nix toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/nixos/default.nix
+trace: default.nix
+trace: regular
+trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/nixos/users.nix toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/nixos/default.nix
+trace: users.nix
+trace: regular
+trace: [ <CODE> ]
+trace: now evaluating thinkpad configuration!
+trace: true
+trace: true
+copying path '/nix/store/vsmj7776ik51zzkyy22ydl00ib2w1rpp-source' from 'https://cache.nixos.org'...
+error: interrupted by the user

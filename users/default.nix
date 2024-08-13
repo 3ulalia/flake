@@ -15,13 +15,18 @@
 } : 
   let
 
-  inherit (lib) attrNames trace elemAt;
+  inherit (lib) attrNames length filter mkIf trace elemAt;
 
   # config (as loaded from hosts/<hostname>/default.nix) will hold a custom option `users`
   # this is defined in modules/nixos/users.nix, which is loaded as into flake.nix::nixosModules.
   # it is a list of attrsets containing basic user configurations.
-  cfg = trace config.modules.users config.modules.users;
+  cfg = trace config.eula.modules.nixos.users config.eula.modules.nixos.users;
 
+  is-empty = l: (length l) == 0;
+  
+  extra-settings = {programs.zsh.enable = (!(is-empty (filter (v: v.shell == pkgs.zsh) config.eula.modules.nixos.users)));};
+
+  users = config.eula.lib.users.generate-homes extra-settings cfg; 
   in {
 
     config = {
@@ -39,9 +44,10 @@
 
         useGlobalPkgs = true;
         useUserPackages = true;
-
-        users = config.eula.lib.users.generate-homes cfg; 
+	
+	users = trace users.eulalia.programs.zsh.enable users;
+        
       };
-    };
+    } // extra-settings;
   }
-    
+
