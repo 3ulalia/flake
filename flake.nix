@@ -26,7 +26,7 @@
       # nixosConfigurations: {hostName : nixosHost}
       # nixosHosts are generated with nix(-darwin, pkgs).lib.(darwin, nixos)System
       #   which is called on an attribute set containing a `system` attribute and a `modules` list.    
-      nixosConfigurations = bootstrap.generate-systems ./hosts [./toplevel.nix];
+      nixosConfigurations = bootstrap.generate-systems ./hosts inputs [./toplevel.nix];
     };
   }
 #a

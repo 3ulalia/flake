@@ -65,15 +65,16 @@
 
       generate-system :: host-configuration -> {hostname: system-configuration}
      */
-    generate-system = modules: host-file: 
+    generate-system = modules: put-ins: host-file: 
       { ${hostfile-to-hostname host-file} = nixosSystem {
+          specialArgs = {inputs = put-ins;};
           modules = [
-	    host-file
+	          host-file
           ] ++ modules;
         };
       };
   };
   
 
-  generate-systems = path: modules: helpers.list-to-attrs (map (hosts.generate-system modules) (hosts.get-hosts path));
+  generate-systems = path: put-ins: modules: helpers.list-to-attrs (map (hosts.generate-system modules put-ins) (hosts.get-hosts path));
 }
