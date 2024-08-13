@@ -8,7 +8,7 @@
 } : 
   let
     inherit (builtins) attrNames foldl' listToAttrs pathExists readDir trace unsafeDiscardStringContext; # TODO: why
-    inherit (lib) filterAttrs removeSuffix;
+    inherit (lib) filterAttrs hasSuffix removeSuffix;
     inherit (inputs.nixpkgs.lib) nixosSystem;
   in rec {
   helpers = rec {
@@ -65,16 +65,41 @@
 
       generate-system :: host-configuration -> {hostname: system-configuration}
      */
-    generate-system = modules: put-ins: host-file: 
+    generate-system = modules: special-args: host-file: 
       { ${hostfile-to-hostname host-file} = nixosSystem {
-          specialArgs = {inputs = put-ins;};
+          specialArgs = special-args;
           modules = [
 	          host-file
           ] ++ modules;
         };
       };
-  };
-  
 
-  generate-systems = path: put-ins: modules: helpers.list-to-attrs (map (hosts.generate-system modules put-ins) (hosts.get-hosts path));
+    generate-systems = path: special-args: modules: helpers.list-to-attrs (map (hosts.generate-system modules special-args) (hosts.get-hosts path));
+  };
+  modules = rec {
+        /**
+      Determines whether a given path is a valid Nix module path.
+      
+      This is true when either:
+        * the path is to a single nix file, or
+        * the path to a directory containing a `default.nix`
+
+      valid-nix-module-huh :: path -> bool
+      */
+    valid-nix-module-huh = to-ignore: path: 
+      let
+        pth = trace ("path: " + (toString path) + " toIgnore: ${to-ignore}") path; 
+        file-name = trace (baseNameOf pth) (baseNameOf pth);
+        file-type = trace (readDir (dirOf path))."${file-name}" (readDir (dirOf path))."${file-name}";
+      in 
+        # the path is to a single nix file
+        (((file-type == "regular") && (hasSuffix ".nix" file-name)) ||
+        # the path is to a directory containing a `default.nix`
+        ((file-type == "directory") && pathExists ("${path}/default.nix"))) && 
+        # the path is not to our recursion-preventing canary
+        ((toString path) != "${to-ignore}");
+
+
+    nix-modules-in-dir = to-ignore: path: attrNames (filterAttrs (name: value: (valid-nix-module-huh to-ignore (path + "/${name}"))) (readDir path));
+  };
 }
