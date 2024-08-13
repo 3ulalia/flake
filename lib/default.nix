@@ -23,7 +23,6 @@
  */
 
 {
-  eula,
   lib,
   ...
 }:
@@ -43,12 +42,14 @@
 
 
 let 
-  inherit (builtins) baseNameOf dirOf pathExists readDir trace toString; # TODO: why;
+  inherit (builtins) attrNames baseNameOf dirOf pathExists readDir trace toString; # TODO: why;
   inherit (lib) filterAttrs hasSuffix mkOption types;
+
+  eulib = import ./modules.nix {inherit lib;};
 
 in {
 
-  options.eula.lib = mkOption (types.attrsOf (types.attrsOf (types.anything)));
+  options.eula.lib = mkOption {type = (types.attrsOf (types.attrsOf (types.anything)));};
 
-  imports = eula.lib.modules.nix-modules-in-dir __curPos.file ./.;
+  imports = attrNames (eulib.eula.lib.modules.nix-modules-in-dir __curPos.file ./.);
 }

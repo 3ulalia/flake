@@ -22,29 +22,15 @@
     ...
  }: let
       inherit (self) outputs; # required so we can pass it through to our lib
-      
-      lib = nixpkgs.lib.extend ( # extend the given `lib` with our helpers
-        self: super: {
-          eula = import ./lib {
-            inherit inputs outputs;
-            lib = self;
-	    pkgs = nixpkgs;
-          };
-        }
-      );
-
-      inherit (lib.eula) generateSystem importHost list-to-attrs mapHosts mapModules;
-
+      bootstrap = import ./bootstrap.nix {inherit inputs outputs; lib = nixpkgs.lib;};
     in {
 
-      nixosModules = import ./modules/nixos {inherit lib; pkgs=nixpkgs;}; 
-
-      homeManagerModules = import ./modules/home-manager {inherit lib; pkgs=nixpkgs;};
+      nixosModules = import ./lib {lib = nixpkgs.lib;};
 
       # nixosConfigurations: {hostName : nixosHost}
       # nixosHosts are generated with nix(-darwin, pkgs).lib.(darwin, nixos)System
       #   which is called on an attribute set containing a `system` attribute and a `modules` list.    
-      nixosConfigurations = list-to-attrs (map generateSystem (mapHosts importHost ./hosts));
+      nixosConfigurations = bootstrap.helpers.list-to-attrs (map bootstrap.hosts.generateSystem (bootstrap.hosts.mapHosts bootstrap.hosts.importHost ./hosts));
 
     };
   }

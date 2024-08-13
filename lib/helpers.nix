@@ -23,7 +23,7 @@
      */
     if_let = attrs: pattern: if matchAttrs pattern attrs then attrs else null;
   in { 
-
+  eula.lib.helpers = {
     /**
       Given an input pattern (taken as an attrset) and a list of lists of attribute-result pairs, determines the appropriate result.
       Returns `null` if no result can be found.
@@ -64,4 +64,4 @@
      */
     list-to-attrs-from-key = field: list: listToAttrs (map (v: {name = v.${field}; value = v;}) list);
 
-  }
+  };}

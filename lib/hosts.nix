@@ -15,12 +15,11 @@
     inherit (builtins) readDir foldl' trace;
     inherit (nixpkgs.lib) nixosSystem;
     inherit (lib) attrNames filterAttrs pathExists;
-    inherit (lib.eula) generateUsers;
 
     concat-list = list: foldl' (x: y: x + " " + y) "" list;
 
   in {
-
+    eula.lib.hosts = {
     /**
       Applies a given function to each host in a given folder.
 
@@ -54,11 +53,10 @@
      */
     generateSystem = host:
 	{ ${host.networking.hostName} = nixosSystem {
-	  specialArgs = {inherit inputs outputs lib;};
           modules = [
 	    ../hosts
 	    host
           ];
         };
       };
-  }
+  };}

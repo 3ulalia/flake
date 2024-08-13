@@ -163,7 +163,7 @@
     generateSystem = host:
 	{ ${host.networking.hostName} = nixosSystem {
           modules = [
-	    ../hosts
+	    ./hosts
 	    host
           ];
         };

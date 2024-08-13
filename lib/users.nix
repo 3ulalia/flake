@@ -65,7 +65,9 @@
      */
     map-list-to-attrset = fn: users: listToAttrs (map (x: {name = x.name; value = fn x;}) users);
   in {
-    /** 
+      eula.lib.users = {
+
+      /** 
       Literally just a wrapper around resolve-users for consistent verbiage.
 
       TODO sig
@@ -73,4 +75,4 @@
     generate-users = users: map-list-to-attrset resolve-user users;
 
     generate-homes = users: map-list-to-attrset resolve-home users;
-  }
+  };}
