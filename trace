@@ -1,23 +1,41 @@
 warning: Git tree '/home/eulalia/flake' is dirty
 evaluating flake...
+trace: path: /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/lib/default.nix toIgnore: /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/lib/default.nix
+trace: default.nix
+trace: regular
+trace: path: /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/lib/helpers.nix toIgnore: /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/lib/default.nix
+trace: helpers.nix
+trace: regular
+trace: path: /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/lib/hosts.nix toIgnore: /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/lib/default.nix
+trace: hosts.nix
+trace: regular
+trace: path: /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/lib/modules.nix toIgnore: /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/lib/default.nix
+trace: modules.nix
+trace: regular
+trace: path: /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/lib/options.nix toIgnore: /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/lib/default.nix
+trace: options.nix
+trace: regular
+trace: path: /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/lib/users.nix toIgnore: /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/lib/default.nix
+trace: users.nix
+trace: regular
 error:
        … while checking flake output 'nixosConfigurations'
 
-         at /nix/store/whq45ajmb52k74if3327jk2gyq929wdb-source/flake.nix:29:7:
+         at /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/flake.nix:29:7:
 
            28|       #   which is called on an attribute set containing a `system` attribute and a `modules` list.
-           29|       nixosConfigurations = bootstrap.generate-systems ./hosts [./toplevel.nix];
+           29|       nixosConfigurations = bootstrap.generate-systems ./hosts inputs [./toplevel.nix];
              |       ^
            30|     };
 
        … while checking the NixOS configuration 'nixosConfigurations.sunlanii'
 
-         at /nix/store/whq45ajmb52k74if3327jk2gyq929wdb-source/bootstrap.nix:69:9:
+         at /nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/bootstrap.nix:69:9:
 
-           68|     generate-system = modules: host-file:
+           68|     generate-system = modules: put-ins: host-file:
            69|       { ${hostfile-to-hostname host-file} = nixosSystem {
              |         ^
-           70|           modules = [
+           70|           specialArgs = {inputs = put-ins;};
 
        … while calling the 'seq' builtin
 
@@ -147,57 +165,21 @@ error:
 
        … from call site
 
-         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:398:22:
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:396:73:
 
+          395|           };
+          396|         in parentFile: parentKey: initialModules: args: collectResults (imap1 (n: x:
+             |                                                                         ^
           397|           let
-          398|             module = checkModule (loadModule args parentFile "${parentKey}:anon-${toString n}" x);
-             |                      ^
-          399|             collectedImports = collectStructuredModules module._file module.key module.imports args;
 
-       … while calling anonymous lambda
+       … while calling 'imap1'
 
-         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:357:11:
+         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/lists.nix:165:14:
 
-          356|         then
-          357|           m:
-             |           ^
-          358|             if m._class != null -> m._class == class
-
-       … from call site
-
-         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:398:35:
-
-          397|           let
-          398|             module = checkModule (loadModule args parentFile "${parentKey}:anon-${toString n}" x);
-             |                                   ^
-          399|             collectedImports = collectStructuredModules module._file module.key module.imports args;
-
-       … while calling 'loadModule'
-
-         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:334:53:
-
-          333|       # Like unifyModuleSyntax, but also imports paths and calls functions if necessary
-          334|       loadModule = args: fallbackFile: fallbackKey: m:
-             |                                                     ^
-          335|         if isFunction m then
-
-       … from call site
-
-         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:335:12:
-
-          334|       loadModule = args: fallbackFile: fallbackKey: m:
-          335|         if isFunction m then
-             |            ^
-          336|           unifyModuleSyntax fallbackFile fallbackKey (applyModuleArgs fallbackKey m args)
-
-       … while calling 'isFunction'
-
-         at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/trivial.nix:448:16:
-
-          447|   */
-          448|   isFunction = f: builtins.isFunction f ||
-             |                ^
-          449|     (f ? __functor && isFunction (f.__functor f));
+          164|   */
+          165|   imap1 = f: list: genList (n: f (n + 1) (elemAt list n)) (length list);
+             |              ^
+          166|
 
        … while calling anonymous lambda
 
@@ -208,13 +190,13 @@ error:
              |                                            ^
           505|         builtins.addErrorContext (context name)
 
-       … while evaluating the module argument `inputs' in "/nix/store/whq45ajmb52k74if3327jk2gyq929wdb-source/hosts":
+       … while evaluating the module argument `config' in "/nix/store/8mq1ra7kvppxcz5nj73amsljjkjc66vx-source/modules":
 
        error: infinite recursion encountered
 
-       at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:506:28:
+       at /nix/store/pixkna3czp2zzq6k5wy3zh5acd59xn9w-source/lib/modules.nix:233:21:
 
-          505|         builtins.addErrorContext (context name)
-          506|           (args.${name} or config._module.args.${name})
-             |                            ^
-          507|       ) (lib.functionArgs f);
+          232|           (regularModules ++ [ internalModule ])
+          233|           ({ inherit lib options config specialArgs; } // specialArgs);
+             |                     ^
+          234|         in mergeModules prefix (reverseList collected);

@@ -14,7 +14,6 @@
 
 { 
   inputs,
-  outputs,
   pkgs,
   ...
 } : 
@@ -23,7 +22,6 @@
     imports = [
       ../users # all hosts will import the default user settings
       inputs.home-manager.nixosModules.home-manager # all hosts will use home-manager
-      outputs.nixosModules
     ];
 
     # TODO cachix
