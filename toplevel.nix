@@ -7,7 +7,7 @@
     imports = [
       ./hosts
       ./lib
-      ./modules
+      ./modules/nixos
       ./users
     ];
   }

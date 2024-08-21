@@ -6,6 +6,7 @@
  */
 
 {
+  bootstrap,
   config, # messy, but we need this so we know the list of users that have been specified for this system
   inputs,
   outputs,
@@ -15,7 +16,7 @@
 } : 
   let
 
-  inherit (lib) attrNames length filter mkIf trace elemAt;
+  inherit (lib) attrNames length filterAttrs mkIf trace elemAt;
 
   # config (as loaded from hosts/<hostname>/default.nix) will hold a custom option `users`
   # this is defined in modules/nixos/users.nix, which is loaded as into flake.nix::nixosModules.
@@ -23,11 +24,11 @@
   cfg = trace config.eula.modules.nixos.users config.eula.modules.nixos.users;
 
   is-empty = l: (length l) == 0;
-  
-  extra-settings = {programs.zsh.enable = (!(is-empty (filter (v: v.shell == pkgs.zsh) config.eula.modules.nixos.users)));};
 
-  users = config.eula.lib.users.generate-homes extra-settings cfg; 
+  users = config.eula.lib.users.generate-homes {} cfg; 
   in {
+
+    imports = map (n: ./. + ("/" + n)) (bootstrap.modules.nix-modules-in-dir [__curPos.file (builtins.toString ./home.nix)] ./.); 
 
     config = {
 
@@ -44,10 +45,14 @@
 
         useGlobalPkgs = true;
         useUserPackages = true;
+	backupFileExtension = "backup";
 	
-	users = trace users.eulalia.programs.zsh.enable users;
+	users =  users;
         
       };
-    } // extra-settings;
+
+      programs.zsh.enable = true;
+
+    } // {}; 
   }
 

@@ -7,7 +7,7 @@
   ...
 } : 
   let
-    inherit (builtins) attrNames baseNameOf dirOf pathExists readDir trace toString; # TODO: why
+    inherit (builtins) attrNames baseNameOf dirOf elem pathExists readDir trace toString; # TODO: why
     inherit (lib) filterAttrs hasSuffix;
   in {
 
@@ -24,7 +24,7 @@
       */
     valid-nix-module-huh = to-ignore: path: 
       let
-        pth = trace ("path: " + (toString path) + " toIgnore: ${to-ignore}") path; 
+        pth = trace ("path: " + (toString path) + " toIgnore: UNPRINTABLE") path; 
         file-name = trace (baseNameOf pth) (baseNameOf pth);
         file-type = trace (readDir (dirOf path))."${file-name}" (readDir (dirOf path))."${file-name}";
       in 
@@ -33,7 +33,7 @@
         # the path is to a directory containing a `default.nix`
         ((file-type == "directory") && pathExists ("${path}/default.nix"))) && 
         # the path is not to our recursion-preventing canary
-        ((toString path) != "${to-ignore}");
+        !(elem (toString path) to-ignore);
 
 
     nix-modules-in-dir = to-ignore: path: filterAttrs (name: value: (valid-nix-module-huh to-ignore (path + "/${name}"))) (readDir path);

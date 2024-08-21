@@ -3,12 +3,13 @@
   pkgs,
   inputs,
   config,
+  osConfig,
   ...
 } : 
   let 
 
     inherit (lib) types mkIf;
-    mkOpt = config.eula.lib.options.mkOpt;
+    mkOpt = osConfig.eula.lib.options.mkOpt;
 
   in {
 
@@ -18,7 +19,7 @@
 
     config = mkIf config.eula.modules.home-manager.signal-desktop.enable {
 
-      home-manager.users.eulalia.home.packages = [pkgs.signal-desktop];
+      home.packages = [pkgs.signal-desktop];
 
       nixpkgs.overlays = [
 	(self: super: {

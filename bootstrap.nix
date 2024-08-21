@@ -7,8 +7,8 @@
   ...
 } : 
   let
-    inherit (builtins) attrNames foldl' listToAttrs pathExists readDir trace unsafeDiscardStringContext; # TODO: why
-    inherit (lib) filterAttrs hasSuffix removeSuffix;
+    inherit (builtins) attrNames elem foldl' listToAttrs pathExists readDir trace unsafeDiscardStringContext; # TODO: why
+    inherit (lib) filterAttrs hasSuffix mkOption removeSuffix;
     inherit (inputs.nixpkgs.lib) nixosSystem;
   in rec {
   helpers = rec {
@@ -69,7 +69,8 @@
       { ${hostfile-to-hostname host-file} = nixosSystem {
           specialArgs = special-args;
           modules = [
-	          host-file
+	    host-file
+	    {home-manager.extraSpecialArgs = special-args;}
           ] ++ modules;
         };
       };
@@ -88,7 +89,7 @@
       */
     valid-nix-module-huh = to-ignore: path: 
       let
-        pth = trace ("path: " + (toString path) + " toIgnore: ${to-ignore}") path; 
+        pth = trace ("path: " + (toString path) + " toIgnore: ${lib.debug.traceSeq to-ignore (if (elem (toString path) to-ignore) then "is in to-ignore" else "is not in to-ignore")}") path; 
         file-name = trace (baseNameOf pth) (baseNameOf pth);
         file-type = trace (readDir (dirOf path))."${file-name}" (readDir (dirOf path))."${file-name}";
       in 
@@ -97,9 +98,15 @@
         # the path is to a directory containing a `default.nix`
         ((file-type == "directory") && pathExists ("${path}/default.nix"))) && 
         # the path is not to our recursion-preventing canary
-        ((toString path) != "${to-ignore}");
+        !(elem (toString path) to-ignore);
 
 
     nix-modules-in-dir = to-ignore: path: attrNames (filterAttrs (name: value: (valid-nix-module-huh to-ignore (path + "/${name}"))) (readDir path));
+  };
+    options = {
+
+    mkOpt = type: default: mkOption {inherit type default;};
+
+    mkOptd = type: default: description: mkOption {inherit type default description;};
   };
 }

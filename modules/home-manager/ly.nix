@@ -3,12 +3,13 @@
   pkgs,
   inputs,
   config,
+  osConfig,
   ...
 } : 
   let 
 
     inherit (lib) types mkIf;
-    mkOpt = config.eula.lib.options.mkOpt;
+    mkOpt = osConfig.eula.lib.options.mkOpt;
 
   in {
 
@@ -17,10 +18,8 @@
     };
 
     config = mkIf config.eula.modules.home-manager.ly.enable {
-      home-manager.users.eulalia = { # TODO FIX USERNAME MAPPING
 	home.packages = [
-	  pkgs.ly
+	 # pkgs.ly
         ];
-      };
     };
   }

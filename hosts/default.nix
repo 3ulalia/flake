@@ -39,4 +39,6 @@
     system.stateVersion = "23.11";
     
     environment.systemPackages = with pkgs; [git vim curl]; # bare necessities
+
+    nixpkgs.config.allowUnfree = true;
   }

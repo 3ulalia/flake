@@ -13,11 +13,14 @@
 
   in {
 
-    options.eula.modules.home-manager.alacritty = {
+    options.eula.modules.home-manager.firefox = {
       enable = mkOpt types.bool true;  
     };
 
-    config = mkIf config.eula.modules.home-manager.alacritty.enable {
-      home.packages = [pkgs.alacritty];
+    config = mkIf config.eula.modules.home-manager.firefox.enable {
+	home.packages = [
+	  pkgs.firefox
+        ];
+        programs.firefox.enable = true;
     };
   }

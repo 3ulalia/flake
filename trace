@@ -1,53 +1,406 @@
 warning: Git tree '/home/eulalia/flake' is dirty
 evaluating flake...
-trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/lib/default.nix toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/lib/default.nix
+trace: [ "/nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/users/default.nix" "/nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/users/home.nix" ]
+trace: path: /nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/users/default.nix toIgnore: is in to-ignore
 trace: default.nix
 trace: regular
-trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/lib/helpers.nix toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/lib/default.nix
+trace: [ "/nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/users/default.nix" "/nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/users/home.nix" ]
+trace: path: /nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/users/eulalia toIgnore: is not in to-ignore
+trace: eulalia
+trace: directory
+trace: [ "/nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/users/default.nix" "/nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/users/home.nix" ]
+trace: path: /nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/users/home.nix toIgnore: is in to-ignore
+trace: home.nix
+trace: regular
+trace: path: /nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/lib/default.nix toIgnore: UNPRINTABLE
+trace: default.nix
+trace: regular
+trace: path: /nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/lib/helpers.nix toIgnore: UNPRINTABLE
 trace: helpers.nix
 trace: regular
-trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/lib/hosts.nix toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/lib/default.nix
+trace: path: /nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/lib/hosts.nix toIgnore: UNPRINTABLE
 trace: hosts.nix
 trace: regular
-trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/lib/modules.nix toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/lib/default.nix
+trace: path: /nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/lib/modules.nix toIgnore: UNPRINTABLE
 trace: modules.nix
 trace: regular
-trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/lib/options.nix toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/lib/default.nix
+trace: path: /nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/lib/options.nix toIgnore: UNPRINTABLE
 trace: options.nix
 trace: regular
-trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/lib/users.nix toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/lib/default.nix
+trace: path: /nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/lib/users.nix toIgnore: UNPRINTABLE
 trace: users.nix
 trace: regular
-trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/TODO.md toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/default.nix
-trace: TODO.md
-trace: regular
-trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/default.nix toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/default.nix
+trace: aaaaaaaaaaaaaaaaaaaaaaaa
+trace: importing nixos modules folder
+trace: [ "/nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/modules/nixos/default.nix" ]
+trace: path: /nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/modules/nixos/default.nix toIgnore: is in to-ignore
 trace: default.nix
 trace: regular
-trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/home-manager toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/default.nix
-trace: home-manager
-trace: directory
-trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/nixos toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/default.nix
-trace: nixos
-trace: directory
-trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/home-manager/default.nix toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/home-manager/default.nix
-trace: default.nix
-trace: regular
-trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/home-manager/ly.nix toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/home-manager/default.nix
-trace: ly.nix
-trace: regular
-trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/home-manager/niri.nix toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/home-manager/default.nix
+trace: [ "/nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/modules/nixos/default.nix" ]
+trace: path: /nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/modules/nixos/niri.nix toIgnore: is not in to-ignore
 trace: niri.nix
 trace: regular
-trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/nixos/default.nix toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/nixos/default.nix
-trace: default.nix
-trace: regular
-trace: path: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/nixos/users.nix toIgnore: /nix/store/zrx58x4pv0mayq3ja4kqx15lxxhx3cwa-source/modules/nixos/default.nix
+trace: [ "/nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/modules/nixos/default.nix" ]
+trace: path: /nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/modules/nixos/users.nix toIgnore: is not in to-ignore
 trace: users.nix
 trace: regular
-trace: [ <CODE> ]
-trace: now evaluating thinkpad configuration!
-trace: true
-trace: true
-copying path '/nix/store/vsmj7776ik51zzkyy22ydl00ib2w1rpp-source' from 'https://cache.nixos.org'...
-error: interrupted by the user
+trace: [ /nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/modules/nixos/niri.nix /nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/modules/nixos/users.nix ]
+trace: importing niri nixos module
+trace: [ "/nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/users/default.nix" "/nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/users/home.nix" ]
+trace: path: /nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/users/default.nix toIgnore: is in to-ignore
+trace: default.nix
+trace: regular
+trace: [ "/nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/users/default.nix" "/nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/users/home.nix" ]
+trace: path: /nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/users/eulalia toIgnore: is not in to-ignore
+trace: eulalia
+trace: directory
+trace: [ "/nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/users/default.nix" "/nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/users/home.nix" ]
+trace: path: /nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/users/home.nix toIgnore: is in to-ignore
+trace: home.nix
+trace: regular
+trace: [ "eulalia" ]
+trace: mapping over users to enable niri accordingly!
+trace: { eulalia = <CODE>; }
+trace: [ "/nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/modules/home-manager/default.nix" ]
+trace: path: /nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/modules/home-manager/alacritty.nix toIgnore: is not in to-ignore
+trace: alacritty.nix
+trace: regular
+trace: [ "/nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/modules/home-manager/default.nix" ]
+trace: path: /nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/modules/home-manager/default.nix toIgnore: is in to-ignore
+trace: default.nix
+trace: regular
+trace: [ "/nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/modules/home-manager/default.nix" ]
+trace: path: /nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/modules/home-manager/ly.nix toIgnore: is not in to-ignore
+trace: ly.nix
+trace: regular
+trace: [ "/nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/modules/home-manager/default.nix" ]
+trace: path: /nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/modules/home-manager/niri.nix toIgnore: is not in to-ignore
+trace: niri.nix
+trace: regular
+trace: [ "/nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/modules/home-manager/default.nix" ]
+trace: path: /nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/modules/home-manager/signal-desktop.nix toIgnore: is not in to-ignore
+trace: signal-desktop.nix
+trace: regular
+trace: enabled niri HM module for a user!
+error:
+       … while checking flake output 'nixosConfigurations'
+
+         at /nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/flake.nix:30:7:
+
+           29|       #   which is called on an attribute set containing a `system` attribute and a `modules` list.
+           30|       nixosConfigurations = bootstrap.hosts.generate-systems ./hosts {inherit bootstrap inputs;} [./toplevel.nix];
+             |       ^
+           31|     };
+
+       … while checking the NixOS configuration 'nixosConfigurations.sunlanii'
+
+         at /nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/bootstrap.nix:69:9:
+
+           68|     generate-system = modules: special-args: host-file:
+           69|       { ${hostfile-to-hostname host-file} = nixosSystem {
+             |         ^
+           70|           specialArgs = special-args;
+
+       … while calling anonymous lambda
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/attrsets.nix:1571:24:
+
+         1570|     let f = attrPath:
+         1571|       zipAttrsWith (n: values:
+             |                        ^
+         1572|         let here = attrPath ++ [n]; in
+
+       … while calling anonymous lambda
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/attrsets.nix:1205:18:
+
+         1204|         mapAttrs
+         1205|           (name: value:
+             |                  ^
+         1206|             if isAttrs value && cond value
+
+       … from call site
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/attrsets.nix:1208:18:
+
+         1207|             then recurse (path ++ [ name ]) value
+         1208|             else f (path ++ [ name ]) value);
+             |                  ^
+         1209|     in
+
+       … while calling anonymous lambda
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/modules.nix:254:72:
+
+          253|           # For definitions that have an associated option
+          254|           declaredConfig = mapAttrsRecursiveCond (v: ! isOption v) (_: v: v.value) options;
+             |                                                                        ^
+          255|
+
+       … while evaluating the option `system.build.toplevel':
+
+       … while calling anonymous lambda
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/modules.nix:836:28:
+
+          835|         # Process mkMerge and mkIf properties.
+          836|         defs' = concatMap (m:
+             |                            ^
+          837|           map (value: { inherit (m) file; inherit value; }) (addErrorContext "while evaluating definitions from `${m.file}':" (dischargeProperties m.value))
+
+       … while evaluating definitions from `/nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/nixos/modules/system/activation/top-level.nix':
+
+       … from call site
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/modules.nix:837:128:
+
+          836|         defs' = concatMap (m:
+          837|           map (value: { inherit (m) file; inherit value; }) (addErrorContext "while evaluating definitions from `${m.file}':" (dischargeProperties m.value))
+             |                                                                                                                                ^
+          838|         ) defs;
+
+       … while calling 'dischargeProperties'
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/modules.nix:908:25:
+
+          907|   */
+          908|   dischargeProperties = def:
+             |                         ^
+          909|     if def._type or "" == "merge" then
+
+       … from call site
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/nixos/modules/system/activation/top-level.nix:71:12:
+
+           70|   # Replace runtime dependencies
+           71|   system = foldr ({ oldDependency, newDependency }: drv:
+             |            ^
+           72|       pkgs.replaceDependency { inherit oldDependency newDependency drv; }
+
+       … while calling 'foldr'
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/lists.nix:121:20:
+
+          120|   */
+          121|   foldr = op: nul: list:
+             |                    ^
+          122|     let
+
+       … from call site
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/lists.nix:128:8:
+
+          127|         else op (elemAt list n) (fold' (n + 1));
+          128|     in fold' 0;
+             |        ^
+          129|
+
+       … while calling 'fold''
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/lists.nix:124:15:
+
+          123|       len = length list;
+          124|       fold' = n:
+             |               ^
+          125|         if n == len
+
+       … while calling anonymous lambda
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/attrsets.nix:1205:18:
+
+         1204|         mapAttrs
+         1205|           (name: value:
+             |                  ^
+         1206|             if isAttrs value && cond value
+
+       … from call site
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/attrsets.nix:1208:18:
+
+         1207|             then recurse (path ++ [ name ]) value
+         1208|             else f (path ++ [ name ]) value);
+             |                  ^
+         1209|     in
+
+       … while calling anonymous lambda
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/modules.nix:254:72:
+
+          253|           # For definitions that have an associated option
+          254|           declaredConfig = mapAttrsRecursiveCond (v: ! isOption v) (_: v: v.value) options;
+             |                                                                        ^
+          255|
+
+       … while evaluating the option `assertions':
+
+       … while calling anonymous lambda
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/modules.nix:836:28:
+
+          835|         # Process mkMerge and mkIf properties.
+          836|         defs' = concatMap (m:
+             |                            ^
+          837|           map (value: { inherit (m) file; inherit value; }) (addErrorContext "while evaluating definitions from `${m.file}':" (dischargeProperties m.value))
+
+       … while evaluating definitions from `/nix/store/04ia5664ancpy3q9rb7dwy9xxafqnmk3-source/nixos/common.nix':
+
+       … from call site
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/modules.nix:837:128:
+
+          836|         defs' = concatMap (m:
+          837|           map (value: { inherit (m) file; inherit value; }) (addErrorContext "while evaluating definitions from `${m.file}':" (dischargeProperties m.value))
+             |                                                                                                                                ^
+          838|         ) defs;
+
+       … while calling 'dischargeProperties'
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/modules.nix:908:25:
+
+          907|   */
+          908|   dischargeProperties = def:
+             |                         ^
+          909|     if def._type or "" == "merge" then
+
+       … from call site
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/modules.nix:914:11:
+
+          913|         if def.condition then
+          914|           dischargeProperties def.content
+             |           ^
+          915|         else
+
+       … while calling 'dischargeProperties'
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/modules.nix:908:25:
+
+          907|   */
+          908|   dischargeProperties = def:
+             |                         ^
+          909|     if def._type or "" == "merge" then
+
+       … from call site
+
+         at /nix/store/04ia5664ancpy3q9rb7dwy9xxafqnmk3-source/nixos/common.nix:110:20:
+
+          109|
+          110|       assertions = flatten (flip mapAttrsToList cfg.users (user: config:
+             |                    ^
+          111|         flip map config.assertions (assertion: {
+
+       … while calling 'flatten'
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/lists.nix:431:13:
+
+          430|   */
+          431|   flatten = x:
+             |             ^
+          432|     if isList x
+
+       … while calling anonymous lambda
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/lists.nix:433:21:
+
+          432|     if isList x
+          433|     then concatMap (y: flatten y) x
+             |                     ^
+          434|     else [x];
+
+       … from call site
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/lists.nix:433:24:
+
+          432|     if isList x
+          433|     then concatMap (y: flatten y) x
+             |                        ^
+          434|     else [x];
+
+       … while calling 'flatten'
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/lists.nix:431:13:
+
+          430|   */
+          431|   flatten = x:
+             |             ^
+          432|     if isList x
+
+       … while calling anonymous lambda
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/attrsets.nix:1096:10:
+
+         1095|     attrs:
+         1096|     map (name: f name attrs.${name}) (attrNames attrs);
+             |          ^
+         1097|
+
+       … from call site
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/attrsets.nix:1096:16:
+
+         1095|     attrs:
+         1096|     map (name: f name attrs.${name}) (attrNames attrs);
+             |                ^
+         1097|
+
+       … while calling anonymous lambda
+
+         at /nix/store/04ia5664ancpy3q9rb7dwy9xxafqnmk3-source/nixos/common.nix:110:66:
+
+          109|
+          110|       assertions = flatten (flip mapAttrsToList cfg.users (user: config:
+             |                                                                  ^
+          111|         flip map config.assertions (assertion: {
+
+       … from call site
+
+         at /nix/store/04ia5664ancpy3q9rb7dwy9xxafqnmk3-source/nixos/common.nix:111:9:
+
+          110|       assertions = flatten (flip mapAttrsToList cfg.users (user: config:
+          111|         flip map config.assertions (assertion: {
+             |         ^
+          112|           inherit (assertion) assertion;
+
+       … while calling 'flip'
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/trivial.nix:317:16:
+
+          316|   */
+          317|   flip = f: a: b: f b a;
+             |                ^
+          318|
+
+       … while calling anonymous lambda
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/types.nix:583:22:
+
+          582|       merge = loc: defs:
+          583|         mapAttrs (n: v: v.value) (filterAttrs (n: v: v ? value) (zipAttrsWith (name: defs:
+             |                      ^
+          584|             (mergeDefinitions (loc ++ [name]) elemType defs).optionalValue
+
+       … from call site
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/modules.nix:858:59:
+
+          857|       if isDefined then
+          858|         if all (def: type.check def.value) defsFinal then type.merge loc defsFinal
+             |                                                           ^
+          859|         else let allInvalid = filter (def: ! type.check def.value) defsFinal;
+
+       … while calling 'merge'
+
+         at /nix/store/h60m1fwahjd2mv6gsg77ji3vb4gpj4dk-source/lib/types.nix:887:22:
+
+          886|         check = x: isAttrs x || isFunction x || path.check x;
+          887|         merge = loc: defs:
+             |                      ^
+          888|           (base.extendModules {
+
+       error: The option `home-manager.users.eulalia.programs.niri.enable' does not exist. Definition values:
+       - In `/nix/store/v3w3f40fzgp71j8vr351f86c1jyc59qm-source/modules/home-manager/niri.nix':
+           {
+             _type = "if";
+             condition = true;
+             content = true;
+           }

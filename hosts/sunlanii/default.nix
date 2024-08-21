@@ -4,6 +4,7 @@
 
 { 
   lib,
+  inputs,
   ...
 }:
 
@@ -15,6 +16,7 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      inputs.nixos-hardware.nixosModules.lenovo-thinkpad-e14-amd
     ];
 
   # Bootloader.
@@ -48,17 +50,17 @@ in
 
   networking.hostName = "sunlanii"; # Define your hostname.
 
-  eula.modules.nixos.users = [
-    {
-      name = (trace "now evaluating thinkpad configuration!" "eulalia"); 
-      privileged = true;
-    }
-  ];
+  eula.modules.nixos.users = {
+    eulalia = {
+      privileged = (trace "now evaluating thinkpad configuration!" true); 
+      extraGroups = ["audio"];
+    };
+  };
 
   # Configure keymap in X11
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "us";
-    xkbVariant = "";
+    variant = "";
   };
 
   # Allow unfree packages

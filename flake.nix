@@ -2,8 +2,10 @@
   description = "eula's system configuration (in a flake!)";
 
   inputs = {
-    # not cool enough for unstable (yet)
+
+    # officially cool enough for unstable
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     # home-manager (a regañadientes)
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -11,6 +13,8 @@
     }; 
 
     niri.url = "github:sodiboo/niri-flake"; # TODO stop the madness
+
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
   };
 

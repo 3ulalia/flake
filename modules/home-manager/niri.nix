@@ -1,41 +1,40 @@
 {
+  inputs,
   lib,
   pkgs,
-  inputs,
   config,
+  osConfig,
   ...
 } : 
   let 
-
-    inherit (lib) types mkIf;
-    mkOpt = config.eula.lib.options.mkOpt;
-
+    inherit (lib) types mkIf trace mkAliasDefinitions;
+    mkOpt = osConfig.eula.lib.options.mkOpt;
   in {
 
-    imports = [inputs.niri.nixosModules.niri];
-
     options.eula.modules.home-manager.niri = {
-      enable = mkOpt types.bool true;  
+      enable = mkOpt types.bool false;  
     };
 
-    config = mkIf config.eula.modules.home-manager.niri.enable {
+    config = mkIf (trace "enabled niri HM module for a user!" config.eula.modules.home-manager.niri.enable) {
+
       home = { 
 
 	# home-manager settings
-
-	# TODO break pkgs out into own modules
+	
+       	# TODO break pkgs out into own modules
 	# TODO configure niri to find these packages
 	packages = [ 
+	  pkgs.niri
           pkgs.wofi
           pkgs.fuzzel
           pkgs.swww
           pkgs.mako
-	  pkgs.xdg-desktop-portal-gnome
+	  pkgs.gnome-keyring
+	  pkgs.waybar
         ];
-
-	xdg.portal.config.common.default = "*";
-	xdg.portal.enable = true;
-	xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gnome];
       };
+
+     # programs.niri.enable = true;
+
     };
   }
