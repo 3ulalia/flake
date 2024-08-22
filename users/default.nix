@@ -16,16 +16,16 @@
 } : 
   let
 
-  inherit (lib) attrNames length filterAttrs mkIf trace elemAt;
+  inherit (lib) attrNames length filterAttrs mapAttrs mkIf trace;
+  inherit (lib.attrsets) recursiveUpdate;
 
-  # config (as loaded from hosts/<hostname>/default.nix) will hold a custom option `users`
-  # this is defined in modules/nixos/users.nix, which is loaded as into flake.nix::nixosModules.
-  # it is a list of attrsets containing basic user configurations.
-  cfg = trace config.eula.modules.nixos.users config.eula.modules.nixos.users;
+  ans-settings = {
+    programs.zsh.enable = true;
+    programs.zsh.initExtra = "any-nix-shell zsh --info-right | source /dev/stdin";
+    home = {packages = [pkgs.any-nix-shell];};
+  };
 
-  is-empty = l: (length l) == 0;
-
-  users = config.eula.lib.users.generate-homes {} cfg; 
+  users = config.eula.modules.nixos.users;
   in {
 
     imports = map (n: ./. + ("/" + n)) (bootstrap.modules.nix-modules-in-dir [__curPos.file (builtins.toString ./home.nix)] ./.); 
@@ -38,7 +38,7 @@
         defaultUserShell = pkgs.zsh;
 
         # derived from config.users, which is defined in the module for the individual host
-        users = config.eula.lib.users.generate-users cfg;
+        users = config.eula.lib.users.generate-users users;
       };
 
       home-manager = {
@@ -47,12 +47,13 @@
         useUserPackages = true;
 	backupFileExtension = "backup";
 	
-	users =  users;
-        
+	users = mapAttrs 
+	  (n: u: recursiveUpdate u (if users.${n}.shell == pkgs.zsh then ans-settings else {}))
+	  (config.eula.lib.users.generate-homes {} users);
       };
 
-      programs.zsh.enable = true;
+    programs.zsh.enable = true;
 
-    } // {}; 
+    }; 
   }
 
