@@ -9,10 +9,11 @@
     spawn-at-startup = [
       {command = ["swww-daemon"];}
       {command = ["mako"];}
-      {command = ["dbus-update-activation-environment" "--systemd" "DISPLAY" "WAYLAND_DISPLAY"];}
-      #{command = ["waybar"];}
+      #{command = ["dbus-update-activation-environment" "--systemd" "DISPLAY" "WAYLAND_DISPLAY"];}
     ];
-    
+
+    cursor.size = 128;    
+
     binds = let 
       binds = {
         suffixes,

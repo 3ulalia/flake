@@ -3,6 +3,7 @@
   inputs,
   lib,
   pkgs,
+  nixpkgs,
   ...
 } : 
   let 
@@ -19,6 +20,14 @@
     config = mkIf ((length config.eula.modules.nixos.niri.enableFor) != 0) rec {
       programs.niri.enable = (trace "niri is enabled systemwide!" true);
       
+      nixpkgs.overlays = [inputs.niri.overlays.niri];
+
+      # TODO move
+      fonts.packages = [
+	pkgs.meslo-lg
+	(pkgs.nerdfonts.override { fonts = ["Meslo"]; })
+      ];
+
       home-manager.users = 
 	list-to-attrs (
 	  map 
