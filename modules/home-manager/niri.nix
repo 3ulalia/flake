@@ -12,12 +12,9 @@
     mkOpt = osConfig.eula.lib.options.mkOpt;
 
     configs-to-enabled-settings = cfgs:  
-      let
-	strip-all-chars-after = char: str: head (split char str);
-      in
-        list-to-attrs (map 
-	  (n: {${strip-all-chars-after "-" config.eula.modules.home-manager.niri.${n}.pkg.name}.enable = true;})
-	  (filter (n: config.eula.modules.home-manager.niri.${n}.enable) cfgs));
+      list-to-attrs (map 
+	(n: {${config.eula.modules.home-manager.niri.${n}.pkg.pname}.enable = true;})
+	(filter (n: config.eula.modules.home-manager.niri.${n}.enable) cfgs));
   in {
 
     options.eula.modules.home-manager.niri = {
@@ -45,6 +42,10 @@
       night-shift = {
 	enable = mkOpt types.bool true;
       }; 
+      locker = {
+	enable = mkOpt types.bool true;
+	pkg = mkOpt types.package pkgs.swaylock-effects;
+      };
     };
 
     config = mkIf (trace "enabled niri HM module for a user!" config.eula.modules.home-manager.niri.enable) {
@@ -56,6 +57,7 @@
 	
 	packages = [   
 	  pkgs.niri
+	  (mkIf config.eula.modules.home-manager.niri.locker.enable config.eula.modules.home-manager.niri.locker.pkg)
 	  (mkIf config.eula.modules.home-manager.niri.bg.enable config.eula.modules.home-manager.niri.bg.pkg)
         ];
       };

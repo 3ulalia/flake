@@ -62,7 +62,7 @@
 	  }
 	  {
 	    "Mod+Shift+Q".action = quit;
-	   # "Mod+Shift+L".action = spawn "swaylock";
+	    "Mod+Shift+L".action.spawn = ["swaylock"] ++ config.eula.modules.home-manager.swaylock-effects.spawn-command;
 	  }
 	  (binds {
 	    suffixes."Left" = "column-left";
