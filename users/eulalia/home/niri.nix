@@ -69,10 +69,10 @@
 	    "XF86MonBrightnessUp".action = spawn "brightnessctl" "set" "+10%";
 	  }
 	  (binds {
+	    suffixes."Right" = "column-right";
 	    suffixes."Left" = "column-left";
 	    suffixes."Down" = "window-down";
 	    suffixes."Up" = "window-up";
-	    suffixes."Right" = "column-right";
 	    prefixes."Mod" = "focus";
 	    prefixes."Mod+Shift" = "move";
 	  })
