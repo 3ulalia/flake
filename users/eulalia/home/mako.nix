@@ -6,7 +6,6 @@
   ...
 } : {
 
-    services.mako = {
-      enable = true;
-    };
+  # TODO: configure mako
+
 }
