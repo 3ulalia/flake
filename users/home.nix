@@ -9,7 +9,10 @@
 in {
   #imports = [../modules/home-manager];
 
-  programs.home-manager.enable = true;
+  # This may seem cavalier. However, since anyone using this flake is also locked
+  # into using home-manager, we _should_ always have git in our environment.
+  # should.
   programs.git.enable = true;
+  programs.home-manager.enable = (trace "evaluating users/home.nix!" true);
 }
 
