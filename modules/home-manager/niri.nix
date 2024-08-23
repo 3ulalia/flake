@@ -37,7 +37,7 @@
       };
       brightness = {
 	enable = mkOpt types.bool true;
-	pkg = mkOpt types.package pkgs.wluma;
+	pkg = mkOpt types.package pkgs.brightnessctl;# TODO pkgs.wluma;
       };
       night-shift = {
 	enable = mkOpt types.bool true;
@@ -57,9 +57,11 @@
 	
 	packages = [   
 	  pkgs.niri
-	  (mkIf config.eula.modules.home-manager.niri.locker.enable config.eula.modules.home-manager.niri.locker.pkg)
-	  (mkIf config.eula.modules.home-manager.niri.bg.enable config.eula.modules.home-manager.niri.bg.pkg)
-        ];
+        ] ++ (map 
+	  (n: config.eula.modules.home-manager.niri.${n}.pkg)
+	  (filter (n: config.eula.modules.home-manager.niri.${n}.enable)
+	  ["brightness" "bg" "locker"])
+	);
       };
 
       programs = configs-to-enabled-settings ["bar" "launcher"];   
