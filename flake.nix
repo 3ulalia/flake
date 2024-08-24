@@ -16,12 +16,18 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs = inputs @ { 
     self,
     nixpkgs,
     home-manager,
+    disko,
     ...
  }: let
       bootstrap = import ./bootstrap.nix {inherit inputs; lib = nixpkgs.lib;};

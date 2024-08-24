@@ -16,11 +16,12 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./disko.nix
       inputs.nixos-hardware.nixosModules.lenovo-thinkpad-e14-amd
     ];
 
   # Bootloader.
-  # boot.loader.systemd-boot.enable = true; # GRUB for the win
+  boot.loader.systemd-boot.enable = false; # GRUB for the win
   boot.loader.grub = {
     enable = true;
     efiSupport = true;
@@ -47,6 +48,8 @@ in
     '';
   };
   boot.loader.efi.canTouchEfiVariables = true;
+
+  # TODO: hibernate (see guide linked in ./disko.nix, subheading "Hibernation"
 
   networking.hostName = "sunlanii"; # Define your hostname.
 
