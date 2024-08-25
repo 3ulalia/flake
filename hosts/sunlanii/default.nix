@@ -24,31 +24,15 @@ in
   boot.loader.systemd-boot.enable = false; # GRUB for the win
   boot.loader.grub = {
     enable = true;
+    enableCryptodisk = true;
     efiSupport = true;
     # useOSProber = true; # this way lies danger
     device = "nodev";
-
-    # 5456-C82D
-
-    extraEntries = ''
-      menuentry "Arch Linux (on /dev/nvme0n1p4)" --class arch --class os {
-        set gfxpayload=keep
-        set gfxmode=auto
-        insmod part_gpt
-        insmod part_msdos
-        echo ""
-        echo ""       
-        echo ""
-        search --no-floppy --fs-uuid --set=root 5456-C82D
-        echo "Loading Arch Linux"
-        linux /vmlinuz-linux root=/dev/nvme0n1p4 rw loglevel=3 quiet
-        echo "Loading initial ramdisk..."
-        initrd /initramfs-linux.img
-      }
-    '';
   };
-  boot.loader.efi.canTouchEfiVariables = true;
-
+  boot.loader.efi = {
+    canTouchEfiVariables = true;
+    efiSysMountPoint = "/boot/efi";
+  };
   # TODO: hibernate (see guide linked in ./disko.nix, subheading "Hibernation"
 
   networking.hostName = "sunlanii"; # Define your hostname.
