@@ -41,4 +41,7 @@
     environment.systemPackages = with pkgs; [vim curl]; # bare necessities
 
     nixpkgs.config.allowUnfree = true;
+    nixpkgs.overlays = [
+      (import ../overlays/grub2) # TODO module
+    ];
   }
