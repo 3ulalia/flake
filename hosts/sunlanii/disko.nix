@@ -3,13 +3,12 @@ https://haseebmajid.dev/posts/2024-07-30-how-i-setup-btrfs-and-luks-on-nixos-usi
 https://0pointer.net/blog/unlocking-luks2-volumes-with-tpm2-fido2-pkcs11-security-hardware-on-systemd-248.html
 */
 {
-  inputs,
-  config,
+ # inputs,
   lib,
   ...
 } : {
 
-  imports = [inputs.disko.nixosModules.disko];
+  # imports = [inputs.disko.nixosModules.disko];
 
   disko.devices = {
     disk = {
@@ -20,7 +19,7 @@ https://0pointer.net/blog/unlocking-luks2-volumes-with-tpm2-fido2-pkcs11-securit
 	  type = "gpt";
 	  partitions = {
 	    ESP = {
-	      label = "boot/efi";
+	      label = "efi";
 	      name = "ESP";
 	      size = "512M";
 	      type = "EF00";
@@ -43,7 +42,7 @@ https://0pointer.net/blog/unlocking-luks2-volumes-with-tpm2-fido2-pkcs11-securit
 		];
 		settings = {
 	 	  allowDiscards = true;
-		  keyFile = ""; # TODO 
+		  # keyFile = ""; # TODO 
 		};
 		content = {
 		  type = "btrfs";
