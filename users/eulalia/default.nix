@@ -8,7 +8,6 @@
 
       services = {
 	ly.enable = true;
-	geoclue2.enable = true;
       };
 
       nixos = {

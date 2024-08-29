@@ -13,7 +13,7 @@
     options.eula.modules.services.geoclue2.enable = mkOpt types.bool false;
     
     config = mkIf config.eula.modules.services.geoclue2.enable {
-      services.geoclue2.enable = (trace "ly is enabled systemwide!" true);
+      services.geoclue2.enable = (trace "geoclue2 is enabled systemwide!" true);
     };
 }
 	      
