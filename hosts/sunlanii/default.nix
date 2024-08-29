@@ -35,8 +35,10 @@ in
     efiSysMountPoint = "/boot/efi";
   };
 
-  eula.modules.services.lanzaboote.enable = true;
-  # TODO dismiss warning
+  eula.modules.services.lanzaboote = {
+    enable = true;
+    dismiss-warning = true;
+  };
 
   eula.modules.services.hibernate = {
     enable = true;

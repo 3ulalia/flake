@@ -42,7 +42,7 @@ https://jnsgr.uk/2024/04/nixos-secure-boot-tpm-fde/
       assertions = [
 	{ assertion = !config.boot.loader.grub.enable; message = "lanzaboote is incompatible with GRUB for now (see https://github.com/nix-community/lanzaboote/issues/29)";}
         # TODO why is this v wrong
-        { assertion = !(pathExists /etc/secureboot/keys/db/db.pem); message = ''
+        { assertion = !(pathExists config.boot.lanzaboote.pkiBundle); message = ''
   Secure Boot key database not present at /etc/secureboot!
   
   this is most likely because you need to run:
