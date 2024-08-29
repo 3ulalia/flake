@@ -26,6 +26,10 @@
 	kernelParams = ["resume_offset=${toString config.eula.modules.services.hibernate.resume-offset}"];
 	resumeDevice = config.eula.modules.services.hibernate.resume-device;
       };
+      systemd.sleep.extraConfig = ''
+        [Sleep]
+        HibernateMode=shutdown
+      '';
     };
   }
 	      
