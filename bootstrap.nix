@@ -89,9 +89,8 @@
       */
     valid-nix-module-huh = to-ignore: path: 
       let
-        pth = trace ("path: " + (toString path) + " toIgnore: ${lib.debug.traceSeq to-ignore (if (elem (toString path) to-ignore) then "is in to-ignore" else "is not in to-ignore")}") path; 
-        file-name = trace (baseNameOf pth) (baseNameOf pth);
-        file-type = trace (readDir (dirOf path))."${file-name}" (readDir (dirOf path))."${file-name}";
+        file-name = baseNameOf path;
+        file-type = (readDir (dirOf path))."${file-name}";
       in 
         # the path is to a single nix file
         (((file-type == "regular") && (hasSuffix ".nix" file-name)) ||
