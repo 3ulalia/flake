@@ -32,7 +32,17 @@ in
     canTouchEfiVariables = true;
     efiSysMountPoint = "/boot/efi";
   };
-  # TODO: hibernate (see guide linked in ./disko.nix, subheading "Hibernation"
+
+  eula.modules.services.hibernate = {
+    enable = true;
+    resume-device = "/dev/disk/by-label/nixos";
+    resume-offset = 533760;
+  };
+
+  swapDevices = [ { 
+    device = "/swap/swapfile";
+  }];
+
 
   networking.hostName = "sunlanii"; # Define your hostname.
 
