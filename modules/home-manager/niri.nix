@@ -71,7 +71,7 @@
 	gammastep = {
       	  enable = mkIf config.eula.modules.home-manager.niri.night-shift.enable true;
 	  # TODO: investigate a fix (mozilla location service no longer exists)
-    	  provider = "manual"; #if osConfig.services.geoclue2.enable then "geoclue2" else "manual";
+    	  provider = if osConfig.services.geoclue2.enable then "geoclue2" else "manual";
   	  latitude = 42.36; # Boston
   	  longitude = -71.06;
         };
