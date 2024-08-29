@@ -30,6 +30,10 @@
         [Sleep]
         HibernateMode=shutdown
       '';
+
+      assertions = [
+	{assertion = (builtins.length config.swapDevices) != 0; message = "Hibernation requires a swapfile configured to hibernate to";}
+      ];
     };
   }
 	      
