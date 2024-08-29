@@ -20,6 +20,7 @@ in
     ];
 
   # Bootloader.
+  /*
   boot.loader.systemd-boot.enable = false; # GRUB for the win
   boot.loader.grub = {
     enable = true;
@@ -28,10 +29,14 @@ in
     # useOSProber = true; # this way lies danger
     device = "nodev";
   };
+  */
   boot.loader.efi = {
     canTouchEfiVariables = true;
     efiSysMountPoint = "/boot/efi";
   };
+
+  eula.modules.services.lanzaboote.enable = true;
+  # TODO dismiss warning
 
   eula.modules.services.hibernate = {
     enable = true;

@@ -25,6 +25,11 @@
       url = "github:nix-community/impermanence";
     };
 
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs = inputs @ { 
@@ -32,6 +37,8 @@
     nixpkgs,
     home-manager,
     disko,
+    impermanence,
+    lanzaboote,
     ...
  }: let
       bootstrap = import ./bootstrap.nix {inherit inputs; lib = nixpkgs.lib;};
