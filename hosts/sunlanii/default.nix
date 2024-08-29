@@ -16,7 +16,6 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./disko.nix
       inputs.nixos-hardware.nixosModules.lenovo-thinkpad-e14-amd
     ];
 
@@ -44,19 +43,21 @@ in
     };
   };
 
+  eula.modules.services.disko = {
+    enable = true;
+    disko-config = ./disko.nix;
+    needed-for-boot = ["/persist" "/var/log"];
+  };
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
     variant = "";
   };
 
-  services.udisks2 = {
-    enable = true;
-  };
+  services.udisks2.enable = true;
 
-  services.fwupd = {
-    enable = true;
-  };
+  services.fwupd.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

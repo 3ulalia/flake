@@ -3,13 +3,6 @@ https://haseebmajid.dev/posts/2024-07-30-how-i-setup-btrfs-and-luks-on-nixos-usi
 https://0pointer.net/blog/unlocking-luks2-volumes-with-tpm2-fido2-pkcs11-security-hardware-on-systemd-248.html
 */
 {
-  inputs,
-  lib,
-  ...
-} : {
-
-  imports = [inputs.disko.nixosModules.disko];
-
   disko.devices = {
     disk = {
       main = {
@@ -85,7 +78,4 @@ https://0pointer.net/blog/unlocking-luks2-volumes-with-tpm2-fido2-pkcs11-securit
       };
     };
   };
-
-  fileSystems."/persist".neededForBoot = true;
-  fileSystems."/var/log".neededForBoot = true;
 }
