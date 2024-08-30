@@ -30,9 +30,13 @@ in
     device = "nodev";
   };
   */
+
+  # This shouldn't be needed, but might be :3
+  # boot.kernelPackages = pkgs.linuxPackages.latest;
+
   boot.loader.efi = {
     canTouchEfiVariables = true;
-    efiSysMountPoint = "/boot/efi";
+    efiSysMountPoint = "/efi";
   };
 
   eula.modules.services.lanzaboote = {

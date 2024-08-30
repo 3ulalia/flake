@@ -19,7 +19,7 @@ https://0pointer.net/blog/unlocking-luks2-volumes-with-tpm2-fido2-pkcs11-securit
 	      content = {
 	        type = "filesystem";
 		format = "vfat";
-		mountpoint = "/boot/efi";
+		mountpoint = "/efi";
 		mountOptions = [ "defaults" ];
 	      };
 	    };
