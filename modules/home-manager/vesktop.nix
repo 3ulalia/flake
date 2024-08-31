@@ -13,13 +13,13 @@
 
   in {
 
-    options.eula.modules.home-manager.vesktop= {
+    options.eula.modules.home-manager.signal-desktop = {
       enable = mkOpt types.bool false;  
     };
 
-    config = mkIf config.eula.modules.home-manager.vesktop.enable {
+    config = mkIf config.eula.modules.home-manager.signal-desktop.enable {
 
-      home.packages = [pkgs.vesktop];
+      home.packages = [pkgs.signal-desktop];
 
     };
   }

@@ -54,6 +54,8 @@
 	# home-manager settings
 	
        	# TODO break pkgs out into own modules
+
+        sessionVariables = { NIXOS_OZONE_WL = "1";};
 	
 	packages = [   
 	  pkgs.niri
