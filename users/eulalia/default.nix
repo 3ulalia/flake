@@ -17,7 +17,6 @@
 
 
  	users.eulalia.home-config.eula.modules = {
- 	  home-manager.firefox.enable = true;
  	  home-manager.alacritty.enable = true;
         };
       };
