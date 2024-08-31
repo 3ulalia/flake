@@ -13,10 +13,10 @@
 
   in {
 
-    options.eula.modules.home-manager.git = rec {
+    options.eula.modules.home-manager.git = {
       enable = mkOpt types.bool true;  
       user-name = mkOpt types.str "user";
-      user-email = mkOpt types.str "${user-name}@${osConfig.hostname}";
+      user-email = mkOpt types.str "user@hostname";
     };
 
     config = mkIf config.eula.modules.home-manager.ly.enable {
