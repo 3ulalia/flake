@@ -5,6 +5,7 @@
 { 
   lib,
   inputs,
+  pkgs,
   ...
 }:
 
@@ -32,7 +33,7 @@ in
   */
 
   # This shouldn't be needed, but might be :3
-  # boot.kernelPackages = pkgs.linuxPackages.latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.loader.efi = {
     canTouchEfiVariables = true;
