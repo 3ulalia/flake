@@ -58,8 +58,6 @@
  	    "Mod+Space".action = spawn "sh" "-c" "if pidof -qx 'fuzzel'; then kill $(pidof fuzzel); else fuzzel; fi";
 	    "Mod+W".action = close-window;
 	    "Mod+Return".action = maximize-column;
-	    "Mod+Minus".action = set-column-width "-10%";
-	    "Mod+Equal".action = set-column-width "+10%";
 	  }
 	  {
 	    "Mod+Shift+Q".action = quit;
@@ -69,11 +67,17 @@
 	    "XF86MonBrightnessDown".action = spawn "brightnessctl" "set" "10%-";
 	    "XF86MonBrightnessUp".action = spawn "brightnessctl" "set" "+10%";
 	  }
+	  {
+	    "Mod+Minus".action = set-column-width "-10%";
+	    "Mod+Equal".action = set-column-width "+10%";
+	    "Mod+Shift+Minus".action = set-window-height "-10%";
+	    "Mod+Shift+Equal".action = set-window-height "+10%";
+	  }
 	  (binds {
-	    suffixes."Right" = "column-right";
-	    suffixes."Left" = "column-left";
-	    suffixes."Down" = "window-down";
-	    suffixes."Up" = "window-up";
+	    suffixes."L" = "column-right";
+	    suffixes."H" = "column-left";
+	    suffixes."J" = "window-down";
+	    suffixes."K" = "window-up";
 	    prefixes."Mod" = "focus";
 	    prefixes."Mod+Shift" = "move";
 	  })
@@ -87,8 +91,8 @@
 	    suffixes."Page_Up" = "workspace-up";
 	    suffixes."Page_Down" = "workspace-down";
 	    prefixes."Mod" = "focus";
-            prefixes."Mod+Ctrl" = "move-window-to";
-            prefixes."Mod+Shift" = "move";
+            prefixes."Mod+Shift" = "move-window-to";
+            prefixes."Mod+Ctrl" = "move";
 	  })
         ];
     };
