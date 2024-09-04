@@ -12,6 +12,7 @@
       #{command = ["dbus-update-activation-environment" "--systemd" "DISPLAY" "WAYLAND_DISPLAY"];}
     ];
 
+    prefer-no-csd = true;
     cursor.size = 128;    
 
     binds = let 
