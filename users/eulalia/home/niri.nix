@@ -54,7 +54,7 @@
         lib.attrsets.mergeAttrsList [
 	  {
 	    "Mod+Tab".action = spawn "alacritty";
- 	    "Mod+Space".action = spawn "fuzzel";
+ 	    "Mod+Space".action = spawn "sh" "-c" "if pidof -qx 'fuzzel'; then kill $(pidof fuzzel); else fuzzel; fi";
 	    "Mod+W".action = close-window;
 	    "Mod+Return".action = maximize-column;
 	    "Mod+Minus".action = set-column-width "-10%";
