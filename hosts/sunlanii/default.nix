@@ -20,25 +20,17 @@ in
       inputs.nixos-hardware.nixosModules.lenovo-thinkpad-e14-amd
     ];
 
-  # Bootloader.
-  /*
-  boot.loader.systemd-boot.enable = false; # GRUB for the win
-  boot.loader.grub = {
-    enable = true;
-    enableCryptodisk = true;
-    efiSupport = true;
-    # useOSProber = true; # this way lies danger
-    device = "nodev";
-  };
-  */
-
   # This shouldn't be needed, but might be :3
   boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  # Bootloader.
 
   boot.loader.efi = {
     canTouchEfiVariables = true;
     efiSysMountPoint = "/efi";
   };
+
+  boot.loader.systemd-boot.configurationLimit = 5;
 
   eula.modules.services.lanzaboote = {
     enable = true;
@@ -50,11 +42,6 @@ in
     resume-device = "/dev/disk/by-label/nixos";
     resume-offset = 533760;
   };
-
-  swapDevices = [ { 
-    device = "/swap/swapfile";
-  }];
-
 
   networking.hostName = "sunlanii"; # Define your hostname.
 
