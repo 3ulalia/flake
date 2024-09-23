@@ -19,6 +19,7 @@
 
     options.eula.modules.home-manager.niri = {
       enable = mkOpt types.bool false;  
+      pkg = mkOpt types.package pkgs.niri-stable;
       launcher = {
 	enable = mkOpt types.bool true;
 	pkg = mkOpt types.package pkgs.fuzzel;
@@ -66,7 +67,9 @@
 	);
       };
 
-      programs = configs-to-enabled-settings ["bar" "launcher"];   
+      programs = (configs-to-enabled-settings ["bar" "launcher"]) // {
+	niri.package = config.eula.modules.home-manager.niri.pkg;
+      };
 
       services = (configs-to-enabled-settings ["notif"]) // {
         

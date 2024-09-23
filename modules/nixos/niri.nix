@@ -3,7 +3,6 @@
   inputs,
   lib,
   pkgs,
-  nixpkgs,
   ...
 } : 
   let 
@@ -19,7 +18,7 @@
     
     config = mkIf ((length config.eula.modules.nixos.niri.enableFor) != 0) rec {
       programs.niri.enable = (trace "niri is enabled systemwide!" true);
-      
+      programs.niri.package = pkgs.niri-unstable; 
       security.pam.services.swaylock = {}; # TODO
       nixpkgs.overlays = [inputs.niri.overlays.niri];
 

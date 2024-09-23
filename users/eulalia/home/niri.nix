@@ -8,6 +8,10 @@
 
   # TODO make this cleaner
 
+  config = {
+
+  eula.modules.home-manager.niri.pkg = pkgs.niri-unstable;
+
   home.pointerCursor = {
     gtk.enable = true;
     package = pkgs.posy-cursors;
@@ -18,8 +22,8 @@
   programs.niri.settings = {
     spawn-at-startup = [
       {command = ["swww-daemon"];}
+      {command = ["wpaperd"];} # TODO remove on merge of https://github.com/nix-community/home-manager/pull/5833
       {command = ["mako"];}
-      #{command = ["dbus-update-activation-environment" "--systemd" "DISPLAY" "WAYLAND_DISPLAY"];}
     ];
 
     prefer-no-csd = true;
@@ -112,4 +116,5 @@
 	  })
         ];
     };
+  };
 }
