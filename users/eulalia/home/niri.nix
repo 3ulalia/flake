@@ -14,8 +14,8 @@
 
   home.pointerCursor = {
     gtk.enable = true;
-    package = pkgs.posy-cursors;
-    name = "Posy's Cursor Black";
+    package = pkgs.rose-pine-cursor;
+    name = "BreezeX-RosePine-Linux";
     size = 28;
   };
 
@@ -27,6 +27,8 @@
     ];
 
     prefer-no-csd = true;
+
+    outputs."eDP-1".scale = 1;
 
     binds = let 
       binds = {
@@ -86,12 +88,14 @@
 	  {
 	    "Mod+Minus".action = set-column-width "-10%";
 	    "Mod+Equal".action = set-column-width "+10%";
+	    "Mod+backslash".action = set-column-width "50%";
+	    "Mod+Shift+backslash".action = set-window-height "50%";
 	    "Mod+Shift+Minus".action = set-window-height "-10%";
 	    "Mod+Shift+Equal".action = set-window-height "+10%";
 	  }
 	  {
-	    "Super+Shift+9".action = consume-or-expel-window-left;
-	    "Super+Shift+0".action = consume-or-expel-window-right;
+	    "Super+9".action = consume-or-expel-window-left;
+	    "Super+0".action = consume-or-expel-window-right;
 	  }
 	  (binds {
 	    suffixes."L" = "column-right";
