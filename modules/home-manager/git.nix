@@ -19,7 +19,7 @@
       user-email = mkOpt types.str "user@hostname";
     };
 
-    config = mkIf config.eula.modules.home-manager.ly.enable {
+    config = mkIf config.eula.modules.home-manager.git.enable {
       programs.gh.enable = true;
       
       programs.git = {
