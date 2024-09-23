@@ -5,6 +5,16 @@
   pkgs,
   ...
 } : {
+
+  # TODO make this cleaner
+
+  home.pointerCursor = {
+    gtk.enable = true;
+    package = pkgs.posy-cursors;
+    name = "Posy's Cursor Black";
+    size = 28;
+  };
+
   programs.niri.settings = {
     spawn-at-startup = [
       {command = ["swww-daemon"];}
@@ -13,7 +23,6 @@
     ];
 
     prefer-no-csd = true;
-    cursor.size = 128;    
 
     binds = let 
       binds = {
@@ -56,8 +65,11 @@
 	  {
 	    "Mod+Tab".action = spawn "alacritty";
  	    "Mod+Space".action = spawn "sh" "-c" "if pidof -qx 'fuzzel'; then kill $(pidof fuzzel); else fuzzel; fi";
+	  }
+	  {
 	    "Mod+W".action = close-window;
-	    "Mod+Return".action = maximize-column;
+	    "Mod+Return".action = center-column;
+	    "Mod+Shift+Return".action = maximize-column;
 	  }
 	  {
 	    "Mod+Shift+Q".action = quit;
@@ -72,6 +84,10 @@
 	    "Mod+Equal".action = set-column-width "+10%";
 	    "Mod+Shift+Minus".action = set-window-height "-10%";
 	    "Mod+Shift+Equal".action = set-window-height "+10%";
+	  }
+	  {
+	    "Super+Shift+9".action = consume-or-expel-window-left;
+	    "Super+Shift+0".action = consume-or-expel-window-right;
 	  }
 	  (binds {
 	    suffixes."L" = "column-right";
