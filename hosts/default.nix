@@ -34,7 +34,7 @@
     i18n.defaultLocale = "en_US.UTF-8";
 
     # time.timeZone = "Europe/Madrid"; # close enough
-    time.timeZone = "America/New_York";
+    time.timeZone = "America/New_York"; # ditto
 
     system.stateVersion = "23.11";
     

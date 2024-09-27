@@ -43,9 +43,9 @@
      */
     get-hosts = path: 
       let
-	      valid-host-huh = (p: v: pathExists "${path}/${p}/default.nix"); # self-documenting
+	valid-host-huh = (p: v: pathExists "${path}/${p}/default.nix"); # self-documenting
       in 
-        map 
+	map 
           (n: "${path}/${n}") 
           (attrNames
             (filterAttrs valid-host-huh 
