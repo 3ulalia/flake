@@ -97,6 +97,10 @@
 	    "Super+9".action = consume-or-expel-window-left;
 	    "Super+0".action = consume-or-expel-window-right;
 	  }
+	  {
+	    "Mod+Print".action = screenshot;
+	    "Mod+Shift+Print".action = screenshot-window;
+	  }
 	  (binds {
 	    suffixes."L" = "column-right";
 	    suffixes."H" = "column-left";
