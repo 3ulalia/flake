@@ -29,6 +29,11 @@
 
     networking = {
       networkmanager.enable = true; # nixos without internet seems silly
+      wireless = {
+	extraConfig = ''
+	  openssl_ciphers=DEFAULT@SECLEVEL=0
+	'';
+      };
     };
 
     i18n.defaultLocale = "en_US.UTF-8";
