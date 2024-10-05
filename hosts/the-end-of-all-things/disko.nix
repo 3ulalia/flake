@@ -26,7 +26,7 @@ https://0pointer.net/blog/unlocking-luks2-volumes-with-tpm2-fido2-pkcs11-securit
 	    macos = {
 	      label = "macos";
 	      name = "adonalsium-will-remember-our-plight-eventually";
-	      size = "46.6G";
+	      size = "4660M";
 	      content = {
 		type = "filesystem";
 		format = "apfs";
