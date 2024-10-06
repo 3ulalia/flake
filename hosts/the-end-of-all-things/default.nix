@@ -17,6 +17,7 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      inputs.nixos-hardware.nixosModules.apple-t2
     ];
 
   # This shouldn't be needed, but might be :3
