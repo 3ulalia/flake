@@ -28,7 +28,7 @@
   users = config.eula.modules.nixos.users;
   in {
 
-    imports = map (n: ./. + ("/" + n)) (bootstrap.modules.nix-modules-in-dir [__curPos.file (builtins.toString ./home.nix)] ./.); 
+    #imports = map (n: ./. + ("/" + n)) (bootstrap.modules.nix-modules-in-dir [__curPos.file (builtins.toString ./home.nix)] ./.); 
 
     config = {
 
