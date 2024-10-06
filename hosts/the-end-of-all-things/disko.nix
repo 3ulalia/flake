@@ -31,7 +31,7 @@ https://0pointer.net/blog/unlocking-luks2-volumes-with-tpm2-fido2-pkcs11-securit
 		type = "filesystem";
 		format = "apfs";
 		mountpoint = "/macos";
-		mountOptions = [ ]; ## TODO
+		mountOptions = [ "vol=1" ]; ## TODO
 	      };
 	    };
 	    luks = {
