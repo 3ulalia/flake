@@ -20,8 +20,6 @@ in
       inputs.nixos-hardware.nixosModules.apple-t2
     ];
 
-  # This shouldn't be needed, but might be :3
-  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # NOTE: remove if already present in ./hardware-configuration.nix
   boot.kernelModules = [ "applesmc" ];
@@ -51,7 +49,7 @@ in
 
   eula.modules.nixos.users = {
     xenia = {
-      privileged = (trace "now evaluating ${networking.hostname} configuration!" true); 
+      privileged = (trace "now evaluating the-end-of-all-things configuration!" true); 
       extraGroups = ["audio"];
     };
   };
