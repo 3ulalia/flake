@@ -25,6 +25,17 @@ in
   # NOTE: remove if already present in ./hardware-configuration.nix
   boot.kernelModules = [ "applesmc" ];
 
+  hardware.firmware = [
+    (pkgs.stdenvNoCC.mkDerivation (final: {
+      name = "brcm-firmware";
+      src = ./firmware/brcm;
+      installPhase = ''
+	mkdir -p $out/lib/firmware/brcm
+	cp ${final.src}/* "$out/lib/firmware/brcm"
+      '';
+    }))
+  ];
+
   # Bootloader.
 
   boot.loader.efi = {
