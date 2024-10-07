@@ -49,7 +49,7 @@
       };
     };
 
-    config = mkIf (trace "enabled niri HM module for a user!" config.eula.modules.home-manager.niri.enable) {
+    config = mkIf config.eula.modules.home-manager.niri.enable {
 
       home = let opts = config.eula.modules.home-manager.niri; in { 
 	# home-manager settings
@@ -58,9 +58,7 @@
 
         sessionVariables = { NIXOS_OZONE_WL = "1";};
 	
-	packages = [   
-	  pkgs.niri
-        ] ++ (map 
+	packages = (map 
 	  (n: config.eula.modules.home-manager.niri.${n}.pkg)
 	  (filter (n: config.eula.modules.home-manager.niri.${n}.enable)
 	  ["brightness" "bg" "locker"])
