@@ -15,7 +15,6 @@
 { 
   inputs,
   pkgs,
-  pkgs-7e2fb8e,
   ...
 } : 
   {

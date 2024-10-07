@@ -6,16 +6,16 @@
     # officially cool enough for unstable
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    # maybe someday wpa_supplicant will stop being broken
-    nixpkgs-7e2fb8e.url = "github:nixos/nixpkgs/f66cbf3e8e28aeb6903929caf967a498ae49d27e";
-
     # home-manager (a regañadientes)
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     }; 
 
-    niri.url = "github:sodiboo/niri-flake"; # TODO stop the madness
+    niri = {
+      url = "github:sodiboo/niri-flake"; # TODO stop the madness
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
@@ -48,7 +48,6 @@
   outputs = inputs @ { 
     self,
     nixpkgs,
-    nixpkgs-7e2fb8e,
     home-manager,
     disko,
     impermanence,
@@ -60,7 +59,7 @@
       # nixosConfigurations: {hostName : nixosHost}
       # nixosHosts are generated with nix(-darwin, pkgs).lib.(darwin, nixos)System
       #   which is called on an attribute set containing a `system` attribute and a `modules` list.    
-      nixosConfigurations = bootstrap.hosts.generate-systems ./hosts {inherit bootstrap inputs; pkgs-7e2fb8e = import nixpkgs-7e2fb8e { system = "x86_64-linux"; };} [./toplevel.nix];
+      nixosConfigurations = bootstrap.hosts.generate-systems ./hosts {inherit bootstrap inputs;} [./toplevel.nix];
     };
   }
 #a
