@@ -10,8 +10,13 @@
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" "applesmc" "apple-bce" ];
+  boot.kernelModules = [ "kvm-intel" "applesmc" "apple-bce" "apple-gmux"];
+  boot.extraModprobeConfig = " options apple-gmux force_igd=y ";
   boot.extraModulePackages = [ ];
+
+  services.udev.extraRules = ''
+    KERNEL=="card2", SUBSYSTEM=="drm", DRIVERS=="amdgpu", ATTR{device/power_dpm_force_performance_level}="low"
+  '';
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
