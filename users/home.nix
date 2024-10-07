@@ -3,9 +3,12 @@
 {
   lib,
   pkgs,
+  osConfig,
   ...
 }: let
-  inherit (lib) attrNames length filterAttrs mkDefault mkIf trace; # TODO write library function to determine if a user has a setting enabled
+  inherit (lib) any attrValues length filterAttrs mkDefault mkIf trace;
+
+  zsh-enable = any (user: user.shell == pkgs.zsh) (attrValues osConfig.users.users);
 in {
   #imports = [../modules/home-manager];
 
@@ -14,5 +17,9 @@ in {
   # should.
   programs.git.enable = true;
   programs.home-manager.enable = (trace "evaluating users/home.nix!" true);
+
+  programs.zsh.enable = mkIf zsh-enable true;
+  programs.zsh.initExtra = mkIf zsh-enable "any-nix-shell zsh --info-right | source /dev/stdin";
+  home = mkIf zsh-enable {packages = [pkgs.any-nix-shell];};
 }
 
