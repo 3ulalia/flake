@@ -48,6 +48,7 @@
   outputs = inputs @ { 
     self,
     nixpkgs,
+    niri,
     home-manager,
     disko,
     impermanence,
