@@ -43,7 +43,7 @@
 
     system.stateVersion = "23.11";
     
-    environment.systemPackages = with pkgs; [vim curl]; # bare necessities
+    environment.systemPackages = with pkgs; [vim curl acpi ripgrep]; # bare necessities... and a little extra
 
     nixpkgs.config.allowUnfree = true;
     nixpkgs.overlays = [

@@ -52,6 +52,9 @@ in
       privileged = (trace "now evaluating the-end-of-all-things configuration!" true); 
       extraGroups = ["audio"];
     };
+    eulalia = {
+      privileged = true;
+    };
   };
 
   eula.modules.services.disko = {
