@@ -8,7 +8,7 @@
 } : 
   let
     inherit (builtins) attrNames baseNameOf dirOf elem pathExists readDir trace toString; # TODO: why
-    inherit (lib) filterAttrs hasSuffix;
+    inherit (lib) filterAttrs hasSuffix mapAttrsToList any;
   in {
 
     config.eula.lib.modules = rec {
@@ -56,5 +56,17 @@
       in 
         map fn (map (name: path + "/${name}") (attrNames nmid));
 
+
+    /** 
+      TODO: documentation
+    */
+
+    any-user = pred: users: 
+      let
+	attrs-to-list = attrs: mapAttrsToList (name: value: {inherit name value;}) attrs;	
+      in
+	any (user: pred user.value) (attrs-to-list users);
+
     };
+
   }
