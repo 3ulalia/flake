@@ -49,6 +49,5 @@
     nixpkgs.overlays = [
       (import ../overlays/grub2) # TODO module
       inputs.niri.overlays.niri # TODO this does not go here
-      (self: super: { wpa_supplicant = pkgs-7e2fb8e.wpa_supplicant; } )
     ];
   }
