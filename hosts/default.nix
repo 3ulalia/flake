@@ -48,6 +48,5 @@
     nixpkgs.config.allowUnfree = true;
     nixpkgs.overlays = [
       (import ../overlays/grub2) # TODO module
-      inputs.niri.overlays.niri # TODO this does not go here
-    ];
+    ]; 
   }
