@@ -21,9 +21,5 @@
       }
     );
   };
-  
-  config.home-manager = {
-    users = mapAttrs (name: user: user.home-config) config.eula.modules.nixos.users;
-  };
 }
   
