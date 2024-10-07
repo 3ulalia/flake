@@ -10,6 +10,7 @@
 
   config = {
 
+  eula.modules.home-manager.niri.enable = true;
   eula.modules.home-manager.niri.pkg = pkgs.niri-unstable;
 
   home.pointerCursor = {
