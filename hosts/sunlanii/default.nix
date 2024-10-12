@@ -58,6 +58,8 @@ in
     needed-for-boot = ["/persist" "/var/log"];
   };
 
+  eula.modules.nixos.bluetooth.enable = true;
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
