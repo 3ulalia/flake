@@ -108,6 +108,8 @@
 	  {
 	    "XF86MonBrightnessDown".action = spawn "brightnessctl" "set" "10%-";
 	    "XF86MonBrightnessUp".action = spawn "brightnessctl" "set" "+10%";
+	    "Shift+XF86MonBrightnessDown".action = spawn "brightnessctl" "set" "2%-";
+	    "Shift+XF86MonBrightnessUp".action = spawn "brightnessctl" "set" "+2%";
 	  }
 	  {
 	    "Mod+Minus".action = set-column-width "-10%";
