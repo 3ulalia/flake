@@ -29,6 +29,10 @@
 
     prefer-no-csd = true;
 
+    input.touchpad.accel-speed = 0.75;
+    input.touchpad.accel-profile = "adaptive";
+    input.touchpad.dwt = true;
+
     outputs."eDP-1".scale = 1;
 
     binds = let 
@@ -71,7 +75,7 @@
         lib.attrsets.mergeAttrsList [
 	  {
 	    "Mod+Tab".action = spawn "alacritty";
- 	    "Mod+Space".action = spawn "sh" "-c" "if pidof -qx 'fuzzel'; then kill $(pidof fuzzel); else fuzzel; fi";
+ 	    "Mod+Space".action = sh "if pidof -qx 'fuzzel'; then kill $(pidof fuzzel); else fuzzel; fi";
 	  }
 	  {
 	    "Mod+W".action = close-window;
@@ -80,7 +84,26 @@
 	  }
 	  {
 	    "Mod+Shift+Q".action = quit;
-	    "Mod+Shift+L".action.spawn = ["swaylock"] ++ config.eula.modules.home-manager.swaylock-effects.spawn-command;
+	    "Mod+Control+Q".action.spawn = ["swaylock"] ++ config.eula.modules.home-manager.swaylock-effects.spawn-command;
+	    "Mod+Shift+Slash".action = show-hotkey-overlay;
+	  }
+	  {
+	    "XF86AudioRaiseVolume" = {
+	      action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+";
+	      allow-when-locked = true;
+	    };
+	    "XF86AudioLowerVolume" = {
+	      action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-";
+	      allow-when-locked = true;
+	    };
+	    "XF86AudioMute" = {
+	      action = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle";
+	      allow-when-locked = true;
+	    };
+	    "XF86AudioMicMute" = {
+	      action = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle";
+	      allow-when-locked = true;
+	    };
 	  }
 	  {
 	    "XF86MonBrightnessDown".action = spawn "brightnessctl" "set" "10%-";
