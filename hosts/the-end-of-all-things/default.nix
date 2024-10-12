@@ -45,6 +45,12 @@ in
   boot.loader.systemd-boot.configurationLimit = 5;
   boot.loader.systemd-boot.enable = true;
 
+  services.mbpfan.enable = true;
+  services.mbpfan.aggressive = true;
+
+  eula.modules.services.miracast.enable = true;
+  eula.modules.services.ssh.enable = true;
+
   networking.hostName = "the-end-of-all-things"; # Define your hostname.
 
   eula.modules.nixos.users = {
@@ -62,6 +68,8 @@ in
     disko-config = ./disko.nix;
     needed-for-boot = ["/persist" "/var/log"];
   };
+
+  eula.modules.nixos.bluetooth.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
