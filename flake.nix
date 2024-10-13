@@ -11,6 +11,11 @@
     # officially cool enough for unstable
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.0.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # home-manager (a regañadientes)
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -53,6 +58,7 @@
   outputs = inputs @ { 
     self,
     nixpkgs,
+    lix-module,
     niri,
     home-manager,
     disko,
@@ -65,7 +71,7 @@
       # nixosConfigurations: {hostName : nixosHost}
       # nixosHosts are generated with nix(-darwin, pkgs).lib.(darwin, nixos)System
       #   which is called on an attribute set containing a `system` attribute and a `modules` list.    
-      nixosConfigurations = bootstrap.hosts.generate-systems ./hosts {inherit bootstrap inputs;} [./toplevel.nix];
+      nixosConfigurations = bootstrap.hosts.generate-systems ./hosts {inherit bootstrap inputs;} [./toplevel.nix lix-module.nixosModules.default];
     };
   }
 #a
