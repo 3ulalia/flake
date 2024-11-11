@@ -14,7 +14,7 @@
 	position = "top";	
 	height = 30;
 
-	modules-center = ["clock" "battery" "network"];
+	modules-center = ["clock" "battery" "network" "wlr/taskbar" "niri/workspaces" "tray"];
 
 	"battery" = {
 	  "tooltip-format" = "{time}";
@@ -29,12 +29,5 @@
 	};
      }; };
 
-    /*
-    style = ''
-      window#waybar { 
-	background = transparent;
-      }
-    '';
-    */
     };
 }
