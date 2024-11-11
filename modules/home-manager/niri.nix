@@ -62,7 +62,7 @@
 	  (n: config.eula.modules.home-manager.niri.${n}.pkg)
 	  (filter (n: config.eula.modules.home-manager.niri.${n}.enable)
 	  ["brightness" "bg" "locker"])
-	);
+	) ++ [pkgs.wl-clipboard];
       };
 
       programs = (configs-to-enabled-settings ["bar" "launcher"]) // {
