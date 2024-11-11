@@ -29,9 +29,12 @@
 
     prefer-no-csd = true;
 
-    input.touchpad.accel-speed = 0.75;
-    input.touchpad.accel-profile = "adaptive";
-    input.touchpad.dwt = true;
+    input.touchpad = {
+      accel-speed = 0.75;
+      accel-profile = "adaptive";
+      dwt = true;
+      click-method = "clickfinger";
+    };
 
     outputs."eDP-1".scale = 1;
 
@@ -81,6 +84,7 @@
 	    "Mod+W".action = close-window;
 	    "Mod+Return".action = center-column;
 	    "Mod+Shift+Return".action = maximize-column;
+	    "Mod+Ctrl+Return" = fullscreen-window;  
 	  }
 	  {
 	    "Mod+Shift+Q".action = quit;
