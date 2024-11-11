@@ -13,6 +13,7 @@
    }; # TODO add more configuration here
 
    config = mkIf config.eula.modules.nixos.audio.enable {
+    security.rtkit.enable = true;
     services = {
       pipewire = {
         enable = true;
