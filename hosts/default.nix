@@ -14,6 +14,7 @@
 
 { 
   inputs,
+  lib,
   pkgs,
   ...
 } : 
@@ -28,24 +29,19 @@
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
     networking = {
-      networkmanager.enable = true; # nixos without internet seems silly
-      wireless = {
-	extraConfig = ''
-	  openssl_ciphers=DEFAULT@SECLEVEL=0
-	'';
-      };
+      networkmanager.enable = lib.mkDefault true; # nixos without internet seems silly
     };
 
     i18n.defaultLocale = "en_US.UTF-8";
 
     # time.timeZone = "Europe/Madrid"; # close enough
-    time.timeZone = "America/New_York"; # ditto
+    time.timeZone = lib.mkDefault "America/New_York"; # ditto
 
     system.stateVersion = "23.11";
     
     environment.systemPackages = with pkgs; [vim curl acpi ripgrep]; # bare necessities... and a little extra
 
-    nixpkgs.config.allowUnfree = true;
+    nixpkgs.config.allowUnfree = lib.mkDefault true;
     nixpkgs.overlays = [
       (import ../overlays/grub2) # TODO module
     ]; 
