@@ -16,7 +16,7 @@ in {
   ];
 
   # This shouldn't be needed, but might be :3
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_6_11; #TODO: put this back
 
   # Bootloader.
 
@@ -25,7 +25,7 @@ in {
     efiSysMountPoint = "/efi";
   };
 
-  boot.loader.systemd-boot.configurationLimit = 5;
+  boot.loader.systemd-boot.configurationLimit = 25;
 
   eula.modules.services.lanzaboote = {
     enable = true;
@@ -44,6 +44,9 @@ in {
     eulalia = {
       privileged = trace "now evaluating thinkpad configuration!" true;
       extraGroups = ["audio"];
+    };
+    test = {
+      privileged = true;
     };
   };
 
