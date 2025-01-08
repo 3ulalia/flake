@@ -21,10 +21,15 @@
       };
       github-school = {
         host = "gh-sch";
-        hostname = "github.com";
-        identityFile = config.sops.secrets."ssh/gh-sch".path;
+        hostname = "github.khoury.northeastern.edu";
+        identityFile = config.sops.secrets."ssh/gh-per".path;
         identitiesOnly = true;
       };
     };
+  };
+  sops.secrets = {
+    "ssh/gh-per" = {};
+    "ssh/gh-sch" = {};
+    "ssh/gh-pro" = {};
   };
 }
