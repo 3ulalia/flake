@@ -1,6 +1,12 @@
 {config, ...}: {
-  config.eula.modules.home-manager.wpaperd = {
+  programs.wpaperd = {
     enable = true;
-    mode = "stretch";
+    settings = {
+      default = {
+        mode = "stretch";
+        duration = "24h";
+        path = ../../../artifacts/quiet-victories;
+      };
+    };
   };
 }
