@@ -20,7 +20,7 @@
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
-    }; 
+    };
 
     niri = {
       url = "github:sodiboo/niri-flake"; # TODO stop the madness
@@ -53,9 +53,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    "3ulalia-nvim" = {
+    	url = "git+file:///home/eulalia/repos/3ulalia.nvim/";
+	inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs @ { 
+  outputs = inputs @ {
     self,
     nixpkgs,
     lix-module,

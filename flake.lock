@@ -1,5 +1,26 @@
 {
   "nodes": {
+    "3ulalia-nvim": {
+      "inputs": {
+        "nixCats": "nixCats",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1736263092,
+        "narHash": "sha256-0pFE0MCF1A1ruzo8fFkxRGb340wZ2qT4a2l4k+1nK24=",
+        "ref": "refs/heads/main",
+        "rev": "b60881c47c62442c1f0cfeb013a133e2c8e486f6",
+        "revCount": 4,
+        "type": "git",
+        "url": "file:///home/eulalia/repos/3ulalia.nvim/"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/eulalia/repos/3ulalia.nvim/"
+      }
+    },
     "crane": {
       "locked": {
         "lastModified": 1730652660,
