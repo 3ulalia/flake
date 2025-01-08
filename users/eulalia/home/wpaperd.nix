@@ -3,9 +3,9 @@
     enable = true;
     settings = {
       default = {
-        mode = "stretch";
+        mode = "center";
         duration = "24h";
-        path = ../../../artifacts/quiet-victories;
+        path = ../../../artifacts/quiet-victories/backgrounds;
       };
     };
   };
