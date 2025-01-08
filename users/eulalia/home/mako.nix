@@ -4,8 +4,6 @@
   lib,
   pkgs,
   ...
-} : {
-
+}: {
   # TODO: configure mako
-
 }

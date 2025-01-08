@@ -4,21 +4,20 @@
   lib,
   pkgs,
   ...
-} : {
-
+}: {
   # TODO make this cleaner
 
   config = {
+    eula.modules.home-manager.niri.enable = true;
+    eula.modules.home-manager.niri.pkg = pkgs.niri-unstable;
 
-  eula.modules.home-manager.niri.enable = true;
-  eula.modules.home-manager.niri.pkg = pkgs.niri-unstable;
-
-  home.pointerCursor = {
-    gtk.enable = true;
-    package = pkgs.rose-pine-cursor;
-    name = "BreezeX-RosePine-Linux";
-    size = 28;
-  };
+    home.pointerCursor = {
+      gtk.enable = true;
+      x11.enable = true;
+      package = pkgs.rose-pine-cursor;
+      name = "BreezeX-RosePine-Linux";
+      size = 28;
+    };
 
   programs.niri.settings = {
     spawn-at-startup = [
@@ -27,48 +26,50 @@
       {command = ["mako"];}
     ];
 
-    prefer-no-csd = true;
+      prefer-no-csd = true;
 
-    input.touchpad = {
-      accel-speed = 0.75;
-      accel-profile = "adaptive";
-      dwt = true;
-      click-method = "clickfinger";
-    };
+      input.touchpad = {
+        accel-speed = 0.75;
+        accel-profile = "adaptive";
+        dwt = true;
+        click-method = "clickfinger";
+      };
 
-    outputs."eDP-1".scale = 1;
+      outputs."eDP-1".scale = 1;
 
-    binds = let 
-      binds = {
-        suffixes,
-        prefixes,
-        substitutions ? {},
-      }: let
-        replacer = lib.replaceStrings (lib.attrNames substitutions) (lib.attrValues substitutions);
-        format = prefix: suffix: {
-          name = "${prefix.key}+${suffix.key}";
-          value = let
-            actual-suffix =
-              if lib.isList suffix.action
-              then {
-                action = lib.head suffix.action;
-                args = lib.tail suffix.action;
-              }
-              else {
-                inherit (suffix) action;
-                args = [];
-              };
-          in {
-            action.${replacer "${prefix.action}-${actual-suffix.action}"} =
-              actual-suffix.args;
+      binds = let
+        binds = {
+          suffixes,
+          prefixes,
+          substitutions ? {},
+        }: let
+          replacer = lib.replaceStrings (lib.attrNames substitutions) (lib.attrValues substitutions);
+          format = prefix: suffix: {
+            name = "${prefix.key}+${suffix.key}";
+            value = let
+              actual-suffix =
+                if lib.isList suffix.action
+                then {
+                  action = lib.head suffix.action;
+                  args = lib.tail suffix.action;
+                }
+                else {
+                  inherit (suffix) action;
+                  args = [];
+                };
+            in {
+              action.${replacer "${prefix.action}-${actual-suffix.action}"} =
+                actual-suffix.args;
+            };
           };
-        };
-        pairs = attrs: fn:
-          lib.concatMap (key:
-            fn {
-              inherit key;
-              action = attrs.${key};
-            }) (lib.attrNames attrs);
+          pairs = attrs: fn:
+            lib.concatMap (key:
+              fn {
+                inherit key;
+                action = attrs.${key};
+              }) (lib.attrNames attrs);
+        in
+          lib.listToAttrs (pairs prefixes (prefix: pairs suffixes (suffix: [(format prefix suffix)])));
       in
         lib.listToAttrs (pairs prefixes (prefix: pairs suffixes (suffix: [(format prefix suffix)])));
     in 

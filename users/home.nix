@@ -1,5 +1,5 @@
 # Default configuration options relating to home-manager for each user.
-# Imported by the user-wide `default.nix`. 
+# Imported by the user-wide `default.nix`.
 {
   lib,
   pkgs,

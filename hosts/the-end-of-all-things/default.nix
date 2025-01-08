@@ -1,36 +1,30 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ 
+{
   lib,
   inputs,
   pkgs,
   ...
-}:
-
-let 
-
-inherit (lib) trace;
-in
-{
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      inputs.nixos-hardware.nixosModules.apple-t2
-    ];
-
+}: let
+  inherit (lib) trace;
+in {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    inputs.nixos-hardware.nixosModules.apple-t2
+  ];
 
   # NOTE: remove if already present in ./hardware-configuration.nix
-  boot.kernelModules = [ "applesmc" ];
+  boot.kernelModules = ["applesmc"];
 
   hardware.firmware = [
     (pkgs.stdenvNoCC.mkDerivation (final: {
       name = "brcm-firmware";
       src = ./firmware/brcm;
       installPhase = ''
-	mkdir -p $out/lib/firmware/brcm
-	cp ${final.src}/* "$out/lib/firmware/brcm"
+        mkdir -p $out/lib/firmware/brcm
+        cp ${final.src}/* "$out/lib/firmware/brcm"
       '';
     }))
   ];
@@ -55,7 +49,7 @@ in
 
   eula.modules.nixos.users = {
     xenia = {
-      privileged = (trace "now evaluating the-end-of-all-things configuration!" true); 
+      privileged = trace "now evaluating the-end-of-all-things configuration!" true;
       extraGroups = ["audio"];
     };
     eulalia = {
