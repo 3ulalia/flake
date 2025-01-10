@@ -1,7 +1,7 @@
 { config, pkgs, ... } : 
 
 let
-  locker = config.eula.modules.home-manager.niri.locker;
+  locker = config.eula.modules.home-manager.desktop.locker;
   swcmd = "${locker.pkg}/bin/${locker.pkg.pname}";
   notif-id = "${config.xdg.stateHome}/idlenotif";
   niri = "${pkgs.niri}/bin/niri msg action";
@@ -9,8 +9,15 @@ let
 
   notif = pkgs.writeShellApplication { 
     name = "idle-notify";
-    runtimeInputs = [ pkgs.libnotify ];
-    text = "notify-send -p -t 10000 'so sleepy' 'display will sleep in 10 seconds...' > ${notif-id}";
+    runtimeInputs = [ pkgs.libnotify pkgs.coreutils ];
+    text = ''
+    notify-send -e -p -t 1000 'so sleepy' 'display will lock in 10 seconds...' > ${notif-id}
+    for i in $(seq 10 -1 1); do
+      notifid="$(cat ${notif-id})";
+      notify-send -e -p -t 1000 -r "$notifid" "so sleepy" "display will lock in $i seconds..." > ${notif-id};
+      sleep 1;
+    done
+    '';
   };
   notif-dismiss = pkgs.writeShellApplication {
     name = "idle-dismiss";
@@ -19,9 +26,10 @@ let
   };
   bright-fade = pkgs.writeShellApplication {
     name = "bright-fade";
-    runtimeInputs = [ pkgs.brightnessctl pkgs.coreutils ];
+    runtimeInputs = [ pkgs.brightnessctl pkgs.coreutils pkgs.libnotify ];
     text = ''
     brightnessctl -q -s
+    notify-send -e -p -t 5000 "so sleepy" "dimming screen; display will lock in 60 seconds" > ${notif-id}
     for _ in $(seq 1 10); do
       brightnessctl -q s 5%-;
       sleep 0.05;
@@ -40,10 +48,10 @@ in {
     ];
     extraArgs = [ "-w" ];
     timeouts = [
-      { timeout = 60; command = "${script bright-fade}"; resumeCommand = "${pkgs.brightnessctl}/bin/brightnessctl -q -r";}
-      { timeout = 80; command = "${script notif}"; resumeCommand = "${script notif-dismiss}";}
-      { timeout = 90; command = "${pkgs.systemd}/bin/loginctl lock-session"; }
-      { timeout = 180; command = "${niri} power-off-monitors"; resumeCommand = "${niri} power-on-monitors";}
+      { timeout = 60; command = "${script bright-fade}"; resumeCommand = "${pkgs.brightnessctl}/bin/brightnessctl -q -r; ${script notif-dismiss}";}
+      { timeout = 110; command = "${script notif}"; resumeCommand = "${script notif-dismiss}";}
+      { timeout = 120; command = "${pkgs.systemd}/bin/loginctl lock-session"; }
+      { timeout = 300; command = "${niri} power-off-monitors"; resumeCommand = "${niri} power-on-monitors";}
       { timeout = 900; command = "systemctl suspend"; }
     ];
   };

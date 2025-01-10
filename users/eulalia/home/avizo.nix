@@ -5,6 +5,11 @@
   pkgs,
   ...
 }: {
+  config.eula.modules.home-manager.desktop.ctrl = {
+    pkg = pkgs.avizo;
+    enable = true;
+    type = "services";
+  };
   config.services.avizo.settings = {
     default = {
       time = 2;

@@ -3,8 +3,7 @@
   ...
 } : {
 
-  programs.alacritty= {
-    enable = true;
+  programs.alacritty = {
     settings = {
       font.normal.family = "Julia Mono";
       general.import = ["${pkgs.alacritty-theme.outPath}/solarized_osaka.toml"];

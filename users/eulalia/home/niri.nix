@@ -4,9 +4,12 @@
   lib,
   pkgs,
   ...
-}: {
-  # TODO make this cleaner
+}: let
 
+  desktop = config.eula.modules.home-manager.desktop;
+
+in{
+  # TODO: make this cleaner
   config = {
     eula.modules.home-manager.niri.enable = true;
     eula.modules.home-manager.niri.pkg = pkgs.niri-unstable;
@@ -21,11 +24,10 @@
 
     programs.niri.settings = {
       spawn-at-startup = [
-        {command = ["swww-daemon"];}
-        {command = ["wpaperd"];} # TODO remove on merge of https://github.com/nix-community/home-manager/pull/5833
-        {command = ["mako"];}
+        {command = [config.eula.modules.home-manager.desktop.bg.pkg.pname];} 
+        {command = [config.eula.modules.home-manager.desktop.notif.pkg.pname];}
         {command = ["avizo-service"];}
-        {command = ["nm-applet"];} # TODO make work with options
+        {command = ["nm-applet"];} # TODO: make work with options
         {command = ["signal-desktop" "--use-tray-icon" "--ozone-platform-hint=auto"];}
       ];
 
@@ -79,10 +81,14 @@
         in
           lib.attrsets.mergeAttrsList [
             {
-              "Mod+Tab".action = spawn "alacritty";
-              "Mod+Space".action = sh "if pidof -qx 'fuzzel'; then kill $(pidof fuzzel); else fuzzel; fi";
-              "Mod+F".action = spawn "firefox";
-              "Mod+Shift+F".action = spawn "firefox" "--private-window";
+              "Mod+Tab".action = spawn config.eula.modules.home-manager.desktop.term.pkg.pname;
+              "Mod+Space" = let 
+                launcher = desktop.launcher.pkg.pname;
+              in {
+                  action = sh "if pidof -qx '${launcher}'; then kill $(pidof ${launcher}); else ${launcher}; fi";
+              };
+              "Mod+F".action = spawn config.eula.modules.home-manager.desktop.browser.pkg.pname;
+              "Mod+Shift+F".action = spawn config.eula.modules.home-manager.desktop.browser.pkg.pname "--private-window";
             }
             {
               "Mod+W".action = close-window;
@@ -92,7 +98,7 @@
             }
             {
               "Mod+Control+Q".action = quit;
-              "Mod+Shift+Q".action = sh "${config.eula.modules.home-manager.niri.locker.pkg.pname}";
+              "Mod+Shift+Q".action = spawn config.eula.modules.home-manager.desktop.locker.pkg.pname;
               "Mod+Shift+Slash".action = show-hotkey-overlay;
             }
             {
@@ -116,8 +122,8 @@
             {
               "XF86MonBrightnessDown".action = spawn "lightctl" "down";
               "XF86MonBrightnessUp".action = spawn "lightctl" "up";
-              "Shift+XF86MonBrightnessDown".action = spawn "brightnessctl" "set" "2%-";
-              "Shift+XF86MonBrightnessUp".action = spawn "brightnessctl" "set" "+2%";
+              "Shift+XF86MonBrightnessDown".action = spawn "lightctl" "down" "2";
+              "Shift+XF86MonBrightnessUp".action = spawn "lightctl" "up" "2";
             }
             {
               "Mod+Minus".action = set-column-width "-10%";

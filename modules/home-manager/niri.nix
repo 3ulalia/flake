@@ -18,37 +18,6 @@ in {
   options.eula.modules.home-manager.niri = {
     enable = mkOpt types.bool false;
     pkg = mkOpt types.package pkgs.niri-stable;
-    launcher = {
-      enable = mkOpt types.bool true;
-      pkg = mkOpt types.package pkgs.fuzzel;
-    };
-    bg = {
-      enable = mkOpt types.bool true;
-      pkg = mkOpt types.package pkgs.swww;
-    };
-    notif = {
-      enable = mkOpt types.bool true;
-      pkg = mkOpt types.package pkgs.mako;
-    };
-    ctrl = {
-      enable = mkOpt types.bool true;
-      pkg = mkOpt types.package pkgs.avizo;
-    };
-    bar = {
-      enable = mkOpt types.bool true;
-      pkg = mkOpt types.package pkgs.waybar;
-    };
-    brightness = {
-      enable = mkOpt types.bool true;
-      pkg = mkOpt types.package pkgs.brightnessctl; # TODO pkgs.wluma;
-    };
-    night-shift = {
-      enable = mkOpt types.bool true;
-    };
-    locker = {
-      enable = mkOpt types.bool true;
-      pkg = mkOpt types.package pkgs.swaylock;
-    };
   };
 
   config = mkIf config.eula.modules.home-manager.niri.enable {
@@ -63,36 +32,8 @@ in {
         NIXOS_OZONE_WL = "1";
         ELECTRON_OZONE_PLATFORM_HINT = "wayland";
       };
-
-      packages =
-        (
-          map
-          (n: config.eula.modules.home-manager.niri.${n}.pkg)
-          (filter (n: config.eula.modules.home-manager.niri.${n}.enable)
-            ["brightness" "bg"])
-        )
-        ++ [pkgs.wl-clipboard pkgs.networkmanagerapplet];
     };
 
-    programs =
-      (configs-to-enabled-settings ["bar" "launcher" "locker"])
-      // {
-        niri.package = config.eula.modules.home-manager.niri.pkg;
-      };
-
-    services =
-      (configs-to-enabled-settings ["notif" "ctrl"])
-      // {
-        gammastep = {
-          enable = mkIf config.eula.modules.home-manager.niri.night-shift.enable true;
-          # TODO: investigate a fix (mozilla location service no longer exists)
-          provider =
-            if osConfig.services.geoclue2.enable
-            then "geoclue2"
-            else "manual";
-          latitude = 42.36; # Boston
-          longitude = -71.06;
-        };
-      };
+    programs.niri.package = config.eula.modules.home-manager.niri.pkg;
   };
 }

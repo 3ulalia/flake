@@ -5,8 +5,12 @@
   pkgs,
   ...
 }: {
-  programs.waybar = {
+  eula.modules.home-manager.desktop.bar = {
+    pkg = pkgs.waybar;
     enable = true;
+    type = "programs";
+  };
+  programs.waybar = {
     systemd.enable = true;
     settings = {
       mainBar = {
@@ -29,4 +33,7 @@
       };
     };
   };
+  home.packages = [
+    pkgs.networkmanagerapplet
+  ];
 }

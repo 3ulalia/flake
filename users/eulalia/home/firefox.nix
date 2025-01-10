@@ -6,7 +6,6 @@
   ...
 }: {
   programs.firefox = {
-    enable = true;
     profiles.${config.home.username} = {
       extensions = with inputs.firefox-addons.packages.${pkgs.system}; [
         ublock-origin
