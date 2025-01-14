@@ -1,6 +1,7 @@
-{ config, osConfig,  pkgs, ... } : 
+{ config,  pkgs, ... } : 
 let
-  text-color = "rgba(237,231,228,0.9)";
+  text-color = a: "rgba(237,231,228,${builtins.toString a})";
+  text-font = "Mona Sans";
 in {
   eula.modules.home-manager.desktop.locker= {
     pkg = pkgs.hyprlock;
@@ -13,7 +14,7 @@ in {
       general = {
         disable_loading_bar = true;
         hide_cursor = true;
-        immediate_render = true;
+        immediate_render = false;
       };
       background = [
         {
@@ -28,23 +29,45 @@ in {
       label = [
         {
           text = "login as: ${config.home.username}";
-          color = text-color;
-          font_family = "DejaVu Sans";
-          position = "0, 0";
+          color = text-color 0.9;
+          font_family = text-font + " SemiBold";
+          font_size = 14;
+          position = "0, 100";
           halign = "center";
-          valign = "center";
+          valign = "bottom";
         }
         {
           text = "$TIME";
-          color = text-color;
-          font-family = "DejaVu Sans";
-          font_size = 48;
-          position = "0, 100";
+          color = text-color 0.9;
+          font_family = text-font + " Bold";
+          font_size = 96;
+          position = "0, -100";
           halign = "center";
-          valign = "center";
+          valign = "top";
+        }
+        {
+          text = "cmd[update:1000] date +\"%A, %b %d\"";
+          color = text-color 0.9;
+          font_family = text-font + " Bold";
+          font_size = 24;
+          position = "0, -50";
+          halign = "center";
+          valign = "top";
         }
       ];
-      
+      input-field = [
+        {
+          size = "200,25";
+          dots_size = 0.5;
+          placeholder_text = "";
+          inner_color = text-color 0.9;
+          #font_color = "rgba(17,17,17,0.6)";
+          outline_thickness = 0;
+          position = "0,50";
+          halign = "center";
+          valign = "bottom";
+        }
+      ];
     };
   };
 }

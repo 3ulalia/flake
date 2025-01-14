@@ -10,5 +10,8 @@
     pkgs.nerd-fonts.zed-mono
     pkgs.nerd-fonts.space-mono
     pkgs.plemoljp-nf
+    pkgs.public-sans
+    pkgs.hubot-sans
+    pkgs.mona-sans
   ];
 }

@@ -32,7 +32,7 @@ in
                 systemctl suspend
             fi
         elif [[ $battery_capacity -le ${builtins.toString notify} && $battery_status = "Discharging" ]]; then
-            ${pkgs.libnotify}/bin/notify-send --urgency=critical --hint=int:transient:1 --icon=battery_empty "battery at $battery_capacity%"
+            ${pkgs.libnotify}/bin/notify-send --urgency=critical --hint=int:transient:1 --icon=battery_empty "battery at $battery_capacity%" "go plug in your laptop, dumbass"
         fi
       '';
       Restart = "on-failure";
