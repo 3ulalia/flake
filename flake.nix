@@ -56,13 +56,13 @@
 
     nix-colors = {
       url = "github:misterio77/nix-colors";
+    };
+
+    eulalia-nvim = {
+    	url = "git+file:///home/eulalia/repos/eulalia-nvim/";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    "3ulalia-nvim" = {
-    	url = "git+file:///home/eulalia/repos/3ulalia.nvim/";
-	inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = inputs @ {
