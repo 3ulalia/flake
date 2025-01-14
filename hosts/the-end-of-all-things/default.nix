@@ -45,8 +45,6 @@ in {
   eula.modules.services.miracast.enable = true;
   eula.modules.services.ssh.enable = true;
 
-  networking.hostName = "the-end-of-all-things"; # Define your hostname.
-
   eula.modules.nixos.users = {
     xenia = {
       privileged = trace "now evaluating the-end-of-all-things configuration!" true;

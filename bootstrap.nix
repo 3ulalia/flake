@@ -76,6 +76,7 @@ in rec {
         modules =
           [
             host-file
+            {networking.hostName = lib.mkDefault (hostfile-to-hostname host-file);}
             {home-manager.extraSpecialArgs = special-args;}
           ]
           ++ modules;

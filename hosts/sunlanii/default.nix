@@ -38,8 +38,6 @@ in {
     resume-offset = 533760;
   };
 
-  networking.hostName = "sunlanii"; # Define your hostname.
-
   eula.modules.nixos.users = {
     eulalia = {
       privileged = trace "now evaluating thinkpad configuration!" true;
