@@ -27,6 +27,7 @@ https://0pointer.net/blog/unlocking-luks2-volumes-with-tpm2-fido2-pkcs11-securit
               label = "macos";
               name = "legacy";
               size = "93.6G";
+              type = "AF0A";
               content = {
                 type = "filesystem";
                 format = "apfs";
