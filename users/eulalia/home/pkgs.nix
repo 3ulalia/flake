@@ -3,6 +3,5 @@
     pkgs.pavucontrol
     pkgs.vesktop
     pkgs.signal-desktop
-    pkgs.remmina # TODO remove
   ];
 }

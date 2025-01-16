@@ -46,11 +46,20 @@ in {
           valign = "top";
         }
         {
-          text = "cmd[update:1000] date +\"%A, %b %d\"";
+          text = ''cmd[update:1000] ${pkgs.coreutils}/bin/date +"%A, %b %d"'';
           color = text-color 0.9;
           font_family = text-font + " Bold";
-          font_size = 24;
-          position = "0, -50";
+          font_size = 20;
+          position = "0, -75";
+          halign = "center";
+          valign = "top";
+        }
+        {
+          text = ''cmd[update:1000] ${pkgs.coreutils}/bin/echo "battery $(${pkgs.coreutils}/bin/cat /sys/class/power_supply/BAT0/capacity)% charged"'';
+          color = text-color 0.9;
+          font_family = text-font + " Semibold";
+          font_size = 14;
+          position = "0, -250";
           halign = "center";
           valign = "top";
         }
