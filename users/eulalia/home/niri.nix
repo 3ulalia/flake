@@ -34,7 +34,7 @@ in{
       prefer-no-csd = true;
 
       input.touchpad = {
-        accel-speed = 0.75;
+        accel-speed = 0.9;
         accel-profile = "adaptive";
         dwt = true;
         click-method = "clickfinger";
