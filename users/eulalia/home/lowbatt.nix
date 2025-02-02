@@ -31,10 +31,10 @@ in {
             ${pkgs.libnotify}/bin/notify-send --urgency=critical -e -p --icon=battery_empty "battery at $battery_capacity%" "DONT GET FUCKED!!1!"
             sleep 60s
             battery_status=$(${pkgs.coreutils}/bin/cat /sys/class/power_supply/${device}/status)
-            if [[ $battery_status = "Discharging" ]]; then
+            if [[ $battery_status = "Discharging" && $battery_capacity -le ${builtins.toString critical} ]]; then
                 ${dismiss}
                 ${pkgs.libnotify}/bin/notify-send --urgency=critical --hint=int:transient:1 --icon=battery_empty "goodbye :3" "see you space cowboy..."
-                systemctl suspend
+                systemctl hibernate 
             fi
         elif [[ $battery_capacity -le ${builtins.toString notify} && $battery_status = "Discharging" ]]; then
             ${pkgs.libnotify}/bin/notify-send --urgency=critical --hint=int:transient:1 --icon=battery_empty "battery at $battery_capacity%" "go plug in your laptop, dumbass"

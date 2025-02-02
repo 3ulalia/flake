@@ -47,9 +47,9 @@ in {
     timeouts = [
       { timeout = 60; command = "${script bright-fade}"; resumeCommand = "${pkgs.brightnessctl}/bin/brightnessctl --exponent=${brightness-exponent} -q -r; ${script notif-dismiss}";}
       { timeout = 110; command = "${script notif}"; resumeCommand = "${script notif-dismiss}";}
-      { timeout = 120; command = "${pkgs.systemd}/bin/loginctl lock-session"; resumeCommand = "${pkgs.systemd}/bin/loginctl unlock-session"}
+      { timeout = 120; command = "${pkgs.systemd}/bin/loginctl lock-session"; resumeCommand = "${pkgs.systemd}/bin/loginctl unlock-session";}
       { timeout = 300; command = "${niri} power-off-monitors"; resumeCommand = "${niri} power-on-monitors";}
-      { timeout = 900; command = "systemctl suspend"; }
+      { timeout = 900; command = "systemctl hibernate"; }
     ];
   };
 }
