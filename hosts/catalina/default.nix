@@ -26,6 +26,7 @@ in {
     }))
   ];
 
+  hardware.apple.touchBar.enable = false;
   # Bootloader.
 
   boot.loader.efi = {
@@ -33,11 +34,42 @@ in {
     efiSysMountPoint = "/efi";
   };
 
-  boot.loader.systemd-boot.configurationLimit = 25;
+  boot.initrd.systemd.enable = true;
+
+  boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.systemd-boot.enable = true;
+
+  eula.modules.services.impermanence.enable = true;
+  eula.modules.services.ephemeral-btrfs.enable = true;
 
   services.mbpfan.enable = true;
   services.mbpfan.aggressive = true;
+
+  networking.interfaces."wlp5s0".wakeOnLan.enable = false;
+  networking.interfaces."enp4s0f1u1" = {
+    wakeOnLan.enable = false;
+    useDHCP = false;
+  };
+  systemd.services.systemd-udev-settle.enable = false;
+  systemd.services.NetworkManager-wait-online.enable = false;
+  networking.dhcpcd.wait = "if-carrier-up";
+  systemd.targets.network-online.wantedBy = lib.mkForce [];
+  systemd.services.NetworkManager-wait-online.wantedBy = lib.mkForce [];
+  #networking.useNetworkd = true;
+  #systemd.network.networks."enp4s0f1u1" = {
+   # linkConfig.RequiredForOnline = "no";
+    #enable = false;
+  #};
+
+  powerManagement = {
+    enable = true;
+    cpuFreqGovernor = "powersave";
+    cpufreq = {
+      min = 800000;
+      max = 1500000;
+    };
+    resumeCommands = "/run/current-system/sw/bin/niri msg action power-off-monitors";
+  };
 
   #eula.modules.services.miracast.enable = true;
   eula.modules.services.ssh.enable = true;
@@ -51,18 +83,82 @@ in {
   eula.modules.services.disko = {
     enable = true;
     disko-config = ./disko.nix;
-    needed-for-boot = ["/persist" "/var/log"];
+    needed-for-boot = ["/persist" "/var/log" "/efi" ];
   };
 
   eula.modules.nixos.bluetooth.enable = true;
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
+  eula.modules.nixos.audio.enable = true;
+  eula.modules.services.hibernate = {
+    enable = true;
+    resume-offset = 533760;
   };
 
+  eula.modules.services.tuigreet = {
+    enable = true;
+    settings = {
+      #greeting = "sese! mi toki e toki pona :)";
+    };
+  };  
+
   services.udisks2.enable = true;
+
+  services.thermald.enable = true;
+  services.tlp.enable = true;
+  services.tlp.settings = {
+    CPU_ENERGY_PERF_POLICY_ON_BAT="power";
+    PLATFORM_PROFILE_ON_BAT="low-power";
+    CPU_BOOST_ON_BAT=0;
+    CPU_HWP_DYN_BOOST_ON_BAT=0;
+    AMDGPU_ABM_LEVEL_ON_BAT=3;
+    CPU_MAX_PERF_ON_BAT=50;
+
+    START_CHARGE_THRESH_BAT0=75;
+    STOP_CHARGE_THRESH_BAT0=80;
+
+    INTEL_GPU_MIN_FREQ_ON_BAT=350;
+    INTEL_GPU_MAX_FREQ_ON_BAT=750;
+    INTEL_GPU_BOOST_FREQ_ON_BAT=800;
+
+    RADEON_DPM_PERF_LEVEL_ON_BAT="low";
+    RADEON_DPM_STATE_ON_BAT="battery";
+
+    PCIE_ASPM_ON_BAT="powersupersave";
+
+    RUNTIME_PM_ON_BAT="auto";
+    #RUNTIME_PM_ENABLE="00:14.0"; #  Intel Corporation Cannon Lake PCH USB 3.1 xHCI Host Controller
+
+    #USB_ALLOWLIST="05ac:8102 05ac:8103 05ac:8302 05ac:8262 05ac:8514";
+  };
+
+  systemd.services."suspend-fix-t2" = {
+    enable = true;
+    unitConfig = {
+      Description = "Disable and Re-Enable Apple BCE Module (and Wi-Fi)";
+      Before = "sleep.target";
+      StopWhenUnneeded = "yes";
+    };
+    serviceConfig = {   
+      User = "root";
+      Type = "oneshot";
+      RemainAfterExit = "yes";
+      ExecStart = [
+        "/run/current-system/sw/bin/rmmod -f apple-bce"
+        "/run/current-system/sw/bin/modprobe -r brcmfmac"
+        "/run/current-system/sw/bin/modprobe -r brcmfmac_wcc"
+      ];
+      ExecStop = [
+        "/run/current-system/sw/bin/modprobe apple-bce"
+        "/run/current-system/sw/bin/modprobe brcmfmac"
+        "/run/current-system/sw/bin/modprobe brmcfmac_wcc"
+      ];
+      ExecStopPost = [
+        "+/run/current-system/sw/bin/systemctl restart systemd-timesyncd"
+        "/run/current-system/sw/bin/niri msg action power-off-monitors"
+      ];
+    };
+    wantedBy = [ "sleep.target" ];
+  };
+
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

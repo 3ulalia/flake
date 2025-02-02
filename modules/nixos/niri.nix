@@ -20,6 +20,9 @@ in {
       programs.niri.settings.debug = lib.mkIf (osConfig.networking.hostName == "the-end-of-all-things") {
         render-drm-device = "/dev/dri/renderD128";
       };
+      programs.niri.settings.outputs."eDP-1" = lib.mkIf (osConfig.networking.hostName == "catalina") {
+        scale = 1.5;
+      };
     })
   ];
 }

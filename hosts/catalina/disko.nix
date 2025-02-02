@@ -12,7 +12,7 @@ https://0pointer.net/blog/unlocking-luks2-volumes-with-tpm2-fido2-pkcs11-securit
           type = "gpt";
           partitions = {
             ESP = {
-              label = "efi";
+              label = "EFI System Partition";
               name = "ESP";
               size = "300M";
               type = "EF00";
@@ -31,8 +31,8 @@ https://0pointer.net/blog/unlocking-luks2-volumes-with-tpm2-fido2-pkcs11-securit
               content = {
                 type = "filesystem";
                 format = "apfs";
-                mountpoint = "/macos";
-                mountOptions = ["vol=1"]; ## TODO
+                #mountpoint = "/macos";
+                #mountOptions = ["vol=1"]; ## TODO
               };
             };
             luks = {

@@ -15,19 +15,20 @@
 
   boot.initrd.availableKernelModules = ["xhci_pci" "nvme" "usbhid" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-intel" "apple-bce" "apple-ib_tb" "apple-ib-als" "apple-gmux" "apple-smc"];
-  boot.extraModprobeConfig = " options apple-gmux force_igd=y ";
-  boot.extraModulePackages = [
-    # (config.boot.kernelPackages.callPackage (inputs.self.outPath + "/packages/macbook12-spi-driver/package.nix") {})
-  ];
+  boot.kernelModules = ["kvm-intel" "amdgpu" "apple_bce" "hid_apple"  "apple_gmux"];
   boot.kernelParams = [
     "brcmfmac.feature_disable=0x82000"
+    "apple_gmux.force_igd=y"
+    "i915.enable_guc=3"
+    "i915.enable_fbc=1"
+    "mem_sleep_default=deep"
   ];
 
+  
   services.udev.extraRules = ''
     KERNEL=="card2", SUBSYSTEM=="drm", DRIVERS=="amdgpu", ATTR{device/power_dpm_force_performance_level}="low"
   '';
-
+  
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
@@ -42,10 +43,11 @@
 
   hardware.graphics.extraPackages = [
     pkgs.intel-media-driver
-    pkgs.rocmPackages.clr.icd
+    #pkgs.rocmPackages.clr.icd
     pkgs.amdvlk
   ];
 
   # we don't need this because of our boot.extraModprobeConfig
-  # hardware.apple-t2.enableAppleSetOsLoader = true;
+  # also it causes an annoying error when it can't find bootx64.efi
+  hardware.apple-t2.enableAppleSetOsLoader = false;
 }
