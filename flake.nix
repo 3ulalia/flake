@@ -33,7 +33,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-hardware.url = "github:nixos/nixos-hardware";
 
     disko = {
       url = "github:nix-community/disko";
