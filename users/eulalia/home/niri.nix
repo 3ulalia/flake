@@ -19,7 +19,7 @@ in{
       x11.enable = true;
       package = pkgs.rose-pine-cursor;
       name = "BreezeX-RosePine-Linux";
-      size = 28;
+      size = 32;
     };
 
     programs.niri.settings = {
@@ -34,13 +34,15 @@ in{
       prefer-no-csd = true;
 
       input.touchpad = {
-        accel-speed = 0.9;
+        accel-speed = 1.000;
         accel-profile = "adaptive";
         dwt = true;
         click-method = "clickfinger";
       };
 
-      outputs."eDP-1".scale = 1;
+      switch-events.lid-close.action.spawn = ["systemctl" "suspend"];
+
+      outputs."eDP-1".scale = lib.mkDefault 1;
 
       binds = let
         binds = {
