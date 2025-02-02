@@ -31,12 +31,12 @@
       identityFile = config.sops.secrets."ssh/gh-pro".path;
       identitiesOnly = true;
     };
-    /*github-school = {
+    github-school = {
       host = "gh-sch";
-      hostname = "REDACTED"; #TODO: sops templates
+      hostname = config.eula.secrets.git.school; #TODO: sops templates
       identityFile = config.sops.secrets."ssh/gh-per".path;
       identitiesOnly = true;
-    };*/
+    };
   };
 
   sops.secrets = {

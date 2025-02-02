@@ -6,8 +6,8 @@
 } : 
 let
   construct-email = {name, flavor ? "plain", primary ? false, ae-enable ? true} : rec {
-    realName = builtins.readFile config.sops.secrets."email/${name}/realname".path;
-    address = builtins.readFile config.sops.secrets."email/${name}/address".path;
+    realName = config.eula.secrets.email.${name}.realname;
+    address = config.eula.secrets.email.${name}.address;
     userName = if (flavor != "plain") then address else builtins.elemAt (lib.splitString "@" address) 0;
     passwordCommand = "cat ${config.sops.secrets."email/${name}/password".path}";
     inherit primary flavor;
@@ -24,6 +24,10 @@ let
     smtp.port = lib.mkDefault 587;
   };
 in {
+  eula.modules.home-manager.git-crypt = {
+    enable = true;
+    #secret-file = ../secrets.json;
+  };
   accounts.email.accounts = {
     personal = construct-email {name = "personal"; flavor = "gmail.com"; primary = true;};
     school = construct-email {name = "school"; flavor = "outlook.office365.com";};
