@@ -8,7 +8,7 @@
   inherit (lib) mkIf trace types;
   inherit (config.eula.lib.options) mkOpt;
 in {
-  options.eula.modules.services.ly.enable = mkOpt types.bool true;
+  options.eula.modules.services.ly.enable = mkOpt types.bool false;
 
   config = mkIf config.eula.modules.services.ly.enable {
     services.displayManager.ly.enable = trace "ly is enabled systemwide!" true;
