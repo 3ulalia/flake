@@ -30,5 +30,5 @@ about these "types" would be nice, so if necessary I'll include a
 in {
   options.eula.lib = mkOption {type = types.attrsOf (types.attrsOf (types.anything));};
 
-  imports = map (n: ./. + ("/" + n)) (attrNames (eulib.config.eula.lib.modules.nix-modules-in-dir [__curPos.file] ./.));
+  imports = map (n: ./. + ("/" + n)) (attrNames (eulib.config.eula.lib.modules.nix-modules-in-dir [(/. + __curPos.file) ./secrets.nix] ./.));
 }

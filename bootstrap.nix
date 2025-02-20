@@ -107,7 +107,7 @@ in rec {
         ((file-type == "directory") && pathExists "${path}/default.nix"))
       &&
       # the path is not to our recursion-preventing canary
-      !(elem (toString path) to-ignore);
+      !(elem path to-ignore);
 
     nix-modules-in-dir = to-ignore: path: attrNames (filterAttrs (name: value: (valid-nix-module-huh to-ignore (path + "/${name}"))) (readDir path));
   };

@@ -28,7 +28,7 @@ in {
         ((file-type == "directory") && pathExists "${path}/default.nix"))
       &&
       # the path is not to our recursion-preventing canary
-      !(elem (toString path) to-ignore);
+      !(elem path to-ignore);
 
     nix-modules-in-dir = to-ignore: path: filterAttrs (name: value: (valid-nix-module-huh to-ignore (path + "/${name}"))) (readDir path);
 
@@ -56,8 +56,8 @@ in {
     */
 
     any-user = pred: users: let
-      attrs-to-list = attrs: mapAttrsToList (name: value: {inherit name value;}) attrs;
+      attrs-to-list = attrs: mapAttrsToList (name: value: value) attrs;
     in
-      any (user: pred user.value) (attrs-to-list users);
+      any (user: pred user) (attrs-to-list users);
   };
 }
