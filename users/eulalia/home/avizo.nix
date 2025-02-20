@@ -17,6 +17,7 @@
       width = 256;
       height = 128;
       background = "rgba(160,160,160,0.5)";
+      y-offset = 0.75;
     };
   };
 }

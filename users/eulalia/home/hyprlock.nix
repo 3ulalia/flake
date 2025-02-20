@@ -59,7 +59,7 @@ in {
           valign = "top";
         }
         {
-          text = ''cmd[update:1000] ${pkgs.coreutils}/bin/echo "battery $(${pkgs.coreutils}/bin/cat /sys/class/power_supply/BAT0/capacity)% charged"'';
+          text = ''cmd[update:1000] ${pkgs.coreutils}/bin/echo "battery $(($(${pkgs.coreutils}/bin/cat /sys/class/power_supply/BAT0/charge_now)*100 / $(${pkgs.coreutils}/bin/cat /sys/class/power_supply/BAT0/charge_full)))% charged"'';
           color = text-color 0.9;
           font_family = text-font + " Semibold";
           font_size = scale 14;

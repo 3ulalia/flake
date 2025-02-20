@@ -122,10 +122,8 @@ in{
               };
             }
             {
-              "XF86MonBrightnessDown".action = spawn "lightctl" "down";
-              "XF86MonBrightnessUp".action = spawn "lightctl" "up";
-              "Shift+XF86MonBrightnessDown".action = spawn "lightctl" "down" "2";
-              "Shift+XF86MonBrightnessUp".action = spawn "lightctl" "up" "2";
+              "XF86MonBrightnessDown".action = spawn "lightctl" "-e" "2.5" "down";
+              "XF86MonBrightnessUp".action = spawn "lightctl" "-e" "2.5" "up";
             }
             {
               "Mod+Minus".action = set-column-width "-10%";
