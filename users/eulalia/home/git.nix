@@ -1,7 +1,9 @@
 {
   config,
   ...
-}: {
+} : let
+  secrets = config.eula.extras.read-sops ../../../secrets/eval-secrets.nix;
+in {
   programs.git = {
     # sane defaults
     userName = "3ulalia";
@@ -17,7 +19,7 @@
     ;
     extraConfig.init.defaultBranch = "main";
   };
-
+  
   programs.ssh.matchBlocks = {
     github-personal = {
       host = "gh-per";
@@ -33,7 +35,7 @@
     };
     github-school = {
       host = "gh-sch";
-      hostname = config.eula.secrets.git.school; #TODO: sops templates
+      hostname = secrets.git.school.hostname;
       identityFile = config.sops.secrets."ssh/gh-per".path;
       identitiesOnly = true;
     };

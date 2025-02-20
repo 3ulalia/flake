@@ -2,17 +2,30 @@
   config,
   inputs,
   lib,
+  pkgs,
   ...
 }: let
-  inherit (lib) mkOption mkIf mapAttrs trace types mkForce mapAttrsToList;
-  inherit (config.eula.lib.options) mkOpt;
+  inherit (lib) mkOption mkIf mkMerge mapAttrs trace types mkForce mapAttrsToList;
+  inherit (config.eula.lib.modules) any-user;
 
   sops-users = lib.filterAttrs (n: v: v.eula.modules.home-manager.sops.enable) config.home-manager.users;
-  sops-enable = false;#(lib.length (builtins.attrNames sops-users)) != 0;
+  sops-enable = any-user (user: user.eula.modules.home-manager.sops.enable) config.home-manager.users;
 in {
   imports = [inputs.sops-nix.nixosModules.sops];
 
-  config = mkIf sops-enable {
+  config = mkMerge [
+    {
+      nix.extraOptions = ''
+        plugin-files = ${pkgs.nix-plugins.override { nix = config.nix.package; }}/lib/nix/plugins
+      '';
+
+      nix.settings.extra-builtins-file = [
+        ../../../lib/secrets.nix
+      ];
+    }
+    (mkIf sops-enable {
+    /*
+
     users.users = lib.foldl' 
       (x: y: x // y) 
       {} 
@@ -24,9 +37,10 @@ in {
         (builtins.attrNames sops-users));
 
     sops = {
-      defaultSopsFile = inputs.self.outPath + "/secrets/secrets.yaml";
+      defaultSopsFile = inputs.self.outPath + "/secrets/secrets.yaml";};
       # TODO: THIS IS INSECURE AND NEEDS TO BE CHANGED
-      age.sshKeyPaths = map (x: x + "/.ssh/id_ed25519_THIS_IS_INSECURE_AND_NEEDS_TO_BE_CHANGED") (mapAttrsToList (x: y: config.users.users.${x}.home) sops-users);
+      #age.sshKeyPaths = map (x: x + "/.ssh/id_ed25519_THIS_IS_INSECURE_AND_NEEDS_TO_BE_CHANGED") (mapAttrsToList (x: y: config.users.users.${x}.home) sops-users);};
+      /*
       secrets = builtins.foldl'
         (x: y: x // y)
         {}
@@ -38,6 +52,7 @@ in {
           )
         );
     };
-
-  };
+    */
+  })
+  ];
 }

@@ -1,7 +1,7 @@
 keys:
   - &eulalia age1xknjh9nldw2addpgrz27exrs0q93c6wp99wdcwcmj72xapf8ypjqddft4m 
 creation_rules:
-  - path_regex: secrets/[^/]+\.(yaml|json|env|ini|sops)$
+  - path_regex: secrets/[^/]+\.(yaml|json|env|ini|sops|nix)$
     key_groups:
       - age:
         - *eulalia

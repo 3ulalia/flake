@@ -5,9 +5,11 @@
   ...
 } : 
 let
+
+  secrets = config.eula.extras.read-sops ../../../secrets/eval-secrets.nix;
   construct-email = {name, flavor ? "plain", primary ? false, ae-enable ? true} : rec {
-    realName = config.eula.secrets.email.${name}.realname;
-    address = config.eula.secrets.email.${name}.address;
+    realName = secrets.email.${name}.realname;
+    address = secrets.email.${name}.address;
     userName = if (flavor != "plain") then address else builtins.elemAt (lib.splitString "@" address) 0;
     passwordCommand = "cat ${config.sops.secrets."email/${name}/password".path}";
     inherit primary flavor;
@@ -24,26 +26,23 @@ let
     smtp.port = lib.mkDefault 587;
   };
 in {
-  eula.modules.home-manager.git-crypt = {
-    enable = true;
-    #secret-file = ../secrets.json;
-  };
+  
   accounts.email.accounts = {
     personal = construct-email {name = "personal"; flavor = "gmail.com"; primary = true;};
     school = construct-email {name = "school"; flavor = "outlook.office365.com";};
     professional = construct-email {name = "professional";};
   };
+  
   sops.secrets = builtins.foldl' 
     (x: y: x // y) 
     {} 
     (map 
       (x: {
-        "email/${x}/realname" = {};
-        "email/${x}/address" = {};
         "email/${x}/password" = {};
       })
       ["personal" "school" "professional"]
     );
+  
   programs.aerc.enable = true;
   programs.aerc.extraConfig = {
     general.unsafe-accounts-conf = true;

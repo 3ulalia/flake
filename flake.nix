@@ -69,7 +69,7 @@
     self,
     flake-utils,
     nixpkgs,
-    lix-module,
+  #  lix-module,
     sops-nix,
     ...
   }: let
@@ -98,7 +98,7 @@
     {nixosConfigurations = bootstrap.hosts.generate-systems 
     ./hosts
     {inherit bootstrap inputs;}
-    [./toplevel.nix lix-module.nixosModules.default];};
+    [./toplevel.nix ];};#lix-module.nixosModules.default];};
 }
 #a
 #a
