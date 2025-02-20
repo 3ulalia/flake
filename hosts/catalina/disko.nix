@@ -2,7 +2,9 @@
 https://haseebmajid.dev/posts/2024-07-30-how-i-setup-btrfs-and-luks-on-nixos-using-disko/
 https://0pointer.net/blog/unlocking-luks2-volumes-with-tpm2-fido2-pkcs11-security-hardware-on-systemd-248.html
 */
-{
+let
+  mount-options = sv: ["subvol=${sv}" "compress=zstd" "noatime" "space_cache=v2"];
+in {
   disko.devices = {
     disk = {
       main = {
@@ -55,27 +57,27 @@ https://0pointer.net/blog/unlocking-luks2-volumes-with-tpm2-fido2-pkcs11-securit
                   subvolumes = {
                     "/boot" = {
                       mountpoint = "/boot";
-                      mountOptions = ["subvol=boot" "compress=zstd" "noatime"];
+                      mountOptions = mount-options "boot";
                     };
                     "/root" = {
                       mountpoint = "/";
-                      mountOptions = ["subvol=root" "compress=zstd" "noatime"];
+                      mountOptions = mount-options "root";
                     };
                     "/home" = {
                       mountpoint = "/home";
-                      mountOptions = ["subvol=home" "compress=zstd" "noatime"];
+                      mountOptions = mount-options "home";
                     };
                     "/nix" = {
                       mountpoint = "/nix";
-                      mountOptions = ["subvol=nix" "compress=zstd" "noatime"];
+                      mountOptions = mount-options "nix";
                     };
                     "/persist" = {
                       mountpoint = "/persist";
-                      mountOptions = ["subvol=persist" "compress=zstd" "noatime"];
+                      mountOptions = mount-options "persist";
                     };
                     "/log" = {
                       mountpoint = "/var/log";
-                      mountOptions = ["subvol=log" "compress=zstd" "noatime"];
+                      mountOptions = mount-options "log";
                     };
                     "/swap" = {
                       mountpoint = "/swap";

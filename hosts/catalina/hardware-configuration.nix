@@ -47,7 +47,5 @@
     pkgs.amdvlk
   ];
 
-  # we don't need this because of our boot.extraModprobeConfig
-  # also it causes an annoying error when it can't find bootx64.efi
-  hardware.apple-t2.enableAppleSetOsLoader = false;
+  hardware.apple-t2.enableIGPU = true;
 }

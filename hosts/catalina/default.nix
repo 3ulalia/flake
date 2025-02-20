@@ -55,11 +55,11 @@ in {
   networking.dhcpcd.wait = "if-carrier-up";
   systemd.targets.network-online.wantedBy = lib.mkForce [];
   systemd.services.NetworkManager-wait-online.wantedBy = lib.mkForce [];
-  #networking.useNetworkd = true;
-  #systemd.network.networks."enp4s0f1u1" = {
-   # linkConfig.RequiredForOnline = "no";
-    #enable = false;
-  #};
+  networking.useNetworkd = true;
+  systemd.network.networks."enp4s0f1u1" = {
+    linkConfig.RequiredForOnline = "no";
+    enable = false;
+  };
 
   powerManagement = {
     enable = true;
@@ -143,23 +143,53 @@ in {
       RemainAfterExit = "yes";
       ExecStart = [
         "/run/current-system/sw/bin/rmmod -f apple-bce"
-        "/run/current-system/sw/bin/modprobe -r brcmfmac"
-        "/run/current-system/sw/bin/modprobe -r brcmfmac_wcc"
+      #  "/run/current-system/sw/bin/modprobe -r brcmfmac"
+      #  "/run/current-system/sw/bin/modprobe -r brcmfmac_wcc"
       ];
       ExecStop = [
         "/run/current-system/sw/bin/modprobe apple-bce"
-        "/run/current-system/sw/bin/modprobe brcmfmac"
-        "/run/current-system/sw/bin/modprobe brmcfmac_wcc"
+      #  "/run/current-system/sw/bin/modprobe brcmfmac"
+      #  "/run/current-system/sw/bin/modprobe brmcfmac_wcc"
       ];
       ExecStopPost = [
         "+/run/current-system/sw/bin/systemctl restart systemd-timesyncd"
-        "/run/current-system/sw/bin/niri msg action power-off-monitors"
+        #"/run/current-system/sw/bin/niri msg action power-off-monitors"
       ];
     };
     wantedBy = [ "sleep.target" ];
   };
 
-
+  systemd.timers.fs-timestamp = {
+    unitConfig.Description = "set fs timestamp";
+    timerConfig = {
+      OnBootSec = "5m";
+      OnUnitInactiveSec = "5m";
+      Unit = "fs-timestamp.service";
+    };
+    wantedBy = ["timers.target"];
+  };
+  systemd.services.fs-timestamp = {
+    unitConfig.Description = "write fs timestamp to file";
+    serviceConfig = {
+      Type = "exec";
+      PassEnvironment = "DISPLAY";
+      ExecStart = pkgs.writeShellScript "fs-timestamp" ''
+        export last=$(date --date="$(date -r /var/lib/systemd/timesync/clock)" "+%Y-%m-%d_%H:%M:%S")
+        export iter=$(($(cat /var/lib/misc/fs-iter) + 1))
+        if [[ -e /run/systemd/timesync/synchronized ]]; then
+          export ts=$(date "+%Y-%m-%d_%H:%M:%S")
+          echo 0 > /var/lib/misc/fs-iter
+        else
+          export ts=$last"_"$iter
+          echo $iter > /var/lib/misc/fs-iter
+        fi
+        echo $ts > /var/lib/misc/fs-timestamp 
+        '';
+      Restart = "on-failure";
+    };
+    wantedBy = ["default.target"];
+  };
+  
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
