@@ -83,6 +83,7 @@ in {
       };
     };
     systemd.services.display-manager.environment.XDG_CURRENT_DESKTOP = "X-NIXOS-SYSTEMD-AWARE";
+    eula.modules.services.impermanence.dirs = ["/var/cache/tuigreet"];
     
     # NOTE: the below is stolen from github:sjcobb2022/nixos-config:/hosts/common/optional/greetd.nix
     # this is a life saver.

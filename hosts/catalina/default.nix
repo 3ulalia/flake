@@ -39,7 +39,10 @@ in {
   boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.systemd-boot.enable = true;
 
-  eula.modules.services.impermanence.enable = true;
+  eula.modules.services.impermanence = {
+    enable = true;
+    dirs = ["/lib/firmware/brcm" "/var/lib/misc"];
+  };
   eula.modules.services.ephemeral-btrfs.enable = true;
 
   services.mbpfan.enable = true;

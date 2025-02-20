@@ -5,6 +5,15 @@
   lib,
   ...
 }: {
+
+  home = {
+    sessionVariables = {XDG_DESKTOP_DIR = "$HOME/";};
+  };
+
+  eula.modules.home-manager.impermanence.directories = [
+    ".mozilla/firefox/${config.home.username}"
+  ];
+
   programs.firefox = {
     profiles.${config.home.username} = {
       extensions = with inputs.firefox-addons.packages.${pkgs.system}; [

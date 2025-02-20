@@ -13,6 +13,12 @@ in {
   };
 
   config = mkIf cfg.enable  {
+
+    fileSystems = {
+      ${config.eula.modules.services.impermanence.root}.neededForBoot = true;
+      "/home".neededForBoot = true; # IMPORTANT
+    };
+
     boot.initrd = {
       enable = mkDefault true;
       systemd.enable = mkDefault true;
@@ -23,25 +29,29 @@ in {
         wantedBy = [
           "initrd.target"
         ];
+        requires = ["initrd-root-device.target"];
         after = [
           # after luks unlock
           "systemd-cryptsetup@${cfg.device}.service"
           "initrd-root-device.target"
+          "systemd-hibernate-resume.service"
         ];
         before = [
           "sysroot.mount"
+          "create-needed-for-boot-dirs.service"
         ];
         unitConfig.DefaultDependencies = "no";
-        serviceConfig.type = "oneshot";
-        script = let
-          #users = foldl' (acc: x: "${acc} {x.name}") "" config.eula.users;
-        in ''
+        serviceConfig.Type = "oneshot";
+        script = ''
           mkdir /btrfs_tmp
           mount /dev/mapper/${cfg.device} /btrfs_tmp
 
           # create persistent user dirs
 
-          timestamp = $(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+Y-%m-%-d_%H:%M:%S")
+          timestamp=$(cat /btrfs_tmp/persist/var/lib/misc/fs-timestamp)
+          if [[ $(cat /btrfs_tmp/persist/var/lib/misc/fs-iter) -gt 0 ]]; then
+            echo $(($(cat /btrfs_tmp/persist/var/lib/misc/fs-iter) + 1)) > /btrfs_tmp/persist/var/lib/misc/fs-iter
+          fi
 
           # revert root
           if [[ -e /btrfs_tmp/root ]]; then
@@ -51,7 +61,7 @@ in {
 
           # revert home
           if [[ -e /btrfs_tmp/home ]]; then
-            mkdir =p /btrfs_tmp/old_homes
+            mkdir -p /btrfs_tmp/old_homes
             mv /btrfs_tmp/home "/btrfs_tmp/old_homes/$timestamp"
           fi
 
@@ -73,16 +83,17 @@ in {
             delete_subvolume_recursively "$i"
           done
 
-          # delete old (1 week) saved persist
-          for i in $(find /btrfs_tmp/old_persist/ -maxdepth 1 -mtime +7); do
-            delete_subvolume_recursively "$i"
-          done
-
           # recreate subvolumes
           btrfs subvolume create /btrfs_tmp/root
           btrfs subvolume create /btrfs_tmp/home
 
+          mkdir -p /btrfs_tmp/old_persist
           btrfs subvolume snapshot /btrfs_tmp/persist "/btrfs_tmp/old_persist/$timestamp"
+
+          # delete old (1 week) saved persist
+          for i in $(find /btrfs_tmp/old_persist/ -maxdepth 1 -mtime +7); do
+            delete_subvolume_recursively "$i"
+          done
 
           umount /btrfs_tmp
         '';
