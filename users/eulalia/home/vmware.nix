@@ -1,6 +1,6 @@
 { pkgs, ... } : {
   home.packages = [
-    #pkgs.vmware-horizon-client
+    pkgs.vmware-horizon-client
     pkgs.openconnect
     pkgs.gp-saml-gui
   ];
