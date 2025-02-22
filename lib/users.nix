@@ -55,6 +55,8 @@
         ../users/${name}/home
       ];
 
+      nixpkgs.config.allowUnfree = true;
+
       home = {
         homeDirectory = "/home/${name}";
         username = name;
