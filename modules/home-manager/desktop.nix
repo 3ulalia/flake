@@ -18,7 +18,7 @@ in {
   */
   options.eula.modules.home-manager.desktop = {
     launcher = mkPkgOpt true pkgs.fuzzel "programs";
-    bg = mkPkgOpt true pkgs.wpaperd "programs"; # TODO: migrate :p
+    bg = mkPkgOpt true pkgs.wpaperd "services";
     notif = mkPkgOpt true pkgs.mako "services"; 
     ctrl = mkPkgOpt true pkgs.avizo "services";
     bar = mkPkgOpt true pkgs.waybar "programs";

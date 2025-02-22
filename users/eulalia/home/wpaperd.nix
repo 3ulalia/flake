@@ -2,9 +2,9 @@
   eula.modules.home-manager.desktop.bg = {
     pkg = pkgs.wpaperd;
     enable = true;
-    type = "programs";
+    type = "services";
   };
-  programs.wpaperd = {
+  services.wpaperd = {
     settings = {
       default = {
         mode = "center";

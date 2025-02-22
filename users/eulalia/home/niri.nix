@@ -24,7 +24,6 @@ in{
 
     programs.niri.settings = {
       spawn-at-startup = [
-        {command = [config.eula.modules.home-manager.desktop.bg.pkg.pname];} 
         {command = [config.eula.modules.home-manager.desktop.notif.pkg.pname];}
         {command = ["avizo-service"];}
         {command = ["nm-applet"];} # TODO: make work with options
