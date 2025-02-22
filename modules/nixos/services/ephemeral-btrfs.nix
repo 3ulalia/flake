@@ -48,10 +48,17 @@ in {
 
           # create persistent user dirs
 
-          timestamp=$(cat /btrfs_tmp/persist/var/lib/misc/fs-timestamp)
-          if [[ $(cat /btrfs_tmp/persist/var/lib/misc/fs-iter) -gt 0 ]]; then
-            echo $(($(cat /btrfs_tmp/persist/var/lib/misc/fs-iter) + 1)) > /btrfs_tmp/persist/var/lib/misc/fs-iter
+          last_known_good=$(date -r /btrfs_tmp/persist/var/lib/misc/fs-iter) # get our past timestamp
+          stored_iter=$(cat /btrfs_tmp/persist/var/lib/misc/fs-iter)
+          if [[ $stored_iter -gt 0 ]]; then # we have revisions of this timestamp
+            suffix="_"$stored_iter # set our timestamp
+          else # we don't have any revisions of this timestamp
+            suffix=""
           fi
+
+          echo $(( $stored_iter + 1 )) > /btrfs_tmp/persist/var/lib/misc/fs-iter # bump iter
+          touch -d "$(date -R --date="$last_known_good")" /btrfs_tmp/persist/var/lib/misc/fs-iter # fix modified date
+          timestamp=$(date --date="$last_known_good" "+%Y-%m-%d_%H:%M:%S")$suffix
 
           # revert root
           if [[ -e /btrfs_tmp/root ]]; then

@@ -42,6 +42,7 @@ in {
   eula.modules.services.impermanence = {
     enable = true;
     dirs = ["/lib/firmware/brcm" "/var/lib/misc"];
+    files = ["/var/lib/systemd/timesync/clock"];
   };
   eula.modules.services.ephemeral-btrfs.enable = true;
 
@@ -177,17 +178,12 @@ in {
       Type = "exec";
       PassEnvironment = "DISPLAY";
       ExecStart = pkgs.writeShellScript "fs-timestamp" ''
-        export last=$(date --date="$(date -r /var/lib/systemd/timesync/clock)" "+%Y-%m-%d_%H:%M:%S")
-        export iter=$(($(cat /var/lib/misc/fs-iter) + 1))
         if [[ -e /run/systemd/timesync/synchronized ]]; then
-          export ts=$(date "+%Y-%m-%d_%H:%M:%S")
-          echo 0 > /var/lib/misc/fs-iter
-        else
-          export ts=$last"_"$iter
-          echo $iter > /var/lib/misc/fs-iter
+          echo 0 > /var/lib/misc/fs-iter # we're connected; we know that we have the correct timestamp 
+        else # we aren't connected; we have to trust the last known sync time
+          touch /var/lib/misc/fs-iter # mark the last time we checked for connection 
         fi
-        echo $ts > /var/lib/misc/fs-timestamp 
-        '';
+      '';
       Restart = "on-failure";
     };
     wantedBy = ["default.target"];
