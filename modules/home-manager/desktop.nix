@@ -2,8 +2,8 @@
   inherit (osConfig.eula.lib.options) mkOpt;
   inherit (lib) filterAttrs mapAttrs' mapAttrsToList mkDefault types;
   mkPkgOpt = en: pkg: type: {
-    enable = mkOpt types.bool (mkDefault en);
-    pkg = mkOpt types.package (mkDefault pkg);
+    enable = mkOpt types.bool en;
+    pkg = mkOpt types.package pkg;
     type = mkOpt (types.enum ["programs" "services" "packages"]) type;
   };
   desktop = config.eula.modules.home-manager.desktop;

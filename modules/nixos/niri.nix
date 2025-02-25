@@ -9,7 +9,7 @@ in {
 
   imports = [inputs.niri.nixosModules.niri];
 
-  programs.niri.enable = true;#(any-user (user: user.eula.modules.home-manager.niri.enable) config.home-manager.users);
+  programs.niri.enable = any-user (user: user.eula.modules.home-manager.niri.enable) config.home-manager.users;
 
   nixpkgs.overlays = [inputs.niri.overlays.niri];
   

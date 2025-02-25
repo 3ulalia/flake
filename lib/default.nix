@@ -28,7 +28,7 @@ about these "types" would be nice, so if necessary I'll include a
 
   eulib = import ./modules.nix {inherit lib;};
 in {
-  options.eula.lib = mkOption {type = types.attrsOf (types.attrsOf (types.anything));};
+  options.eula.lib = mkOption {type = types.attrsOf (types.attrsOf (types.raw));};
 
   imports = map (n: ./. + ("/" + n)) (attrNames (eulib.config.eula.lib.modules.nix-modules-in-dir [(/. + __curPos.file) ./secrets.nix] ./.));
 }
