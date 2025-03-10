@@ -15,7 +15,7 @@ in {
   };
 
   config = mkIf config.eula.modules.home-manager.niri.enable {
-    nixpkgs.overlays = [inputs.niri.overlays.niri];
+    #nixpkgs.overlays = [inputs.niri.overlays.niri];
     home = {
       # home-manager settings
       sessionVariables = {
