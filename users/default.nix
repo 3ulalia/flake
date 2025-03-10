@@ -31,8 +31,8 @@ in {
     };
 
     home-manager = {
-      #useGlobalPkgs = true;
-      useUserPackages = true;
+      useGlobalPkgs = true;
+      #useUserPackages = true;
       backupFileExtension = "backup";
 
       users = config.eula.lib.users.generate-homes {} config-users;
