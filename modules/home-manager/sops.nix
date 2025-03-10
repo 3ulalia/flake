@@ -30,6 +30,8 @@ in {
     sops.age.sshKeyPaths = [(config.home.homeDirectory + "/.ssh/id_ed25519_THIS_IS_INSECURE_AND_NEEDS_TO_BE_CHANGED")];
     sops.defaultSopsFile = inputs.self.outPath + "/secrets/secrets.yaml";
     eula.extras.read-sops = (builtins.extraBuiltins.readSops sops-config.key-path);
-
+    eula.modules.home-manager.impermanence.files = [
+      sops-config.key-path
+    ];
   };
 }
