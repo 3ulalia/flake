@@ -64,6 +64,7 @@ in {
     linkConfig.RequiredForOnline = "no";
     enable = false;
   };
+  networking.networkmanager.unmanaged = [ "enp4s0f1u1" ];
 
   powerManagement = {
     enable = true;
