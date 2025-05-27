@@ -11,7 +11,7 @@ let
   };
 
   secrets = config.eula.extras.read-sops ../../../secrets/eval-secrets.nix;
-  construct-email = {name, flavor ? "plain", check-time ? "1m", primary ? false, oauth2 ? false, ae-enable ? true} : rec {
+  construct-email = {name, flavor ? "plain", primary ? false, check-time ? "1m", thread ? true, oauth2 ? false, ae-enable ? true} : rec {
     realName = secrets.email.${name}.realname;
     address = secrets.email.${name}.address;
     userName = if (flavor != "plain") then address else builtins.elemAt (lib.splitString "@" address) 0;
@@ -19,9 +19,6 @@ let
     inherit primary flavor;
     aerc = rec {
       enable = ae-enable;
-      extraConfig = {
-        check-mail = check-time;
-      };
       imapAuth = if oauth2 && (flavor == "outlook.office365.com") then "xoauth2" else if oauth2 then "oauthbearer" else null;
       smtpAuth = imapAuth;
       imapOauth2Params = if oauth2 then {
@@ -30,9 +27,18 @@ let
         token_endpoint = oauth2-endpoints.${flavor};
       } else null;
       smtpOauth2Params = imapOauth2Params;
-      extraAccounts = if (flavor == "gmail.com") then {
-        use-gmail-ext = true;
-      } else {};
+      extraAccounts = {
+        use-gmail-ext = (flavor == "gmail.com");
+        check-mail = check-time;
+        default = "INBOX";
+      };
+      extraConfig.ui = {
+        threading-enabled = thread;
+        force-client-threads = thread;
+        show-thread-context = thread;
+        reverse-thread-order = thread;
+        dirlist-tree = true;
+      };
     };
     # should be overridden by anything trying to set the IMAP host; this is for "plain" accounts that use IMAP
     imap.host = lib.mkOverride 5000 "mail.${builtins.elemAt (lib.splitString "@" address) 1}";
@@ -63,7 +69,7 @@ in {
   
   programs.aerc.enable = true;
   programs.aerc.extraConfig = {
-    general.unsafe-accounts-conf = true;
+    general.unsafe-accounts-conf = true; # TODO
     filters = {
       "text/plain" = "colorize";
       "text/html" = "html | colorize";
