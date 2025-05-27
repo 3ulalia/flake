@@ -27,6 +27,8 @@ in {
   ];
 
   hardware.apple.touchBar.enable = false;
+  programs.wireshark.enable = true;
+  programs.wireshark.package = pkgs.wireshark;
   # Bootloader.
 
   boot.loader.efi = {
@@ -41,7 +43,7 @@ in {
 
   eula.modules.services.impermanence = {
     enable = true;
-    dirs = ["/lib/firmware/brcm" "/var/lib/misc"];
+    dirs = ["/lib/firmware/brcm" "/var/lib/misc" "/var/lib/tailscale/"];
     files = ["/var/lib/systemd/timesync/clock"];
   };
   eula.modules.services.ephemeral-btrfs.enable = true;
@@ -49,7 +51,17 @@ in {
   services.mbpfan.enable = true;
   services.mbpfan.aggressive = true;
 
-  networking.interfaces."wlp5s0".wakeOnLan.enable = false;
+  #systemd.services."user@1000".serviceConfig.LimitNOFILE = "32768";
+  systemd.user.extraConfig = "DefaultLimitNOFILE=32768";
+  security.pam.loginLimits = [
+    { domain = "*"; item = "nofile"; type = "-"; value = "32768"; }
+    { domain = "*"; item = "memlock"; type = "-"; value = "32768"; }
+  ];
+
+  networking.interfaces."wlp5s0" = {
+    useDHCP = true;
+    wakeOnLan.enable = false;
+  };
   networking.interfaces."enp4s0f1u1" = {
     wakeOnLan.enable = false;
     useDHCP = false;
@@ -59,12 +71,30 @@ in {
   networking.dhcpcd.wait = "if-carrier-up";
   systemd.targets.network-online.wantedBy = lib.mkForce [];
   systemd.services.NetworkManager-wait-online.wantedBy = lib.mkForce [];
-  networking.useNetworkd = true;
-  systemd.network.networks."enp4s0f1u1" = {
-    linkConfig.RequiredForOnline = "no";
-    enable = false;
-  };
+  #networking.useNetworkd = true;
+  #systemd.network.networks."40-enp4s0f1u1" = {
+  #  linkConfig.RequiredForOnline = "no";
+  #  enable = false;
+  #};
   networking.networkmanager.unmanaged = [ "enp4s0f1u1" ];
+  networking.networkmanager.wifi.scanRandMacAddress = false;
+  #systemd.network.config = {
+    #networkConfig = { DHCP = true; };
+    #dhcpV4Config  = { "UseDomains" = true; };
+    #dhcpV6Config  = { UseDomains = true; };
+  #};
+  # TODO: this is a dumb hack. the above (network.config) line should work when this is closed:
+  # https://github.com/NixOS/nixpkgs/issues/375960
+  # how it's possible that NixOS, an operating system that relies almost entirely on systemd,
+  # can have _no one_ assigned to maintain systemd for NixOS astounds me.
+  #systemd.network.networks."40-wlp5s0".dhcpV4Config = { UseDNS = true; UseDomains = true;};
+  #systemd.network.networks."40-wlp5s0".dhcpV6Config = { UseDNS = true; UseDomains = true;};
+
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "client";
+  };
+
 
   powerManagement = {
     enable = true;
@@ -73,7 +103,7 @@ in {
       min = 800000;
       max = 1500000;
     };
-    resumeCommands = "/run/current-system/sw/bin/niri msg action power-off-monitors";
+    #resumeCommands = "/run/current-system/sw/bin/niri msg action power-off-monitors";
   };
 
   #eula.modules.services.miracast.enable = true;
@@ -120,10 +150,6 @@ in {
     START_CHARGE_THRESH_BAT0=75;
     STOP_CHARGE_THRESH_BAT0=80;
 
-    INTEL_GPU_MIN_FREQ_ON_BAT=350;
-    INTEL_GPU_MAX_FREQ_ON_BAT=750;
-    INTEL_GPU_BOOST_FREQ_ON_BAT=800;
-
     RADEON_DPM_PERF_LEVEL_ON_BAT="low";
     RADEON_DPM_STATE_ON_BAT="battery";
 
@@ -147,14 +173,16 @@ in {
       Type = "oneshot";
       RemainAfterExit = "yes";
       ExecStart = [
+        "/run/current-system/sw/bin/modprobe -r brcmfmac_wcc"
+        "/run/current-system/sw/bin/modprobe -r brcmfmac"
+        "/run/current-system/sw/bin/modprobe -r hci_bcm4377"
         "/run/current-system/sw/bin/rmmod -f apple-bce"
-      #  "/run/current-system/sw/bin/modprobe -r brcmfmac"
-      #  "/run/current-system/sw/bin/modprobe -r brcmfmac_wcc"
       ];
       ExecStop = [
         "/run/current-system/sw/bin/modprobe apple-bce"
-      #  "/run/current-system/sw/bin/modprobe brcmfmac"
-      #  "/run/current-system/sw/bin/modprobe brmcfmac_wcc"
+        "/run/current-system/sw/bin/modprobe hci_bcm4377"
+        "/run/current-system/sw/bin/modprobe brcmfmac"
+        "/run/current-system/sw/bin/modprobe brmcfmac_wcc"
       ];
       ExecStopPost = [
         "+/run/current-system/sw/bin/systemctl restart systemd-timesyncd"
