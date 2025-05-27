@@ -12,8 +12,11 @@ in {
   };
 
   config = mkIf config.eula.modules.nixos.bluetooth.enable {
-    hardware.bluetooth.enable = true;
-    hardware.bluetooth.powerOnBoot = mkDefault false;
+    hardware.bluetooth = {
+      enable = true;
+      powerOnBoot = mkDefault false;
+      settings.General.Experimental = true;
+    };
 
     services.blueman.enable = mkDefault true;
   };

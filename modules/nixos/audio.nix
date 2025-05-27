@@ -2,10 +2,19 @@
   config,
   options,
   lib,
+  pkgs,
   ...
 }: let
   inherit (lib) mkDefault mkIf types;
   inherit (config.eula.lib.options) mkOpt;
+
+  t2AppleAudioDSP = pkgs.fetchFromGitHub {
+    owner = "lemmyg";
+    repo = "t2-apple-audio-dsp";
+    rev = "9422c57caeb54fde45121b9ea31628080da9d3bd";
+    sha256 = "MgKBwE9k9zyltz6+L+VseSiQHS/fh+My0tNDpdllPNw=";
+  };
+
 in {
   options.eula.modules.nixos.audio = {
     enable = mkOpt types.bool false;
@@ -13,9 +22,38 @@ in {
 
   config = mkIf config.eula.modules.nixos.audio.enable {
     security.rtkit.enable = true;
+
     services = {
       pipewire = {
         enable = true;
+
+        extraConfig = {
+          pipewire-pulse."92-fix-crackle" = {
+            "pulse.properties" = {
+              "pulse.properties" = {
+                "pulse.min.req" = "2048/48000";
+                "pulse.default.req" = "2048/48000";
+                "pulse.max.req" = "2048/48000";
+                "pulse.min.quantum" = "2048/48000";
+                "pulse.max.quantum" = "2048/48000";
+              };
+              "stream.properties" = {
+                "node.latency" = "2048/48000";
+                "resample.quality" = 1;
+              };
+            };
+          };
+          pipewire."92-fix-crackle" = {
+            "context.properties" = {
+              "default.clock.rate" = 48000;
+              "default.clock.quantum" = 2048;
+              "default.clock.min-quantum" = 2048;
+              "default.clock.max-quantum" = 2048;
+            };
+          };
+        };
+
+
         alsa = {
           enable = true;
           support32Bit = true;
