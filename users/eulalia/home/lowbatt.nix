@@ -28,16 +28,16 @@ in {
         ${dismiss}
         export battery_status=$(${pkgs.coreutils}/bin/cat /sys/class/power_supply/${device}/status)
         if [[ $battery_capacity -le ${builtins.toString critical} && $battery_status = "Discharging" ]]; then
-            ${pkgs.libnotify}/bin/notify-send --urgency=critical -e -p --icon=battery_empty "battery at $battery_capacity%" "DONT GET FUCKED!!1!"
+            ${pkgs.libnotify}/bin/notify-send --urgency=critical --transient --print-id --icon=battery_empty "battery at $battery_capacity%" "DONT GET FUCKED!!1!" > ${lbnotif}
             sleep 60s
             battery_status=$(${pkgs.coreutils}/bin/cat /sys/class/power_supply/${device}/status)
             if [[ $battery_status = "Discharging" && $battery_capacity -le ${builtins.toString critical} ]]; then
                 ${dismiss}
-                ${pkgs.libnotify}/bin/notify-send --urgency=critical --hint=int:transient:1 --icon=battery_empty "goodbye :3" "see you space cowboy..."
+                ${pkgs.libnotify}/bin/notify-send --print-id --urgency=critical --hint=int:transient:1 --icon=battery_empty "goodbye :3" "see you space cowboy..." > ${lbnotif}
                 systemctl hibernate 
             fi
         elif [[ $battery_capacity -le ${builtins.toString notify} && $battery_status = "Discharging" ]]; then
-            ${pkgs.libnotify}/bin/notify-send --urgency=critical --hint=int:transient:1 --icon=battery_empty "battery at $battery_capacity%" "go plug in your laptop, dumbass"
+            ${pkgs.libnotify}/bin/notify-send --print-id --urgency=critical --hint=int:transient:1 --icon=battery_empty "battery at $battery_capacity%" "go plug in your laptop, dumbass" > ${lbnotif}
         fi
       '';
       Restart = "on-failure";
