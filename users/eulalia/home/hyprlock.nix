@@ -7,7 +7,7 @@ let
   scale = n: builtins.floor (n * scaling-factor);
   scales = n: builtins.toString (scale n);
 in {
-  eula.modules.home-manager.desktop.locker= {
+  eula.modules.home-manager.desktop.apps.locker= {
     pkg = pkgs.hyprlock;
     enable = true;
     type = "programs";

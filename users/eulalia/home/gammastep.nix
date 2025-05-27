@@ -1,5 +1,5 @@
 { osConfig, pkgs, ... } : {
-  eula.modules.home-manager.desktop.night-shift = {
+  eula.modules.home-manager.desktop.apps.night-shift = {
     pkg = pkgs.gammastep;
     enable = true;
     type = "services";

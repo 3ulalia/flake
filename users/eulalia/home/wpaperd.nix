@@ -1,5 +1,5 @@
 {config, pkgs, ...}: {
-  eula.modules.home-manager.desktop.bg = {
+  eula.modules.home-manager.desktop.apps.bg = {
     pkg = pkgs.wpaperd;
     enable = true;
     type = "services";

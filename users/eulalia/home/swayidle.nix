@@ -1,7 +1,7 @@
 { config, pkgs, ... } : 
 
 let 
-  locker = config.eula.modules.home-manager.desktop.locker;
+  locker = config.eula.modules.home-manager.desktop.apps.locker;
   swcmd = "${locker.pkg}/bin/${locker.pkg.pname}";
   notif-id = "${config.xdg.stateHome}/idlenotif";
   niri = "/run/current-system/bin/sw/niri msg action";

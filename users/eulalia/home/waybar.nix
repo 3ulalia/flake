@@ -5,10 +5,14 @@
   pkgs,
   ...
 }: {
-  eula.modules.home-manager.desktop.bar = {
-    pkg = pkgs.waybar;
-    enable = true;
-    type = "programs";
+/*
+  eula.modules.home-manager.desktop = {
+    apps.bar = {
+      pkg = pkgs.waybar;
+      enable = true;
+      type = "programs";
+    };
+    spawn-at-startup = ["nm-applet"]; # TODO: make work with options
   };
   programs.waybar = {
     systemd.enable = true;
@@ -24,7 +28,7 @@
 
         modules-right = ["tray"];
 
-        "battery" = {
+"battery" = {
           "tooltip-format" = "{time}";
         };
         "clock" = {
@@ -35,5 +39,5 @@
   };
   home.packages = [
     pkgs.networkmanagerapplet
-  ];
+  ];*/
 }

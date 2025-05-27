@@ -6,9 +6,12 @@
   ...
 }: {
   # TODO: configure mako
-  eula.modules.home-manager.desktop.notif = {
-    pkg = pkgs.mako;
-    enable = true;
-    type = "services";
+  eula.modules.home-manager.desktop = {
+    apps.notif = {
+      pkg = pkgs.mako;
+      enable = true;
+      type = "services";
+    };
+    spawn-at-startup = ["mako"];
   };
 }

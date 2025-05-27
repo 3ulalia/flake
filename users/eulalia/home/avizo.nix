@@ -5,10 +5,13 @@
   pkgs,
   ...
 }: {
-  config.eula.modules.home-manager.desktop.ctrl = {
-    pkg = pkgs.avizo;
-    enable = true;
-    type = "services";
+  config.eula.modules.home-manager.desktop = {
+    apps.ctrl = {
+      pkg = pkgs.avizo;
+      enable = true;
+      type = "services";
+    };
+    spawn-at-startup = ["avizo-service"];
   };
   config.services.avizo.settings = {
     default = {

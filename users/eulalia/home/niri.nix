@@ -12,34 +12,11 @@ in{
   # TODO: make this cleaner
   config = {
     eula.modules.home-manager.niri.enable = true;
-    eula.modules.home-manager.niri.pkg = pkgs.niri-unstable;
-
-    home.pointerCursor = {
-      gtk.enable = true;
-      x11.enable = true;
-      package = pkgs.rose-pine-cursor;
-      name = "BreezeX-RosePine-Linux";
-      size = 32;
-    };
-
+    eula.modules.home-manager.niri.pkg = lib.mkForce pkgs.niri-unstable;
+    
     programs.niri.settings = {
-      spawn-at-startup = [
-        {command = [config.eula.modules.home-manager.desktop.notif.pkg.pname];}
-        {command = ["avizo-service"];}
-        {command = ["nm-applet"];} # TODO: make work with options
-        {command = ["signal-desktop" "--use-tray-icon" "--ozone-platform-hint=auto"];}
-      ];
-
       prefer-no-csd = true;
-
-      input.touchpad = {
-        accel-speed = 1.000;
-        accel-profile = "adaptive";
-        dwt = true;
-        click-method = "clickfinger";
-      };
-
-      switch-events.lid-close.action.spawn = ["systemctl" "suspend"];
+      debug.dbus-interfaces-in-non-session-instances = [];
 
       outputs."eDP-1".scale = lib.mkDefault 1;
 
@@ -82,14 +59,17 @@ in{
         in
           lib.attrsets.mergeAttrsList [
             {
-              "Mod+Tab".action = spawn config.eula.modules.home-manager.desktop.term.pkg.pname;
+              "Mod+Tab".action = spawn desktop.apps.term.pkg.pname;
               "Mod+Space" = let 
-                launcher = desktop.launcher.pkg.pname;
+                launcher = desktop.apps.launcher.pkg.pname;
               in {
                   action = sh "if pidof -qx '${launcher}'; then kill $(pidof ${launcher}); else ${launcher}; fi";
               };
-              "Mod+F".action = spawn config.eula.modules.home-manager.desktop.browser.pkg.pname;
-              "Mod+Shift+F".action = spawn config.eula.modules.home-manager.desktop.browser.pkg.pname "--private-window";
+              "Mod+F".action = spawn desktop.apps.browser.pkg.pname;
+              "Mod+Shift+F".action = spawn desktop.apps.browser.pkg.pname "--private-window";
+            }
+            {
+              "Mod+Alt+Q".action = power-off-monitors;
             }
             {
               "Mod+W".action = close-window;
@@ -99,12 +79,12 @@ in{
             }
             {
               "Mod+Control+Q".action = quit;
-              "Mod+Shift+Q".action = spawn config.eula.modules.home-manager.desktop.locker.pkg.pname;
+              "Mod+Shift+Q".action = spawn desktop.apps.locker.pkg.pname;
               "Mod+Shift+Slash".action = show-hotkey-overlay;
             }
             {
               "XF86AudioRaiseVolume" = {
-                action = spawn "volumectl" "-u" "up";
+                action = spawn "volumectl" "-u" "up"; # TODO: desktopify
                 allow-when-locked = true;
               };
               "XF86AudioLowerVolume" = {
@@ -141,7 +121,12 @@ in{
                 builtins.map (x: {${builtins.toString x} = ["workspace" x];}) (lib.range 1 8)));
               prefixes."Mod" = "focus";
               prefixes."Mod+Shift" = "move-column-to";
+              #prefixes."Mod+Ctrl" = "move-workspace-to-index";
             })
+            {
+              "Mod+Ctrl+I".action = move-workspace-up;
+              "Mod+Ctrl+K".action = move-workspace-down;
+            }
             {"Mod+grave".action = focus-workspace-previous;}
             {
               "Mod+Print".action = screenshot;
