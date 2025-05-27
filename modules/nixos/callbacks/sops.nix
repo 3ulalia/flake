@@ -16,7 +16,7 @@ in {
   config = mkMerge [
     {
       nix.extraOptions = ''
-        plugin-files = ${pkgs.nix-plugins.override { nix = config.nix.package; }}/lib/nix/plugins
+        plugin-files = ${pkgs.nix-plugins.overrideAttrs (o: {buildInputs = [pkgs.nixVersions.latest pkgs.boost]; patches = (o.patches or []) ++ [./nix-plugins.patch];})}/lib/nix/plugins
       '';
 
       nix.settings.extra-builtins-file = [
