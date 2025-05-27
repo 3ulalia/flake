@@ -12,6 +12,8 @@ in {
   programs.niri.enable = true;#(any-user (user: user.eula.modules.home-manager.niri.enable) config.home-manager.users);
 
   nixpkgs.overlays = [inputs.niri.overlays.niri];
+
+  xdg.portal.config.niri."org.freedesktop.impl.portal.FileChooser" = "gtk";
   
   home-manager.sharedModules = [
     ({
