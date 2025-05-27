@@ -20,7 +20,10 @@
         ublock-origin
         # stylus # TODO
       ];
-      bookmarks = []; # TODO
+      bookmarks = {
+        force = true;
+        settings = []; # TODO
+      };
 
       settings = {
         ### This is all aesthetic stuff
