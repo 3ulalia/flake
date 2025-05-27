@@ -57,7 +57,7 @@ in {
           fi
 
           echo $(( $stored_iter + 1 )) > /btrfs_tmp/persist/var/lib/misc/fs-iter # bump iter
-          touch -d "$(date -R --date="$last_known_good")" /btrfs_tmp/persist/var/lib/misc/fs-iter # fix modified date
+          touch -d "$(date -R --date=$last_known_good)" /btrfs_tmp/persist/var/lib/misc/fs-iter # fix modified date
           timestamp=$(date --date="$last_known_good" "+%Y-%m-%d_%H:%M:%S")$suffix
 
           # revert root
