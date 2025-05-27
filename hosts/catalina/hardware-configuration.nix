@@ -18,10 +18,11 @@
   boot.kernelModules = ["kvm-intel" "amdgpu" "apple_bce" "hid_apple"  "apple_gmux"];
   boot.kernelParams = [
     "brcmfmac.feature_disable=0x82000"
+    "brcmfmac.roamoff=1"
     "apple_gmux.force_igd=y"
     "i915.enable_guc=3"
     "i915.enable_fbc=1"
-    "mem_sleep_default=deep"
+    "mem_sleep_default=s2idle"
   ];
 
   
