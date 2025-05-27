@@ -3,7 +3,10 @@
 }: {
 
   programs.zsh = {
-    history.ignoreSpace = true;
+    history = {
+      extended = true;
+      ignoreSpace = true;
+    };
     historySubstringSearch.enable = true;
     syntaxHighlighting.enable = true;
   };
