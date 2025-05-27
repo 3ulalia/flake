@@ -64,9 +64,9 @@ in {
       power-shutdown = mkOpt types.str "shutdown now";
       power-reboot = mkOpt types.str "reboot";
       power-no-setsid = mkOpt types.bool false;
-      kb-command = mkOpt (types.enum [1 2 3 4 5 6 7 8 9 10 11 12]) 3;
-      kb-sessions = mkOpt (types.enum [1 2 3 4 5 6 7 8 9 10 11 12]) 2;
-      kb-power = mkOpt (types.enum [1 2 3 4 5 6 7 8 9 10 11 12]) 1;*/
+      kb-command = mkOpt (types.int.between 1 12) 3;
+      kb-sessions = mkOpt (types.int.between 1 12) 2;
+      kb-power = mkOpt (types.int.between 1 12) 1;*/
     };}) {};
 
   };
