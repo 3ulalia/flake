@@ -25,6 +25,8 @@ in {
       };
     };
 
+    nixpkgs.overlays = [inputs.niri.overlays.niri];
+
     programs.niri.package = config.eula.modules.home-manager.niri.pkg;
 
     programs.niri.settings = {

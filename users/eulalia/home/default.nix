@@ -6,4 +6,6 @@
   ...
 }: {
   imports = map (n: ./. + ("/" + n)) (eulib.modules.nix-modules-in-dir [(/. + __curPos.file)] ./.);
+
+  nixpkgs.config = { allowUnfree = true; };
 }

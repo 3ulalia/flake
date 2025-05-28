@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (eulib.modules) any-user;
+  inherit (eulib.modules) any-user; # TODO?
   lockers =
     lib.mapAttrs
     (_: user: {${user.eula.modules.home-manager.desktop.apps.locker.pkg.pname} = {};})

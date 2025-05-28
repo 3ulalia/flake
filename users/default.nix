@@ -17,7 +17,6 @@ of which can/will be overridden by home-manager).
 
   config-users = config.eula.modules.nixos.users;
 in {
-  #imports = map (n: ./. + ("/" + n)) (bootstrap.modules.nix-modules-in-dir [__curPos.file (builtins.toString ./home.nix)] ./.);
 
   config = rec {
     users = {
@@ -29,8 +28,9 @@ in {
     };
 
     home-manager = {
-      useGlobalPkgs = true;
-      #useUserPackages = true;
+      # see https://discourse.nixos.org/t/home-manager-useuserpackages-useglobalpkgs-settings/34506
+      #useGlobalPkgs = true;
+      useUserPackages = true;
       backupFileExtension = "backup";
 
       users = eulib.users.generate-homes {} config-users;
