@@ -60,11 +60,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1737576095,
-        "narHash": "sha256-Xv8dl8i4vhWoGxIUxsUaHjH4GlGYufcukhuIDBTFfdc=",
+        "lastModified": 1748313922,
+        "narHash": "sha256-0KRbTkbbMRx6LpMBx/2E+iYScB3XZUyBDrvs1QIIb6s=",
         "ref": "refs/heads/main",
-        "rev": "3f249f3e179d1a26803bce207e31bc3393a2fe8d",
-        "revCount": 6,
+        "rev": "3bfe8d7453cf89d69633526b51b3efc3cc637a36",
+        "revCount": 7,
         "type": "git",
         "url": "file:///home/eulalia/repos/eulalia-nvim/"
       },
@@ -620,22 +620,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
-      "locked": {
-        "lastModified": 1736320768,
-        "narHash": "sha256-nIYdTAiKIGnFNugbomgBJR+Xv5F1ZQU+HfaBqJKroC0=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "4bc9c909d9ac828a039f288cf872d16d38185db8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "pre-commit-hooks-nix": {
       "inputs": {
         "flake-compat": [
@@ -676,8 +660,7 @@
         "nix-colors": "nix-colors",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
-        "sops-nix": "sops-nix",
-        "way-edges": "way-edges"
+        "sops-nix": "sops-nix"
       }
     },
     "rust-overlay": {
@@ -693,24 +676,6 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "rev": "5b07506ae89b025b14de91f697eba23b48654c52",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "type": "github"
-      }
-    },
-    "rust-overlay_2": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_3"
-      },
-      "locked": {
-        "lastModified": 1743906877,
-        "narHash": "sha256-Thah1oU8Vy0gs9bh5QhNcQh1iuQiowMnZPbrkURonZA=",
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "rev": "9d00c6b69408dd40d067603012938d9fbe95cfcd",
         "type": "github"
       },
       "original": {
@@ -781,27 +746,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
-        "type": "github"
-      }
-    },
-    "way-edges": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "rust-overlay": "rust-overlay_2"
-      },
-      "locked": {
-        "lastModified": 1748173383,
-        "narHash": "sha256-mdUc7WUb+SRGZ8qpQsuXxQEfrM2Pg0JnoVJFoV+TKn0=",
-        "owner": "way-edges",
-        "repo": "way-edges",
-        "rev": "c9fab74c6f359f64fc85f47ff98a73150b12fdad",
-        "type": "github"
-      },
-      "original": {
-        "owner": "way-edges",
-        "repo": "way-edges",
         "type": "github"
       }
     },
