@@ -15,7 +15,7 @@
 
   boot.initrd.availableKernelModules = ["xhci_pci" "nvme" "usbhid" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-intel" "amdgpu" "apple_bce" "hid_apple"  "apple_gmux"];
+  boot.kernelModules = ["kvm-intel" "amdgpu" "apple_bce" "hid_apple" "apple_gmux"];
   boot.kernelParams = [
     "brcmfmac.feature_disable=0x82000"
     "brcmfmac.roamoff=1"
@@ -25,11 +25,10 @@
     "mem_sleep_default=s2idle"
   ];
 
-  
   services.udev.extraRules = ''
     KERNEL=="card2", SUBSYSTEM=="drm", DRIVERS=="amdgpu", ATTR{device/power_dpm_force_performance_level}="low"
   '';
-  
+
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction

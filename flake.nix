@@ -59,17 +59,16 @@
     };
 
     eulalia-nvim = {
-    	url = "git+file:///home/eulalia/repos/eulalia-nvim/";
+      url = "git+file:///home/eulalia/repos/eulalia-nvim/";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
   };
 
   outputs = inputs @ {
     self,
     flake-utils,
     nixpkgs,
-  #  lix-module,
+    #  lix-module,
     sops-nix,
     ...
   }: let
@@ -95,10 +94,13 @@
     # nixosConfigurations: {hostName : nixosHost}
     # nixosHosts are generated with nix(-darwin, pkgs).lib.(darwin, nixos)System
     #   which is called on an attribute set containing a `system` attribute and a `modules` list.
-    {nixosConfigurations = bootstrap.hosts.generate-systems 
-    ./hosts
-    {inherit bootstrap inputs;}
-    [./toplevel.nix ];};#lix-module.nixosModules.default];};
+    {
+      nixosConfigurations =
+        bootstrap.hosts.generate-systems
+        ./hosts
+        {inherit bootstrap inputs;}
+        [./toplevel.nix];
+    }; #lix-module.nixosModules.default];};
 }
 #a
 #a

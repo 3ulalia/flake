@@ -1,6 +1,10 @@
-{ config, inputs, lib, osConfig, ...} : 
-
-let
+{
+  config,
+  inputs,
+  lib,
+  osConfig,
+  ...
+}: let
   inherit (osConfig.eula.lib.options) mkOpt;
   inherit (lib) mkIf types;
 
@@ -18,19 +22,21 @@ in {
   config = mkIf cfg.enable {
     home.persistence."/persist${config.home.homeDirectory}" = {
       enable = true;
-      directories = [
-        "Documents"
-        "Downloads"
-        "Pictures"
-        ".ssh"
-        ".cache"
-      ] ++ cfg.directories;
-      files = [
-
-      ] ++ cfg.files;
+      directories =
+        [
+          "Documents"
+          "Downloads"
+          "Pictures"
+          ".ssh"
+          ".cache"
+        ]
+        ++ cfg.directories;
+      files =
+        [
+        ]
+        ++ cfg.files;
 
       allowOther = cfg.allowOther;
     };
   };
-
 }

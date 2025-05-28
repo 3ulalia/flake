@@ -1,4 +1,8 @@
-{config, pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   eula.modules.home-manager.desktop.apps.bg = {
     pkg = pkgs.wpaperd;
     enable = true;

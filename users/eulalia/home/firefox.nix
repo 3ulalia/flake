@@ -5,7 +5,6 @@
   lib,
   ...
 }: {
-
   home = {
     sessionVariables = {XDG_DESKTOP_DIR = "$HOME/";};
   };

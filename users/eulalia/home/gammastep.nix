@@ -1,11 +1,15 @@
-{ osConfig, pkgs, ... } : {
+{
+  osConfig,
+  pkgs,
+  ...
+}: {
   eula.modules.home-manager.desktop.apps.night-shift = {
     pkg = pkgs.gammastep;
     enable = true;
     type = "services";
   };
   services.gammastep = {
-    provider = 
+    provider =
       if osConfig.services.geoclue2.enable
       then "geoclue2"
       else "manual";

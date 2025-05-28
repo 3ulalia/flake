@@ -1,5 +1,4 @@
-{ ... } : {
-
+{...}: {
   programs.fastfetch = {
     enable = true;
     settings = {
@@ -18,7 +17,7 @@
           key = "Uptime";
           # NOTE: replacing '%02d' with '%2d' makes the rendering cleaner - 08 -> 8. do i care?
           text = "echo $(printf '%02d' $((($(($(date +%s) - 1707777777)) / 60) % 60)))$(printf '%02d' $((($(($(date +%s) - 1707777777)) / 60 / 60) % 24)))$(($(($(date +%s) - 1707777777)) / 60 / 60 / 24))";
-          format = "{#cyan}{1~4} days, {#magenta}{1~2,4} hours, {#white}{1~0,2} mins"; 
+          format = "{#cyan}{1~4} days, {#magenta}{1~2,4} hours, {#white}{1~0,2} mins";
         }
         "packages"
         "shell"
@@ -26,12 +25,12 @@
         "terminal"
         "cpu"
         {
-            type = "gpu";
-            key = "GPU";
+          type = "gpu";
+          key = "GPU";
         }
         {
-            type = "memory";
-            format = "{} / {}";
+          type = "memory";
+          format = "{} / {}";
         }
         "btrfs"
         "locale"

@@ -1,8 +1,4 @@
-{ 
-  pkgs,
-  ...
-} : {
-
+{pkgs, ...}: {
   programs.alacritty = {
     settings = {
       font.normal.family = "PlemolJP Console NF";

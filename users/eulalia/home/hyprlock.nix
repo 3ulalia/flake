@@ -1,5 +1,8 @@
-{ config,  pkgs, ... } : 
-let
+{
+  config,
+  pkgs,
+  ...
+}: let
   text-color = a: "rgba(237,231,228,${builtins.toString a})";
   text-font = "Mona Sans";
   # TODO: make this a module
@@ -7,12 +10,13 @@ let
   scale = n: builtins.floor (n * scaling-factor);
   scales = n: builtins.toString (scale n);
 in {
-  eula.modules.home-manager.desktop.apps.locker= {
+  eula.modules.home-manager.desktop.apps.locker = {
     pkg = pkgs.hyprlock;
     enable = true;
     type = "programs";
   };
-  programs.hyprlock = { # _sigh_ my idealism
+  programs.hyprlock = {
+    # _sigh_ my idealism
     enable = true;
     settings = {
       general = {
@@ -70,7 +74,7 @@ in {
       ];
       input-field = [
         {
-          size = "${builtins.toString (200*scaling-factor)},${builtins.toString (25*scaling-factor)}";
+          size = "${builtins.toString (200 * scaling-factor)},${builtins.toString (25 * scaling-factor)}";
           dots_size = 0.5;
           placeholder_text = "";
           inner_color = text-color 0.9;

@@ -5,15 +5,13 @@
   pkgs,
   ...
 }: let
-
   desktop = config.eula.modules.home-manager.desktop;
-
-in{
+in {
   # TODO: make this cleaner
   config = {
     eula.modules.home-manager.niri.enable = true;
     eula.modules.home-manager.niri.pkg = lib.mkForce pkgs.niri-unstable;
-    
+
     programs.niri.settings = {
       prefer-no-csd = true;
       debug.dbus-interfaces-in-non-session-instances = [];
@@ -60,10 +58,10 @@ in{
           lib.attrsets.mergeAttrsList [
             {
               "Mod+Tab".action = spawn desktop.apps.term.pkg.pname;
-              "Mod+Space" = let 
+              "Mod+Space" = let
                 launcher = desktop.apps.launcher.pkg.pname;
               in {
-                  action = sh "if pidof -qx '${launcher}'; then kill $(pidof ${launcher}); else ${launcher}; fi";
+                action = sh "if pidof -qx '${launcher}'; then kill $(pidof ${launcher}); else ${launcher}; fi";
               };
               "Mod+F".action = spawn desktop.apps.browser.pkg.pname;
               "Mod+Shift+F".action = spawn desktop.apps.browser.pkg.pname "--private-window";
@@ -117,8 +115,9 @@ in{
               "Mod+0".action = consume-or-expel-window-right;
             }
             (binds {
-              suffixes = (builtins.foldl' (x: y: x // y) {} (
-                builtins.map (x: {${builtins.toString x} = ["workspace" x];}) (lib.range 1 8)));
+              suffixes = builtins.foldl' (x: y: x // y) {} (
+                builtins.map (x: {${builtins.toString x} = ["workspace" x];}) (lib.range 1 8)
+              );
               prefixes."Mod" = "focus";
               prefixes."Mod+Shift" = "move-column-to";
               #prefixes."Mod+Ctrl" = "move-workspace-to-index";

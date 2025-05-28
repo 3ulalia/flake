@@ -1,6 +1,10 @@
-{ config, lib, osConfig, pkgs, ... } : 
-
-let
+{
+  config,
+  lib,
+  osConfig,
+  pkgs,
+  ...
+}: let
   inherit (lib) mkIf types;
   inherit (osConfig.eula.lib.options) mkOpt;
   cfg = config.eula.modules.home-manager.discord;
@@ -13,6 +17,6 @@ in {
     home = {
       packages = [cfg.pkg];
     };
-    eula.modules.home-manager.impermanence.directories = [ ".config/vesktop" ];
+    eula.modules.home-manager.impermanence.directories = [".config/vesktop"];
   };
 }

@@ -1,19 +1,19 @@
-{ config, lib, ... }:
-
-let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit (lib) foldl' mkIf mkDefault types;
   inherit (config.eula.lib.options) mkOpt;
 
   cfg = config.eula.modules.services.ephemeral-btrfs;
 in {
-
   options.eula.modules.services.ephemeral-btrfs = {
     enable = mkOpt types.bool false;
     device = mkOpt types.str "cryptid"; # label of partition
   };
 
-  config = mkIf cfg.enable  {
-
+  config = mkIf cfg.enable {
     fileSystems = {
       ${config.eula.modules.services.impermanence.root}.neededForBoot = true;
       "/home".neededForBoot = true; # IMPORTANT

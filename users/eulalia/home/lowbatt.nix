@@ -34,7 +34,7 @@ in {
             if [[ $battery_status = "Discharging" && $battery_capacity -le ${builtins.toString critical} ]]; then
                 ${dismiss}
                 ${pkgs.libnotify}/bin/notify-send --print-id --urgency=critical --hint=int:transient:1 --icon=battery_empty "goodbye :3" "see you space cowboy..." > ${lbnotif}
-                systemctl hibernate 
+                systemctl hibernate
             fi
         elif [[ $battery_capacity -le ${builtins.toString notify} && $battery_status = "Discharging" ]]; then
             ${pkgs.libnotify}/bin/notify-send --print-id --urgency=critical --hint=int:transient:1 --icon=battery_empty "battery at $battery_capacity%" "go plug in your laptop, dumbass" > ${lbnotif}

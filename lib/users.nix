@@ -18,7 +18,8 @@
     initialPassword = mkDefault (
       if pass == null
       then "${name}"
-      else pass); # TODO sops
+      else pass
+    ); # TODO sops
     isNormalUser = mkDefault true;
     createHome = mkDefault true;
     useDefaultShell = mkForce (!(user ? shell));

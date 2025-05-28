@@ -14,7 +14,6 @@
     rev = "9422c57caeb54fde45121b9ea31628080da9d3bd";
     sha256 = "MgKBwE9k9zyltz6+L+VseSiQHS/fh+My0tNDpdllPNw=";
   };
-
 in {
   options.eula.modules.nixos.audio = {
     enable = mkOpt types.bool false;
@@ -52,7 +51,6 @@ in {
             };
           };
         };
-
 
         alsa = {
           enable = true;

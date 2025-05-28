@@ -1,10 +1,7 @@
-{
-  config,
-  ...
-}: {
+{config, ...}: {
   programs.ssh = {
     enable = true;
     compression = true;
-    includes = [ "config.d/*" ];
+    includes = ["config.d/*"];
   };
 }

@@ -54,8 +54,18 @@ in {
   #systemd.services."user@1000".serviceConfig.LimitNOFILE = "32768";
   systemd.user.extraConfig = "DefaultLimitNOFILE=32768";
   security.pam.loginLimits = [
-    { domain = "*"; item = "nofile"; type = "-"; value = "32768"; }
-    { domain = "*"; item = "memlock"; type = "-"; value = "32768"; }
+    {
+      domain = "*";
+      item = "nofile";
+      type = "-";
+      value = "32768";
+    }
+    {
+      domain = "*";
+      item = "memlock";
+      type = "-";
+      value = "32768";
+    }
   ];
 
   networking.interfaces."wlp5s0" = {
@@ -76,12 +86,12 @@ in {
   #  linkConfig.RequiredForOnline = "no";
   #  enable = false;
   #};
-  networking.networkmanager.unmanaged = [ "enp4s0f1u1" ];
+  networking.networkmanager.unmanaged = ["enp4s0f1u1"];
   networking.networkmanager.wifi.scanRandMacAddress = false;
   #systemd.network.config = {
-    #networkConfig = { DHCP = true; };
-    #dhcpV4Config  = { "UseDomains" = true; };
-    #dhcpV6Config  = { UseDomains = true; };
+  #networkConfig = { DHCP = true; };
+  #dhcpV4Config  = { "UseDomains" = true; };
+  #dhcpV6Config  = { UseDomains = true; };
   #};
   # TODO: this is a dumb hack. the above (network.config) line should work when this is closed:
   # https://github.com/NixOS/nixpkgs/issues/375960
@@ -94,7 +104,6 @@ in {
     enable = true;
     useRoutingFeatures = "client";
   };
-
 
   powerManagement = {
     enable = true;
@@ -118,7 +127,7 @@ in {
   eula.modules.services.disko = {
     enable = true;
     disko-config = ./disko.nix;
-    needed-for-boot = ["/persist" "/var/log" "/efi" ];
+    needed-for-boot = ["/persist" "/var/log" "/efi"];
   };
 
   eula.modules.nixos.bluetooth.enable = true;
@@ -133,29 +142,29 @@ in {
     settings = {
       #greeting = "sese! mi toki e toki pona :)";
     };
-  };  
+  };
 
   services.udisks2.enable = true;
 
   services.thermald.enable = true;
   services.tlp.enable = true;
   services.tlp.settings = {
-    CPU_ENERGY_PERF_POLICY_ON_BAT="power";
-    PLATFORM_PROFILE_ON_BAT="low-power";
-    CPU_BOOST_ON_BAT=0;
-    CPU_HWP_DYN_BOOST_ON_BAT=0;
-    AMDGPU_ABM_LEVEL_ON_BAT=3;
-    CPU_MAX_PERF_ON_BAT=50;
+    CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+    PLATFORM_PROFILE_ON_BAT = "low-power";
+    CPU_BOOST_ON_BAT = 0;
+    CPU_HWP_DYN_BOOST_ON_BAT = 0;
+    AMDGPU_ABM_LEVEL_ON_BAT = 3;
+    CPU_MAX_PERF_ON_BAT = 50;
 
-    START_CHARGE_THRESH_BAT0=75;
-    STOP_CHARGE_THRESH_BAT0=80;
+    START_CHARGE_THRESH_BAT0 = 75;
+    STOP_CHARGE_THRESH_BAT0 = 80;
 
-    RADEON_DPM_PERF_LEVEL_ON_BAT="low";
-    RADEON_DPM_STATE_ON_BAT="battery";
+    RADEON_DPM_PERF_LEVEL_ON_BAT = "low";
+    RADEON_DPM_STATE_ON_BAT = "battery";
 
-    PCIE_ASPM_ON_BAT="powersupersave";
+    PCIE_ASPM_ON_BAT = "powersupersave";
 
-    RUNTIME_PM_ON_BAT="auto";
+    RUNTIME_PM_ON_BAT = "auto";
     #RUNTIME_PM_ENABLE="00:14.0"; #  Intel Corporation Cannon Lake PCH USB 3.1 xHCI Host Controller
 
     #USB_ALLOWLIST="05ac:8102 05ac:8103 05ac:8302 05ac:8262 05ac:8514";
@@ -168,7 +177,7 @@ in {
       Before = "sleep.target";
       StopWhenUnneeded = "yes";
     };
-    serviceConfig = {   
+    serviceConfig = {
       User = "root";
       Type = "oneshot";
       RemainAfterExit = "yes";
@@ -189,7 +198,7 @@ in {
         #"/run/current-system/sw/bin/niri msg action power-off-monitors"
       ];
     };
-    wantedBy = [ "sleep.target" ];
+    wantedBy = ["sleep.target"];
   };
 
   systemd.timers.fs-timestamp = {
@@ -208,16 +217,16 @@ in {
       PassEnvironment = "DISPLAY";
       ExecStart = pkgs.writeShellScript "fs-timestamp" ''
         if [[ -e /run/systemd/timesync/synchronized ]]; then
-          echo 0 > /var/lib/misc/fs-iter # we're connected; we know that we have the correct timestamp 
+          echo 0 > /var/lib/misc/fs-iter # we're connected; we know that we have the correct timestamp
         else # we aren't connected; we have to trust the last known sync time
-          touch /var/lib/misc/fs-iter # mark the last time we checked for connection 
+          touch /var/lib/misc/fs-iter # mark the last time we checked for connection
         fi
       '';
       Restart = "on-failure";
     };
     wantedBy = ["default.target"];
   };
-  
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 

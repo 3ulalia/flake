@@ -26,14 +26,15 @@ in {
     environment.persistence.${cfg.root} = {
       enable = true;
       hideMounts = true;
-      directories = [
-        "/etc/NetworkManager/system-connections/"
-        "/etc/ssh"
-        "/var/lib/bluetooth"
-        "/var/lib/nixos"
-        "/var/lib/systemd/backlight/"
-      ]
-      ++ cfg.dirs;
+      directories =
+        [
+          "/etc/NetworkManager/system-connections/"
+          "/etc/ssh"
+          "/var/lib/bluetooth"
+          "/var/lib/nixos"
+          "/var/lib/systemd/backlight/"
+        ]
+        ++ cfg.dirs;
       files = cfg.files;
     };
   };
