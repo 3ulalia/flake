@@ -1,5 +1,6 @@
 {
   config,
+  eulib,
   inputs,
   lib,
   pkgs,
@@ -7,8 +8,8 @@
 }: let
   inherit (builtins) length listToAttrs;
   inherit (lib) mkOption mkIf mkAliasDefinitions trace types;
-  inherit (config.eula.lib.helpers) list-to-attrs;
-  inherit (config.eula.lib.options) mkOpt;
+  inherit (eulib.helpers) list-to-attrs;
+  inherit (eulib.options) mkOpt;
 in {
   imports = [inputs.disko.nixosModules.disko];
 

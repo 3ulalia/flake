@@ -1,11 +1,11 @@
 {
   config,
+  eulib,
   inputs,
   lib,
-  osConfig,
   ...
 }: let
-  inherit (osConfig.eula.lib.options) mkOpt;
+  inherit (eulib.options) mkOpt;
   inherit (lib) mkIf types;
 
   cfg = config.eula.modules.home-manager.impermanence;

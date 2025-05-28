@@ -1,9 +1,10 @@
 {
   config,
+  eulib,
   lib,
   ...
 }: let
-  inherit (config.eula.lib.modules) any-user;
+  inherit (eulib.modules) any-user;
   lockers =
     lib.mapAttrs
     (_: user: {${user.eula.modules.home-manager.desktop.apps.locker.pkg.pname} = {};})

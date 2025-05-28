@@ -1,11 +1,12 @@
 {
   config,
+  eulib,
   lib,
   pkgs,
   ...
 }: let
   inherit (lib) mkOption types;
-  mkOpt = config.eula.lib.options.mkOpt;
+  mkOpt = eulib.options.mkOpt;
 in {
   options.eula.modules.nixos.users = mkOption {
     type = types.attrsOf (

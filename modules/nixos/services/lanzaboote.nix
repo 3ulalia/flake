@@ -5,6 +5,7 @@ https://jnsgr.uk/2024/04/nixos-secure-boot-tpm-fde/
 */
 {
   config,
+  eulib,
   inputs,
   lib,
   pkgs,
@@ -12,8 +13,8 @@ https://jnsgr.uk/2024/04/nixos-secure-boot-tpm-fde/
 }: let
   inherit (builtins) length pathExists;
   inherit (lib) mkOption mkForce mkIf mkAliasDefinitions trace types;
-  inherit (config.eula.lib.helpers) list-to-attrs;
-  inherit (config.eula.lib.options) mkOpt;
+  inherit (eulib.helpers) list-to-attrs;
+  inherit (eulib.options) mkOpt;
 in {
   imports = [inputs.lanzaboote.nixosModules.lanzaboote];
 

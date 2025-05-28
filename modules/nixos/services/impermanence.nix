@@ -1,14 +1,14 @@
 {
   config,
+  eulib,
   inputs,
   lib,
-  pkgs,
   ...
 }: let
   inherit (builtins) length;
   inherit (lib) mkDefault mkIf mkAliasDefinitions trace types;
-  inherit (config.eula.lib.helpers) list-to-attrs;
-  inherit (config.eula.lib.options) mkOpt;
+  inherit (eulib.helpers) list-to-attrs;
+  inherit (eulib.options) mkOpt;
   cfg = config.eula.modules.services.impermanence;
 in {
   imports = [inputs.impermanence.nixosModules.impermanence];

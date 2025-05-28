@@ -1,12 +1,13 @@
 {
   config,
+  eulib,
   inputs,
   lib,
   pkgs,
   ...
 }: let
   inherit (lib) mkOption mkIf mkMerge mapAttrs trace types mkForce mapAttrsToList;
-  inherit (config.eula.lib.modules) any-user;
+  inherit (eulib.modules) any-user;
 
   sops-users = lib.filterAttrs (n: v: v.eula.modules.home-manager.sops.enable) config.home-manager.users;
   sops-enable = any-user (user: user.eula.modules.home-manager.sops.enable) config.home-manager.users;

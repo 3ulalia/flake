@@ -1,12 +1,13 @@
 {
   config,
+  eulib,
   inputs,
   lib,
   pkgs,
   ...
 }: let
   inherit (lib) foldl' mkIf trace types;
-  inherit (config.eula.lib.options) mkOpt;
+  inherit (eulib.options) mkOpt;
 
   join = j: l: foldl' (x: y: "${builtins.toString x}${j}${builtins.toString y}") "" l;
 

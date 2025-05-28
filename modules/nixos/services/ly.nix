@@ -1,12 +1,11 @@
 {
   config,
-  inputs,
+  eulib,
   lib,
-  pkgs,
   ...
 }: let
   inherit (lib) mkIf trace types;
-  inherit (config.eula.lib.options) mkOpt;
+  inherit (eulib.options) mkOpt;
 in {
   options.eula.modules.services.ly.enable = mkOpt types.bool false;
 

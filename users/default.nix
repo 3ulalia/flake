@@ -6,11 +6,9 @@ Specifically, it dictates the sources for user configurations, nix settings, and
 of which can/will be overridden by home-manager).
 */
 {
-  bootstrap,
   config, # messy, but we need this so we know the list of users that have been specified for this system
-  inputs,
-  outputs,
   lib,
+  eulib,
   pkgs,
   ...
 }: let
@@ -27,7 +25,7 @@ in {
       defaultUserShell = pkgs.zsh;
 
       # derived from config.users, which is defined in the module for the individual host
-      users = config.eula.lib.users.generate-users config-users;
+      users = eulib.users.generate-users config-users;
     };
 
     home-manager = {
@@ -35,7 +33,7 @@ in {
       #useUserPackages = true;
       backupFileExtension = "backup";
 
-      users = config.eula.lib.users.generate-homes {} config-users;
+      users = eulib.users.generate-homes {} config-users;
     };
 
     programs.zsh.enable = any (user: user.shell == pkgs.zsh) (attrValues users.users);

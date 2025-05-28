@@ -1,7 +1,4 @@
 {
-  bootstrap,
-  config,
-  lib,
   pkgs,
   ...
 }: {

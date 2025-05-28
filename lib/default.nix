@@ -24,11 +24,15 @@ about these "types" would be nice, so if necessary I'll include a
 */
 {lib, ...}: let
   inherit (builtins) attrNames; # TODO: why;
-  inherit (lib) mkOption types;
+  inherit (lib) foldl' mkOption removeSuffix types;
 
-  eulib = import ./modules.nix {inherit lib;};
-in {
-  options.eula.lib = mkOption {type = types.attrsOf (types.attrsOf (types.anything));};
-
-  imports = map (n: ./. + ("/" + n)) (attrNames (eulib.config.eula.lib.modules.nix-modules-in-dir [(/. + __curPos.file) ./secrets.nix] ./.));
-}
+  modules-library = import ./modules.nix {inherit lib;};
+in foldl' 
+    (a: b: a // b) 
+    {} 
+    (map 
+      (n: {
+        ${removeSuffix ".nix" n} = (import (./. + ("/" + n)) {inherit lib;});
+      })
+      (modules-library.nix-modules-in-dir [(/. + __curPos.file) ./secrets.nix] ./.)
+    )

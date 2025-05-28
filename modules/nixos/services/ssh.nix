@@ -1,11 +1,10 @@
 {
   config,
-  inputs,
+  eulib,
   lib,
-  pkgs,
   ...
 }: let
-  inherit (config.eula.lib.options) mkOpt;
+  inherit (eulib.options) mkOpt;
   inherit (lib) mkIf types;
 in {
   options.eula.modules.services.ssh = {

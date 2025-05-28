@@ -1,10 +1,11 @@
 {
   config,
+  eulib,
   lib,
   ...
 }: let
   inherit (lib) foldl' mkIf mkDefault types;
-  inherit (config.eula.lib.options) mkOpt;
+  inherit (eulib.options) mkOpt;
 
   cfg = config.eula.modules.services.ephemeral-btrfs;
 in {

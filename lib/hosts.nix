@@ -4,56 +4,58 @@ Provides a series of helper functions for working with host configurations.
 */
 {
   lib,
-  inputs,
-  outputs,
   ...
 }:
-with inputs; let
-  inherit (builtins) readDir foldl' trace;
-  inherit (nixpkgs.lib) nixosSystem;
-  inherit (lib) attrNames filterAttrs pathExists;
+let
+  inherit (builtins) readDir unsafeDiscardStringContext;
+  #inherit (nixpkgs.lib) nixosSystem;
+  inherit (lib) attrNames filterAttrs foldl' nixosSystem pathExists removeSuffix;
+in rec {
+  /*
+  Retrieves all valid hosts (really, just NixOS modules) at a given path.
 
-  concat-list = list: foldl' (x: y: x + " " + y) "" list;
-in {
-  config.eula.lib.hosts = {
-    /*
-    *
-    Applies a given function to each host in a given folder.
+  A "host" is defined as a folder with any name (conventionally, the host's hostname)
+  that contains, at bare minimum, a `default.nix` file.
 
-    A "host" is defined as a folder with any name (conventionally, the host's hostname)
-    that contains, at bare minimum, a `configuration.nix` file.
+  get-hosts :: (path -> 'a) -> path -> ['a]
 
-    mapHosts :: (path -> 'a) -> path -> ['a]
+  get-hosts :: (host -> 'a) -> path -> ['a]
+  */
+  get-hosts = path: let
+    valid-host-huh = p: v: pathExists "${path}/${p}/default.nix"; # self-documenting
+  in
+    map
+    (n: "${path}/${n}")
+    (attrNames
+      (filterAttrs valid-host-huh
+        (filterAttrs (n: v: v == "directory") (readDir path))));
 
-    mapHosts :: (host -> 'a) -> path -> ['a]
-    */
-    mapHosts = fn: path: let
-      _u = trace "mapHosts called: ${path}" path;
-      valid-host-huh = p: v: pathExists "${_u}/${p}/default.nix"; # self-documenting
-    in
-      map (a: trace "mapping some function onto ${a} in mapHosts call over ${path}" (fn a)) (let b = map (n: "${path}/${n}") (let a = attrNames (filterAttrs valid-host-huh (filterAttrs (n: v: v == "directory") (readDir path))); in trace "valid entries to be mapped as hosts in ${path}: ${concat-list a}" a); in trace "mapped over the valid entries to generate these paths: ${concat-list b}" b);
+  hostfile-to-hostname = host-file: unsafeDiscardStringContext (removeSuffix ".nix" (baseNameOf host-file));
 
-    importHost = path: import (trace "importing host: ${path}" path) {inherit inputs lib;};
+  /*
+  Generates a system configuration from a given host.
 
-    /*
-    *
-    Generates a system configuration from a given host.
+  This is mainly a wrapper around nixpkgs.lib.nixosSystem, but it uses special
+  attributes that are placed in the individual host file (by the user) to specify
+  things like system architecture, hostname, and more.
 
-    This is mainly a wrapper around nixpkgs.lib.nixosSystem, but it uses special
-    attributes that are placed in the individual host file (by the user) to specify
-    things like system architecture, hostname, and more.
+  generate-system :: {modules: {...}; nixpkgs: {lib: {...}}; system: string; users = [string];} -> {...}
 
-    generate-system :: {modules: {...}; nixpkgs: {lib: {...}}; system: string; users = [string];} -> {...}
-
-    generate-system :: host-configuration -> {hostname: system-configuration}
-    */
-    generateSystem = host: {
-      ${host.networking.hostName} = nixosSystem {
-        modules = [
-          ../hosts
-          host
-        ];
-      };
+  generate-system :: host-configuration -> {hostname: system-configuration}
+  */
+  generate-system = modules: special-args: host-file: {
+    ${hostfile-to-hostname host-file} = nixosSystem {
+      specialArgs = special-args;
+      modules =
+        [
+          host-file
+          {networking.hostName = lib.mkDefault (hostfile-to-hostname host-file);}
+          {home-manager.extraSpecialArgs = special-args;}
+        ]
+        ++ modules;
     };
   };
+
+  generate-systems = path: special-args: modules: foldl' (a: b: a // b) {} (map (generate-system modules special-args) (get-hosts path));
 }
+

@@ -80,15 +80,13 @@
       })
       users);
 in {
-  config.eula.lib.users = {
-    /*
-      *
-    Literally just a wrapper around resolve-users for consistent verbiage.
+  /*
+    *
+  Literally just a wrapper around resolve-users for consistent verbiage.
 
-    TODO sig
-    */
-    generate-users = users: mapAttrs resolve-user users;
+  TODO sig
+  */
+  generate-users = users: mapAttrs resolve-user users;
 
-    generate-homes = extra-settings: users: mapAttrs (resolve-home extra-settings) users;
-  };
+  generate-homes = extra-settings: users: mapAttrs (resolve-home extra-settings) users;
 }

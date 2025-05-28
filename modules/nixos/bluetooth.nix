@@ -1,11 +1,11 @@
 {
   config,
-  options,
+  eulib,
   lib,
   ...
 }: let
   inherit (lib) mkDefault mkIf types;
-  inherit (config.eula.lib.options) mkOpt;
+  inherit (eulib.options) mkOpt;
 in {
   options.eula.modules.nixos.bluetooth = {
     enable = mkOpt types.bool false;

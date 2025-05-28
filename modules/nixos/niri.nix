@@ -1,10 +1,10 @@
 {
   config,
+  eulib,
   inputs,
-  lib,
   ...
 }: let
-  inherit (config.eula.lib.modules) any-user;
+  inherit (eulib.modules) any-user;
 in {
   imports = [inputs.niri.nixosModules.niri];
 

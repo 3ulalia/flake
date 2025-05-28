@@ -1,10 +1,11 @@
 {
   config,
+  eulib,
   lib,
   osConfig,
   ...
 }: let
-  inherit (osConfig.eula.lib.options) mkOpt;
+  inherit (eulib.options) mkOpt;
   inherit (lib) mkIf types;
 in {
   options.eula.modules.home-manager.starship = {

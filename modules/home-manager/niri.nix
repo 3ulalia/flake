@@ -1,5 +1,6 @@
 {
   inputs,
+  eulib,
   lib,
   pkgs,
   config,
@@ -7,7 +8,7 @@
   ...
 }: let
   inherit (lib) filter head splitString types mkIf trace mkAliasDefinitions;
-  mkOpt = osConfig.eula.lib.options.mkOpt;
+  mkOpt = eulib.options.mkOpt;
   desktop-cfg = config.eula.modules.home-manager.desktop;
 in {
   options.eula.modules.home-manager.niri = {
@@ -24,7 +25,7 @@ in {
       };
     };
 
-    programs.niri.package = lib.mkForce config.eula.modules.home-manager.niri.pkg;
+    programs.niri.package = config.eula.modules.home-manager.niri.pkg;
 
     programs.niri.settings = {
       spawn-at-startup = map (cmd: {command = splitString " " cmd;}) desktop-cfg.spawn-at-startup;

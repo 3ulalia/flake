@@ -1,12 +1,12 @@
 {
   config,
-  options,
+  eulib,
   lib,
   pkgs,
   ...
 }: let
   inherit (lib) mkDefault mkIf types;
-  inherit (config.eula.lib.options) mkOpt;
+  inherit (eulib.options) mkOpt;
 
   t2AppleAudioDSP = pkgs.fetchFromGitHub {
     owner = "lemmyg";

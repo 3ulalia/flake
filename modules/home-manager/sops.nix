@@ -1,5 +1,6 @@
 {
   lib,
+  eulib,
   inputs,
   pkgs,
   config,
@@ -7,7 +8,7 @@
   ...
 }: let
   inherit (lib) types mkIf trace;
-  mkOpt = osConfig.eula.lib.options.mkOpt;
+  mkOpt = eulib.options.mkOpt;
 
   sops-config = config.eula.modules.home-manager.sops;
 in {

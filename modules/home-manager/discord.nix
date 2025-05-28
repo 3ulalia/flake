@@ -1,12 +1,13 @@
 {
   config,
+  eulib,
   lib,
   osConfig,
   pkgs,
   ...
 }: let
   inherit (lib) mkIf types;
-  inherit (osConfig.eula.lib.options) mkOpt;
+  inherit (eulib.options) mkOpt;
   cfg = config.eula.modules.home-manager.discord;
 in {
   options.eula.modules.home-manager.discord = {

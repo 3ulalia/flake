@@ -1,12 +1,11 @@
 {
   config,
-  inputs,
+  eulib,
   lib,
-  pkgs,
   ...
 }: let
   inherit (lib) mkDefault mkIf trace types;
-  inherit (config.eula.lib.options) mkOpt;
+  inherit (eulib.options) mkOpt;
 in {
   options.eula.modules.services.geoclue2.enable = mkOpt types.bool false;
 

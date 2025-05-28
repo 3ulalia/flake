@@ -1,11 +1,11 @@
 {
   lib,
-  bootstrap,
+  eulib,
   ...
 }: let
   inherit (lib) foldl' trace;
 
   map-list-to-attrs = list: foldl' (a: b: a // b) {} list;
 in {
-  imports = map (n: ./. + ("/" + n)) (bootstrap.modules.nix-modules-in-dir [(/. + __curPos.file)] ./.);
+  imports = map (n: ./. + ("/" + n)) (eulib.modules.nix-modules-in-dir [(/. + __curPos.file)] ./.);
 }

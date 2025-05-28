@@ -72,23 +72,12 @@
     sops-nix,
     ...
   }: let
-    bootstrap = import ./bootstrap.nix {
-      inherit inputs;
+    eulib = import ./lib {
       lib = nixpkgs.lib;
     };
   in
     flake-utils.lib.eachDefaultSystem (system: {
-      checks = {
-        format =
-          nixpkgs.legacyPackages.${system}.runCommandNoCCLocal "format" {
-            src = ./.;
-            nativeBuildInputs = with nixpkgs.legacyPackages.${system}; [alejandra];
-          } ''
-            alejandra .
-            mkdir "$out"
-          '';
-      };
-      formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
+      formatter = nixpkgs.legacyPackages.${system}.alejandra;
     })
     //
     # nixosConfigurations: {hostName : nixosHost}
@@ -96,10 +85,10 @@
     #   which is called on an attribute set containing a `system` attribute and a `modules` list.
     {
       nixosConfigurations =
-        bootstrap.hosts.generate-systems
+        eulib.hosts.generate-systems
         ./hosts
-        {inherit bootstrap inputs;}
-        [./toplevel.nix];
+        {inherit eulib inputs;}
+        [./hosts ./modules/nixos ./users];
     }; #lix-module.nixosModules.default];};
 }
 #a
