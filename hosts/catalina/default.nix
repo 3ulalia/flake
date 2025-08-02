@@ -15,6 +15,11 @@ in {
     inputs.nixos-hardware.nixosModules.apple-t2
   ];
 
+  nix.settings = {
+    substituters = [ "https://cache.soopy.moe" ];
+    trusted-public-keys = [ "cache.soopy.moe-1:0RZVsQeR+GOh0VQI9rvnHz55nVXkFardDqfm4+afjPo=" ];
+  };
+
   hardware.firmware = [
     (pkgs.stdenvNoCC.mkDerivation (final: {
       name = "brcm-firmware";

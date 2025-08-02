@@ -1,11 +1,6 @@
 {
   description = "eula's system configuration (in a flake!)";
 
-  nixConfig = {
-    extra-substituters = ["https://cache.soopy.moe"]; # used for t2linux
-    extra-trusted-public-keys = ["cache.soopy.moe-1:0RZVsQeR+GOh0VQI9rvnHz55nVXkFardDqfm4+afjPo="];
-  };
-
   inputs = {
     # officially cool enough for unstable
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
