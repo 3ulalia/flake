@@ -15,8 +15,6 @@ in {
 
   nixpkgs.overlays = [inputs.niri.overlays.niri];
 
-  xdg.portal.config.niri."org.freedesktop.impl.portal.FileChooser" = "gtk";
-
   home-manager.sharedModules = [
     ({
       osConfig,

@@ -449,17 +449,17 @@
         "xwayland-satellite-unstable": "xwayland-satellite-unstable"
       },
       "locked": {
-        "lastModified": 1748286492,
-        "narHash": "sha256-14bRczJErvDIyeHlOrdMcqGwW2VPUnyZCbuTFu8L/wE=",
-        "owner": "sodiboo",
-        "repo": "niri-flake",
-        "rev": "88f4c38ccaf73691e738c758f149009d3266d0bd",
-        "type": "github"
+        "lastModified": 1748472056,
+        "narHash": "sha256-MeNjHlDS+QRo35gfkO148l0eOnpGkP3TnfCuWKsKB5Q=",
+        "ref": "refs/heads/user-configurable-package",
+        "rev": "1a9b78962f4a264f19b04e04f987e549d68dd51a",
+        "revCount": 1339,
+        "type": "git",
+        "url": "file:///home/eulalia/repos/niri-flake/"
       },
       "original": {
-        "owner": "sodiboo",
-        "repo": "niri-flake",
-        "type": "github"
+        "type": "git",
+        "url": "file:///home/eulalia/repos/niri-flake/"
       }
     },
     "niri-stable": {
