@@ -31,6 +31,8 @@ in {
     }))
   ];
 
+  environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; };
+
   hardware.apple.touchBar.enable = false;
   programs.wireshark.enable = true;
   programs.wireshark.package = pkgs.wireshark;
@@ -106,7 +108,7 @@ in {
   #systemd.network.networks."40-wlp5s0".dhcpV6Config = { UseDNS = true; UseDomains = true;};
 
   services.tailscale = {
-    enable = true;
+    enable = false;
     useRoutingFeatures = "client";
   };
 
@@ -117,7 +119,6 @@ in {
       min = 800000;
       max = 1500000;
     };
-    #resumeCommands = "/run/current-system/sw/bin/niri msg action power-off-monitors";
   };
 
   #eula.modules.services.miracast.enable = true;
