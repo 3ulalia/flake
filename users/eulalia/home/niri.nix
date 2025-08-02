@@ -76,7 +76,7 @@ in {
             }
             {
               "Mod+Control+Q".action = quit;
-              "Mod+Shift+Q".action = spawn desktop.apps.locker.pkg.pname;
+              "Mod+Shift+Q".action = sh "niri msg action do-screen-transition -d 500 ; loginctl lock-sessions"; 
               "Mod+Shift+Slash".action = show-hotkey-overlay;
             }
             {

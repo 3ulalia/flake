@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: {
-  /*
+  
     eula.modules.home-manager.desktop = {
       apps.bar = {
         pkg = pkgs.waybar;
@@ -39,5 +39,5 @@
     home.packages = [
       pkgs.networkmanagerapplet
     ];
-  */
+  
 }

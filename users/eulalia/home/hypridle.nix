@@ -6,7 +6,7 @@
   locker = config.eula.modules.home-manager.desktop.apps.locker;
   swcmd = "${locker.pkg}/bin/${locker.pkg.pname}";
   notif-id = "${config.xdg.stateHome}/idlenotif";
-  niri = "/run/current-system/bin/sw/niri msg action";
+  niri = "${config.programs.niri.package}/bin/niri msg action";
   script = sc: "${sc}/bin/${sc.name}";
   brightness-exponent = "2.5";
   brightness-cmd = "brightnessctl -q -m --exponent=${brightness-exponent}";
@@ -45,43 +45,41 @@
 in {
   home.packages = [pkgs.libnotify];
 
-  services.swayidle = {
+  services.hypridle = {
     enable = true;
-    events = [
-      {
-        event = "before-sleep";
-        command = swcmd;
-      }
-      {
-        event = "lock";
-        command = swcmd;
-      }
-    ];
-    extraArgs = ["-w"];
-    timeouts = [
-      {
-        timeout = 60;
-        command = "${script bright-fade}";
-        resumeCommand = "${script notif-dismiss}; ${pkgs.brightnessctl}/bin/brightnessctl --restore";
-      }
-      {
-        timeout = 110;
-        command = "${script notif}";
-        resumeCommand = "${script notif-dismiss}";
-      }
-      {
-        timeout = 120;
-        command = "${pkgs.systemd}/bin/loginctl lock-session";
-      } #resumeCommand = "${pkgs.systemd}/bin/loginctl unlock-session";}
-      {
-        timeout = 300;
-        command = "${niri} power-off-monitors";
-        resumeCommand = "${niri} power-on-monitors";
-      }
-      {
-        timeout = 900;
-        command = "systemctl hibernate";
-      }
-    ];
+    settings = {
+      general = {
+        lock_cmd = swcmd;
+        # unlock_cmd = send SIGUSR2 to hyprlock somehow
+        before_sleep_cmd = "loginctl lock-session";
+        inhibit_sleep = 3;
+      };
+
+      listener = [
+        {
+          timeout = 60;
+          on-timeout = "${script bright-fade}";
+          on-resume = "${script notif-dismiss}; ${pkgs.brightnessctl}/bin/brightnessctl --restore";
+        }
+        {
+          timeout = 110;
+          on-timeout = "${script notif}";
+          on-resume = "${script notif-dismiss}";
+        }
+        {
+          timeout = 120;
+          on-timeout = "${pkgs.systemd}/bin/loginctl lock-session";
+        }
+        {
+          timeout = 300;
+          on-timeout = "${niri} power-off-monitors";
+          on-resume = "${niri} power-on-monitors";
+        }
+        {
+          timeout = 900;
+          on-timeout = "${pkgs.systemd}/bin/systemctl hibernate";
+        }
+      ];
+    };
   };
 }
