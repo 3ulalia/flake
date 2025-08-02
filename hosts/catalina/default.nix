@@ -126,6 +126,7 @@ in {
   eula.modules.nixos.users = {
     eulalia = {
       privileged = true;
+      sops.enable = true;
     };
   };
 

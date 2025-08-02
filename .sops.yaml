@@ -1,7 +1,10 @@
 keys:
   - &eulalia age1xknjh9nldw2addpgrz27exrs0q93c6wp99wdcwcmj72xapf8ypjqddft4m 
+  - &eula-ssh ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDTVytCp3QF/PtqJ9LH4zYyT/UJC5JyhmEsD3YBBQKko eulalia@catalina
+
 creation_rules:
   - path_regex: secrets/[^/]+\.(yaml|json|env|ini|sops|nix)$
     key_groups:
       - age:
         - *eulalia
+        - *eula-ssh

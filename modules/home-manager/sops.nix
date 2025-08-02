@@ -9,29 +9,17 @@
 }: let
   inherit (lib) types mkIf trace;
   mkOpt = eulib.options.mkOpt;
-
-  sops-config = config.eula.modules.home-manager.sops;
+  cfg = osConfig.eula.modules.nixos.users.${config.home.username}.sops;
+  key-path = if cfg.key-path == null then "/home/${config.home.username}/.ssh/id_ed25519_THIS_IS_INSECURE_AND_NEEDS_TO_BE_CHANGED" else key-path;
 in {
   imports = [inputs.sops-nix.homeManagerModules.sops];
 
-  options.eula = {
-    modules.home-manager.sops = {
-      enable = mkOpt types.bool false;
-      key-path = mkOpt types.path (config.xdg.configHome + "/sops/age/keys.txt");
-      builtins-hack = mkOpt types.bool false;
-      i-understand-the-security-implications = mkOpt types.bool false;
-      key-type = mkOpt (types.enum ["gnupg" "age" "ssh"]) "age";
-    };
-    extras.read-sops = mkOpt (types.functionTo types.attrs) (name: {});
-  };
+  options.eula.extras.read-sops = mkOpt (types.functionTo types.attrs) (name: {});
 
-  config = mkIf sops-config.enable {
-    home.packages = [pkgs.sops];
-    sops.age.sshKeyPaths = [(config.home.homeDirectory + "/.ssh/id_ed25519_THIS_IS_INSECURE_AND_NEEDS_TO_BE_CHANGED")];
+  config = mkIf cfg.enable {
+    home.packages = [pkgs.sops pkgs.ssh-to-age];
+    sops.age.sshKeyPaths = [key-path];
     sops.defaultSopsFile = inputs.self.outPath + "/secrets/secrets.yaml";
-    eula.extras.read-sops = builtins.extraBuiltins.readSops sops-config.key-path;
-    eula.modules.home-manager.impermanence.files = [
-      sops-config.key-path
-    ];
+    eula.extras.read-sops = builtins.extraBuiltins.readSops key-path;
   };
 }

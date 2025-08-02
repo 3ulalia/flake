@@ -9,8 +9,8 @@
   inherit (lib) mkOption mkIf mkMerge mapAttrs trace types mkForce mapAttrsToList;
   inherit (eulib.modules) any-user;
 
-  sops-users = lib.filterAttrs (n: v: v.eula.modules.home-manager.sops.enable) config.home-manager.users;
-  sops-enable = any-user (user: user.eula.modules.home-manager.sops.enable) config.home-manager.users;
+  sops-users = lib.filterAttrs (n: v: v.sops.enable) config.eula.modules.nixos.users;
+
 in {
   imports = [inputs.sops-nix.nixosModules.sops];
 
@@ -27,9 +27,7 @@ in {
         ../../../lib/secrets.nix
       ];
     }
-    (mkIf sops-enable {
-      /*
-
+    {
       users.users = lib.foldl'
         (x: y: x // y)
         {}
@@ -39,24 +37,23 @@ in {
             initialPassword = mkForce null;
           };})
           (builtins.attrNames sops-users));
-
+      
       sops = {
-        defaultSopsFile = inputs.self.outPath + "/secrets/secrets.yaml";};
-        # TODO: THIS IS INSECURE AND NEEDS TO BE CHANGED
-        #age.sshKeyPaths = map (x: x + "/.ssh/id_ed25519_THIS_IS_INSECURE_AND_NEEDS_TO_BE_CHANGED") (mapAttrsToList (x: y: config.users.users.${x}.home) sops-users);};
-        /*
+        defaultSopsFile = inputs.self.outPath + "/secrets/secrets.yaml";
+        age.sshKeyPaths = map (x: "/persist" + x + "/.ssh/id_ed25519_THIS_IS_INSECURE_AND_NEEDS_TO_BE_CHANGED") (mapAttrsToList (x: y: config.users.users.${x}.home) sops-users);
+        
         secrets = builtins.foldl'
           (x: y: x // y)
           {}
           (map
             (x: {"passwords/${x}".neededForUsers = true;})
             (mapAttrsToList
-              (n: v: v.home.username)
+              (n: v: config.users.users.${n}.name)
               sops-users
             )
           );
       };
-      */
-    })
+      
+    }
   ];
 }
