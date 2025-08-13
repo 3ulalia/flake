@@ -38,8 +38,8 @@ in {
 
     nixpkgs.overlays = [inputs.niri.overlays.niri];
 
-    programs.niri.package = config.eula.modules.home-manager.niri.pkg;
-    programs.niri.enable = true;
+    #programs.niri.package = config.eula.modules.home-manager.niri.pkg;
+    #programs.niri.enable = true;
 
     programs.niri.settings = {
       spawn-at-startup = map (cmd: {command = splitString " " cmd;}) desktop-cfg.spawn-at-startup;

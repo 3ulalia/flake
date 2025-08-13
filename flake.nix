@@ -19,7 +19,7 @@
     };
 
     niri = {
-      url = "git+file:///home/eulalia/repos/niri-flake/"; # TODO stop the madness
+      url = "github:sodiboo/niri-flake"; # TODO stop the madness
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

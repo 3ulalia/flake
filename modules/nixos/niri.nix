@@ -11,7 +11,7 @@ in {
   imports = [inputs.niri.nixosModules.niri];
 
   programs.niri.enable = (any-user (user: user.eula.modules.home-manager.niri.enable) config.home-manager.users);
-  programs.niri.package = lib.mkDefault pkgs.niri-stable;
+  programs.niri.package = lib.mkDefault pkgs.niri-unstable;
 
   nixpkgs.overlays = [inputs.niri.overlays.niri];
 
