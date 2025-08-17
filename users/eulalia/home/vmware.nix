@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   home.packages = [
-    pkgs.vmware-horizon-client
+    # pkgs.omnissa-horizon-client
     pkgs.openconnect
     pkgs.gp-saml-gui
   ];
