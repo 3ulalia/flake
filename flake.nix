@@ -54,7 +54,7 @@
     };
 
     eulalia-nvim = {
-      url = "git+file:///home/eulalia/repos/eulalia-nvim/";
+      url = "github:3ulalia/eulalia-nvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
