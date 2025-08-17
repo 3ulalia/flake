@@ -18,7 +18,8 @@ in {
     {
       nix.extraOptions = ''
         plugin-files = ${pkgs.nix-plugins.overrideAttrs (o: {
-          buildInputs = [pkgs.nixVersions.latest pkgs.boost];
+          nix = config.nix.package;
+          buildInputs = [config.nix.package pkgs.boost];
           patches = (o.patches or []) ++ [./nix-plugins.patch];
         })}/lib/nix/plugins
       '';
