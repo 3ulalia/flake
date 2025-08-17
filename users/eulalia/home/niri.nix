@@ -9,7 +9,7 @@ in {
   # TODO: make this cleaner
   config = {
     eula.modules.home-manager.niri.enable = true;
-    eula.modules.home-manager.niri.pkg = pkgs.niri-unstable;
+    # eula.modules.home-manager.niri.pkg = pkgs.niri-unstable;
 
     programs.niri.settings = {
       prefer-no-csd = true;

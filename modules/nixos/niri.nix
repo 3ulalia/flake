@@ -20,13 +20,19 @@ in {
       osConfig,
       lib,
       ...
-    }: {
-      programs.niri.settings.debug = lib.mkIf (osConfig.networking.hostName == "the-end-of-all-things") {
-        render-drm-device = "/dev/dri/renderD128";
-      };
-      programs.niri.settings.outputs."eDP-1" = lib.mkIf (osConfig.networking.hostName == "catalina") {
-        scale = 1.5;
-      };
-    })
+    }: lib.mkMerge  [
+
+      (lib.mkIf (osConfig.networking.hostName == "the-end-of-all-things") {
+        programs.niri.settings.debug = {
+          render-drm-device = "/dev/dri/renderD128";
+        };
+      })
+      
+      (lib.mkIf (osConfig.networking.hostName == "catalina") { 
+        programs.niri.settings.outputs."eDP-1" = {
+          scale = 1.5;
+        };
+      })
+    ])
   ];
 }
