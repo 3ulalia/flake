@@ -11,6 +11,7 @@
   desktop-cfg = config.eula.modules.home-manager.desktop;
 in {
 
+
   options.eula.modules.home-manager.niri = {
     enable = mkOpt types.bool false;
   };
@@ -21,9 +22,14 @@ in {
       "org.freedesktop.impl.portal.FileChooser" = ["gtk"];
       "org.freedesktop.impl.portal.ScreenCast" = ["gnome"];
     };
-    xdg.portal.extraPortals = [
+    xdg.portal = {
+      enable = true;
+      extraPortals = [
       pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-gnome
     ];
+    configPackages = [config.programs.niri.package];
+    };
 
     eula.modules.home-manager.impermanence.directories = ["${lib.removePrefix (config.home.homeDirectory + "/") config.xdg.dataHome}/keyrings"];
 
@@ -36,6 +42,8 @@ in {
     };
 
     nixpkgs.overlays = [inputs.niri.overlays.niri];
+
+    services.gnome-keyring.enable = true;
 
     programs.niri.settings = {
       spawn-at-startup = map (cmd: {command = splitString " " cmd;}) desktop-cfg.spawn-at-startup;
