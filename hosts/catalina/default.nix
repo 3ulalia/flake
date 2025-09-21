@@ -128,8 +128,11 @@ in {
     eulalia = {
       privileged = true;
       sops.enable = true;
+      extraGroups = ["docker"];
     };
   };
+
+  virtualisation.docker.enable = true;
 
   eula.modules.services.disko = {
     enable = true;
