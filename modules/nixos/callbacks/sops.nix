@@ -20,7 +20,7 @@ in {
         plugin-files = ${pkgs.nix-plugins.overrideAttrs (o: {
           nix = config.nix.package;
           buildInputs = [config.nix.package pkgs.boost];
-          patches = (o.patches or []) ++ [./nix-plugins.patch];
+#           patches = (o.patches or []) ++ [./nix-plugins.patch];
         })}/lib/nix/plugins
       '';
 
