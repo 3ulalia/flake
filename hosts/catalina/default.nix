@@ -108,7 +108,7 @@ in {
   #systemd.network.networks."40-wlp5s0".dhcpV6Config = { UseDNS = true; UseDomains = true;};
 
   services.tailscale = {
-    enable = false;
+    enable = true;
     useRoutingFeatures = "client";
   };
 
