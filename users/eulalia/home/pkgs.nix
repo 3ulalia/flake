@@ -10,6 +10,6 @@
     #pkgs.nautilus
   ];
   eula.modules.home-manager.desktop = {
-    spawn-at-startup = ["signal-desktop --use-tray-icon --ozone-platform-hint=auto"];
+    spawn-at-startup = ["signal-desktop"];
   };
 }
