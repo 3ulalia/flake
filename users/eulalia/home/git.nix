@@ -3,8 +3,13 @@
 in {
   programs.git = {
     # sane defaults
-    userName = "3ulalia";
-    userEmail = "179992797+3ulalia@users.noreply.github.com";
+    settings = {
+      user = {
+        name = "3ulalia";
+        email = "179992797+3ulalia@users.noreply.github.com";
+      };
+      init.defaultBranch = "main";
+    };
     includes =
       map
       (
@@ -14,7 +19,6 @@ in {
         }
       )
       ["per" "pro" "sch"];
-    extraConfig.init.defaultBranch = "main";
   };
 
   programs.ssh.matchBlocks = {
