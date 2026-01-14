@@ -31,7 +31,7 @@ in {
       # see https://discourse.nixos.org/t/home-manager-useuserpackages-useglobalpkgs-settings/34506
       #useGlobalPkgs = true;
       useUserPackages = true;
-      backupFileExtension = "hm-backup";
+      backupFileExtension = "backup";
 
       users = eulib.users.generate-homes {} config-users;
     };
