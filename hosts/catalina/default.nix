@@ -75,6 +75,11 @@ in {
     }
   ];
 
+  programs.obs-studio = {
+    enable = true;
+    plugins = [ pkgs.obs-studio-plugins.wlrobs ];
+    };
+
   networking.interfaces."wlp5s0" = {
     useDHCP = true;
     wakeOnLan.enable = false;
@@ -112,6 +117,10 @@ in {
     useRoutingFeatures = "client";
   };
 
+  services.cloudflare-warp = {
+    enable = false;
+  };
+
   powerManagement = {
     enable = true;
     cpuFreqGovernor = "powersave";
@@ -128,7 +137,7 @@ in {
     eulalia = {
       privileged = true;
       sops.enable = true;
-      extraGroups = ["docker"];
+      extraGroups = ["docker" "audio"];
     };
   };
 
@@ -212,7 +221,7 @@ in {
   };
 
   systemd.timers.fs-timestamp = {
-    unitConfig.Description = "set fs timestamp";
+    unitConfig.Description = "Trigger fs timestamp update";
     timerConfig = {
       OnBootSec = "5m";
       OnUnitInactiveSec = "5m";
@@ -221,7 +230,7 @@ in {
     wantedBy = ["timers.target"];
   };
   systemd.services.fs-timestamp = {
-    unitConfig.Description = "write fs timestamp to file";
+    unitConfig.Description = "Write fs timestamp to file";
     serviceConfig = {
       Type = "exec";
       PassEnvironment = "DISPLAY";
