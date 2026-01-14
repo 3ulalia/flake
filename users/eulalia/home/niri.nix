@@ -126,15 +126,17 @@ in {
               "Mod+Ctrl+K".action = move-workspace-down;
             }
             {"Mod+grave".action = focus-workspace-previous;}
+            /*
             {
-              "Mod+Print".action = screenshot;
-              "Mod+Shift+Print".action = screenshot-window;
+              "Mod+Print".action = screenshot {show-pointer = false;};
+              "Mod+Shift+Print".action = screenshot-window {write-to-disk = true;};
             }
+            */
             (binds {
               suffixes."L" = "column-right-or-to-monitor-right";
-              suffixes."J" = "column-left-or-to-monitor-left";
-              suffixes."K" = "window-down-or-to-workspace-down";
-              suffixes."I" = "window-up-or-to-workspace-up";
+              suffixes."H" = "column-left-or-to-monitor-left";
+              suffixes."J" = "window-down-or-to-workspace-down";
+              suffixes."K" = "window-up-or-to-workspace-up";
               prefixes."Mod+Shift" = "move";
             })
             (binds {
@@ -145,9 +147,9 @@ in {
             })
             (binds {
               suffixes."L" = "column-or-monitor-right";
-              suffixes."J" = "column-or-monitor-left";
-              suffixes."K" = "window-or-workspace-down";
-              suffixes."I" = "window-or-workspace-up";
+              suffixes."H" = "column-or-monitor-left";
+              suffixes."J" = "window-or-workspace-down";
+              suffixes."K" = "window-or-workspace-up";
               prefixes."Mod" = "focus";
             })
             (binds {

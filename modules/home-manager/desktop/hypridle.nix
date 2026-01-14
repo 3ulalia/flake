@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: let
   locker = config.eula.modules.home-manager.desktop.apps.locker;
@@ -42,10 +43,13 @@
       fi
     '';
   };
+  conf = config.eula.modules.home-manager.desktop.apps.idle;
+  configure-huh = (conf.pkg == pkgs.hypridle) && conf.opinionated && conf.enable;
 in {
-  home.packages = [pkgs.libnotify];
+  
+  config.home.packages = lib.mkIf configure-huh [pkgs.libnotify];
 
-  services.hypridle = {
+  config.services.hypridle = lib.mkIf configure-huh {
     enable = true;
     settings = {
       general = {

@@ -8,15 +8,19 @@
   ...
 }: let
   inherit (eulib.options) mkOpt;
-  inherit (lib) filterAttrs mapAttrs' mapAttrsToList mkDefault types;
+  inherit (lib) filterAttrs mapAttrs' mapAttrsToList mkDefault trace types;
   mkPkgOpt = en: pkg: type: {
     enable = mkOpt types.bool en; 
     pkg = mkOpt types.package pkg;
     type = mkOpt (types.enum ["programs" "services" "packages"]) type;
+    opinionated = mkOpt types.bool true;
   };
-  desktop = config.eula.modules.home-manager.desktop;
+  desktop = trace (map (n: ./. + ("/" + n)) (eulib.modules.nix-modules-in-dir [(/. + __curPos.file)] ./.)) config.eula.modules.home-manager.desktop;
   filterd = a: t: filterAttrs (n: v: v.type == t) a;
 in {
+
+  imports = map (n: ./. + ("/" + n)) (eulib.modules.nix-modules-in-dir [(/. + __curPos.file)] ./.);
+
   /**
   Adding a package to this option means that it
   _will_ be available to any programs that want
@@ -34,8 +38,8 @@ in {
         bar = mkPkgOpt true pkgs.waybar "programs";
         brightness = mkPkgOpt true pkgs.brightnessctl "packages"; # TODO: pkgs.wluma
         night-shift = mkPkgOpt false pkgs.gammastep "services"; # TODO: pkgs.wlsunset
-        locker = mkPkgOpt false pkgs.swaylock "programs";
-        idle = mkPkgOpt false pkgs.swayidle "services";
+        locker = mkPkgOpt true pkgs.hyprlock "programs";
+        idle = mkPkgOpt true pkgs.hypridle "services";
         clip = mkPkgOpt true pkgs.wl-clipboard "packages";
         term = mkPkgOpt true pkgs.alacritty "programs";
         browser = mkPkgOpt true pkgs.firefox "programs";
@@ -65,7 +69,7 @@ in {
           options = {
             speed = mkOpt types.float 1.000;
             profile = mkOpt (types.enum ["adaptive" "flat"]) "adaptive";
-            disable-while-typing = mkOpt types.bool false;
+            disable-while-typing = mkOpt types.bool true;
             click-method = mkOpt (types.enum ["button-areas" "clickfinger"]) "clickfinger";
           };
         }) {};

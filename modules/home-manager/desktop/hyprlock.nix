@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }: let
@@ -9,13 +10,13 @@
   scaling-factor = 1.5;
   scale = n: builtins.floor (n * scaling-factor);
   scales = n: builtins.toString (scale n);
+
+  conf = config.eula.modules.home-manager.desktop.apps.locker;
+  configure-huh = (conf.pkg == pkgs.hyprlock) && conf.opinionated && conf.enable;
+
 in {
-  eula.modules.home-manager.desktop.apps.locker = {
-    pkg = pkgs.hyprlock;
-    enable = true;
-    type = "programs";
-  };
-  programs.hyprlock = {
+  eula.modules.home-manager.desktop.apps.locker.type = lib.mkIf configure-huh "programs";
+  programs.hyprlock = lib.mkIf configure-huh {
     # _sigh_ my idealism
     enable = true;
     settings = {

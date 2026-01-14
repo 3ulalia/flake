@@ -44,7 +44,7 @@
       })
       opts
     );
-  tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
+  tuigreet = "${pkgs.tuigreet}/bin/tuigreet";
 in {
   options.eula.modules.services.tuigreet = {
     enable = mkOpt types.bool false;

@@ -1,5 +1,19 @@
-{...}: {
-  programs.fastfetch = {
+{
+  config,
+  eulib,
+  lib,
+  ...
+}: 
+let
+  inherit (lib) mkIf types;
+  inherit (eulib.options) mkOpt;
+  cfg = config.eula.modules.home-manager.fastfetch;
+in {
+  options.eula.modules.home-manager.fastfetch = {
+    enable = mkOpt types.bool true;
+  };
+
+  config.programs.fastfetch = mkIf cfg.enable {
     enable = true;
     settings = {
       modules = [
