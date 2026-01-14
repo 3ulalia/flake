@@ -36,7 +36,8 @@ in rec {
     TODO: documentation
     */
 
-    any-user = pred: users: let
+    any-user = pred: users: 
+    let
       attrs-to-list = attrs: mapAttrsToList (name: value: value) attrs;
     in
       any (user: pred user) (attrs-to-list users);
