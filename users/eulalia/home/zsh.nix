@@ -11,7 +11,7 @@
   };
 
   eula.modules.home-manager.impermanence.directories = [
-    ".local/share/zsh"
+  #   ".local/share/zsh"
   ];
 
   /*

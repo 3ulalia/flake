@@ -10,7 +10,7 @@
 
   cfg = config.eula.modules.home-manager.impermanence;
 in {
-  imports = [inputs.impermanence.homeManagerModules.impermanence];
+#  imports = [inputs.impermanence.homeManagerModules.impermanence]; # no longer needed!
 
   options.eula.modules.home-manager.impermanence = {
     enable = mkOpt types.bool false;
@@ -20,6 +20,7 @@ in {
   };
 
   config = mkIf cfg.enable {
+  /* here goes nothing...
     home.persistence."/persist${config.home.homeDirectory}" = {
       enable = true;
       directories =
@@ -35,8 +36,8 @@ in {
         [
         ]
         ++ cfg.files;
-
-      allowOther = cfg.allowOther;
+#      allowOther = cfg.allowOther; # no longer needed!
     };
+*/
   };
 }
