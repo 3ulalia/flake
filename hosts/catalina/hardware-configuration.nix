@@ -23,6 +23,10 @@
     "i915.enable_guc=3"
     "i915.enable_fbc=1"
     "mem_sleep_default=s2idle"
+    "rtc_cmos.use_acpi_alarm=1"
+  ];
+  boot.blacklistedKernelModules = [
+    "rtc_cmos"
   ];
 
   services.udev.extraRules = ''
@@ -34,7 +38,7 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp4s0f1u1.useDHCP = lib.mkDefault true;
+  networking.interfaces.enp4s0f1u1.useDHCP = lib.mkDefault false;
   # networking.interfaces.enp9s0u2u1c2.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp5s0.useDHCP = lib.mkDefault true;
 
@@ -44,7 +48,6 @@
   hardware.graphics.extraPackages = [
     pkgs.intel-media-driver
     #pkgs.rocmPackages.clr.icd
-    pkgs.amdvlk
   ];
 
   hardware.apple-t2.enableIGPU = true;
