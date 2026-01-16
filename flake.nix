@@ -9,7 +9,10 @@
 
     lix-module = {
       url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.1-2.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
     };
 
     # home-manager (a regañadientes)
@@ -37,6 +40,10 @@
 
     impermanence = {
       url = "github:nix-community/impermanence";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
     };
 
     lanzaboote = {
@@ -55,11 +62,18 @@
 
     eulalia-nvim = {
       url = "github:3ulalia/eulalia-nvim";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
+
     };
 
 
-    direnv-instant.url = "github:Mic92/direnv-instant";
+    direnv-instant = {
+      url = "github:Mic92/direnv-instant";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
   };
 
