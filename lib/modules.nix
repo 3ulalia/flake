@@ -3,7 +3,7 @@
 Provides a series of helper functions for working with Nix modules.
 */
 {lib, ...}: let
-  inherit (builtins) attrNames baseNameOf dirOf elem pathExists readDir trace toString; # TODO: why
+  inherit (builtins) attrNames baseNameOf dirOf elem pathExists readDir ; # TODO: why
   inherit (lib) filterAttrs hasSuffix mapAttrsToList any;
 in rec {
     /*
