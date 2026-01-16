@@ -26,9 +26,14 @@ rec {
       )
     );
 
-  generate-shell =
-    pkgs: shell-file:
-    (import shell-file { inherit pkgs; }) // { name = shellfile-to-shellname shell-file; };
+  generate-shell = pkgs: shell-file: {
+    ${shellfile-to-shellname shell-file} = pkgs.mkShell (
+      (import shell-file { inherit pkgs; }) // { 
+        name = shellfile-to-shellname shell-file; 
+        shellHook = "zsh";
+        }
+    );
+  };
 
   generate-shells =
     path: pkgs: foldl' (a: b: a // b) { } (map (generate-shell pkgs) (get-shells path));

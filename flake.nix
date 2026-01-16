@@ -73,6 +73,7 @@
   in
     flake-utils.lib.eachDefaultSystem (system: {
       formatter = nixpkgs.legacyPackages.${system}.alejandra;
+      devShells = eulib.shells.generate-shells ./shells nixpkgs.legacyPackages.${system};
     })
     //
     # nixosConfigurations: {hostName : nixosHost}
@@ -84,6 +85,8 @@
         ./hosts
         {inherit eulib inputs;}
         [./hosts ./modules/nixos ./users];
+
+
     }; #lix-module.nixosModules.default];};
 }
 #a

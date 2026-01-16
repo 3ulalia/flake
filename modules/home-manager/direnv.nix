@@ -1,6 +1,7 @@
 {
   config,
   eulib,
+  inputs,
   lib,
   pkgs,
   ...
@@ -15,6 +16,7 @@ in {
     pkg = mkOpt types.package pkgs.direnv;
     nd-pkg = mkOpt types.package pkgs.nix-direnv;
     silent = mkOpt types.bool true;
+    registry-name = mkOpt types.str "self";
   };
   config = mkIf cfg.enable {
     programs.direnv = {
@@ -25,6 +27,9 @@ in {
         package = cfg.nd-pkg;
       };
       silent = cfg.silent;
+    };
+    nix.registry = {
+      ${cfg.registry-name}.flake = inputs.self;
     };
   };
 }
