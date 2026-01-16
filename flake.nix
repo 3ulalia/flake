@@ -57,6 +57,10 @@
       url = "github:3ulalia/eulalia-nvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+
+    direnv-instant.url = "github:Mic92/direnv-instant";
+
   };
 
   outputs = inputs @ {

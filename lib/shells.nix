@@ -30,7 +30,6 @@ rec {
     ${shellfile-to-shellname shell-file} = pkgs.mkShell (
       (import shell-file { inherit pkgs; }) // { 
         name = shellfile-to-shellname shell-file; 
-        shellHook = "zsh";
         }
     );
   };
