@@ -5,7 +5,16 @@
 
   packages = with pkgs; [
     ocamlformat
-    ocamlPackages.ocaml-lsp
-  ];
+    ocaml
+    dune_3
+  ] ++ (with pkgs.ocamlPackages; [
+    ocaml-lsp
+    utop
+    odoc
+    ocamlformat
+    findlib
+    extlib
+    ocamlbuild
+  ]);
 
 }
