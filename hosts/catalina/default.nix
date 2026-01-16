@@ -98,7 +98,7 @@ in {
   #  linkConfig.RequiredForOnline = "no";
   #  enable = false;
   #};
-  networking.networkmanager.unmanaged = ["enp4s0f1u1"];
+networking.networkmanager.unmanaged = ["enp4s0f1u1"];
   networking.networkmanager.wifi.scanRandMacAddress = false;
   #systemd.network.config = {
   #networkConfig = { DHCP = true; };
@@ -140,6 +140,10 @@ in {
       extraGroups = ["docker" "audio"];
     };
   };
+
+
+  services.udev.packages = [pkgs.apio-udev-rules];
+  environment.systemPackages = [ pkgs.libftdi1 ];
 
   virtualisation.docker.enable = true;
 
