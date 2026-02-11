@@ -69,7 +69,6 @@
 
     };
 
-
     direnv-instant = {
       url = "github:Mic92/direnv-instant";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -82,18 +81,26 @@
       url = "github:MIT-OpenCompute/xilinx-flake";
     };
 
-  outputs = inputs @ {
-    self,
-    flake-utils,
-    nixpkgs,
-    #  lix-module,
-    sops-nix,
-    ...
-  }: let
-    eulib = import ./lib {
-      lib = nixpkgs.lib;
+    lean4-nix = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:lenianiva/lean4-nix";
     };
-  in
+
+  };
+
+  outputs =
+    inputs@{
+      self,
+      flake-utils,
+      nixpkgs,
+      #  lix-module,
+      ...
+    }:
+    let
+      eulib = import ./lib {
+        lib = nixpkgs.lib;
+      };
+    in
     flake-utils.lib.eachDefaultSystem (system: {
       formatter = nixpkgs.legacyPackages.${system}.alejandra;
       devShells = eulib.shells.generate-shells ./shells nixpkgs.legacyPackages.${system} inputs;
@@ -138,4 +145,3 @@
 #A
 #a
 #a
-
