@@ -54,6 +54,11 @@ in {
         click-method = desktop-cfg.pointer.touchpad.click-method;
       };
 
+      xwayland-satellite = {
+        enable = true;
+        path = lib.getExe pkgs.xwayland-satellite-unstable;
+      };
+
       switch-events = lib.mapAttrs (n: v: {action.spawn = splitString " " v;}) (lib.filterAttrs (n: v: v != null) desktop-cfg.switches);
     };
   };
