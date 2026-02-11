@@ -39,5 +39,9 @@ in
     nix.registry = {
       ${cfg.registry-name}.flake = inputs.self;
     };
+
+    eula.modules.home-manager.impermanence.directories = [
+      ".local/share/direnv"
+    ];
   };
 }
