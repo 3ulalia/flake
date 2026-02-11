@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   programs.zsh = {
     history = {
       extended = true;
@@ -8,16 +9,19 @@
     };
     historySubstringSearch.enable = true;
     syntaxHighlighting.enable = true;
+    setOptions = [
+      "NO_HIST_SAVE_BY_COPY"
+    ];
   };
 
-  eula.modules.home-manager.impermanence.directories = [
-  #   ".local/share/zsh"
+  eula.modules.home-manager.impermanence.files = [
+    ".zsh_history"
   ];
 
   /*
-    programs.atuin = {
-    enable = true;
-    enableZshIntegration = true;
-  };
+      programs.atuin = {
+      enable = true;
+      enableZshIntegration = true;
+    };
   */
 }
