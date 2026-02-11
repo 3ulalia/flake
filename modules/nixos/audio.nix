@@ -4,22 +4,18 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (lib) mkDefault mkIf types;
   inherit (eulib.options) mkOpt;
 
-  t2AppleAudioDSP = pkgs.fetchFromGitHub {
-    owner = "lemmyg";
-    repo = "t2-apple-audio-dsp";
-    rev = "9422c57caeb54fde45121b9ea31628080da9d3bd";
-    sha256 = "MgKBwE9k9zyltz6+L+VseSiQHS/fh+My0tNDpdllPNw=";
-  };
-in {
+in
+{
   options.eula.modules.nixos.audio = {
     enable = mkOpt types.bool false;
   }; # TODO add more configuration here
 
-  config = mkIf config.eula.modules.nixos.audio.enable {
+  config = mkIf config.eula.modules.nixos.audio.enable ({
     security.rtkit.enable = true;
 
     services = {
@@ -64,7 +60,12 @@ in {
             "bluez5.enable-sbc-xq" = true;
             "bluez5.enable-msbc" = true;
             "bluez5.enable-hw-volume" = true;
-            "bluez5.roles" = ["hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag"];
+            "bluez5.roles" = [
+              "hsp_hs"
+              "hsp_ag"
+              "hfp_hf"
+              "hfp_ag"
+            ];
           };
           "10-disable-camera" = {
             "wireplumber.profiles" = {
@@ -74,5 +75,6 @@ in {
         };
       };
     };
-  };
+    eula.modules.nixos.services.pipewire-sink-conf.enable = false; #config.networking.hostName == "catalina";
+  });
 }
