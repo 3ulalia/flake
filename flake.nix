@@ -75,7 +75,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-  };
+    nix-xilinx = {
+      # Recommended if you also override the default nixpkgs flake, common among
+      # nixos-unstable users:
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:MIT-OpenCompute/xilinx-flake";
+    };
 
   outputs = inputs @ {
     self,
@@ -91,21 +96,20 @@
   in
     flake-utils.lib.eachDefaultSystem (system: {
       formatter = nixpkgs.legacyPackages.${system}.alejandra;
-      devShells = eulib.shells.generate-shells ./shells nixpkgs.legacyPackages.${system};
+      devShells = eulib.shells.generate-shells ./shells nixpkgs.legacyPackages.${system} inputs;
     })
     //
-    # nixosConfigurations: {hostName : nixosHost}
-    # nixosHosts are generated with nix(-darwin, pkgs).lib.(darwin, nixos)System
-    #   which is called on an attribute set containing a `system` attribute and a `modules` list.
-    {
-      nixosConfigurations =
-        eulib.hosts.generate-systems
-        ./hosts
-        {inherit eulib inputs;}
-        [./hosts ./modules/nixos ./users];
+      # nixosConfigurations: {hostName : nixosHost}
+      # nixosHosts are generated with nix(-darwin, pkgs).lib.(darwin, nixos)System
+      #   which is called on an attribute set containing a `system` attribute and a `modules` list.
+      {
+        nixosConfigurations = eulib.hosts.generate-systems ./hosts { inherit eulib inputs; } [
+          ./hosts
+          ./modules/nixos
+          ./users
+        ];
 
-
-    }; #lix-module.nixosModules.default];};
+      }; # lix-module.nixosModules.default];};
 }
 #a
 #a

@@ -5,6 +5,8 @@
       "flake"
       "repos"
       ".config/Signal"
+      ".Xilinx"
+      ".config/xilinx"
     ];
   };
 }
