@@ -6,9 +6,10 @@
   packages = with pkgs; [
     nodejs_24
     prettier
+    prettierd
     eslint
     eslint_d
-    nodePackages.typescript-language-server
+    vtsls
   ];
 
 }
