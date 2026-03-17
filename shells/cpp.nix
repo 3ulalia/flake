@@ -1,11 +1,14 @@
 {
   pkgs,
   ...
-} :  {
+}:
+{
 
   packages = with pkgs; [
     boost
-#    cmake
-  ] ;
+    ccls
+    gdb
+    #    cmake
+  ];
 
 }
