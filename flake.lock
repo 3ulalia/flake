@@ -85,11 +85,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770763005,
-        "narHash": "sha256-VhYiU/aGQ2S8S95i/2e5ddVTn/xtJQoQ/Babxepmaqw=",
+        "lastModified": 1771279902,
+        "narHash": "sha256-nobYJAi9Zrb4o/ZebH5zzcQ1XUu6ofa9PV1QxM7Y4pA=",
         "owner": "3ulalia",
         "repo": "eulalia-nvim",
-        "rev": "9a16bcc8255c6d7a8c3a4a8f385c65bcbed86ddb",
+        "rev": "8f6a20d26280de22c58a601777ee9defbf709077",
         "type": "github"
       },
       "original": {
