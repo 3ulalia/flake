@@ -131,10 +131,10 @@
       NetworkManager-wait-online.enable = false;
       NetworkManager-wait-online.wantedBy = lib.mkForce [ ];
 
-      "suspend-fix-t2" = {
+      "t2-suspend" = {
         enable = true;
         unitConfig = {
-          Description = "Disable and Re-Enable Apple BCE Module (and Wi-Fi)";
+          Description = "Unload and Reload Modules for Suspend and Resume";
           Before = "sleep.target";
           StopWhenUnneeded = "yes";
         };
@@ -143,24 +143,68 @@
           Type = "oneshot";
           RemainAfterExit = "yes";
           ExecStart = [
-            "/run/current-system/sw/bin/modprobe -r brcmfmac_wcc"
-            "/run/current-system/sw/bin/modprobe -r brcmfmac"
-            "/run/current-system/sw/bin/modprobe -r hci_bcm4377"
+            (pkgs.writeShellScript "t2linux-suspend-audio" ''
+              set -- $(loginctl list-sessions --no-legend 2>/dev/null | head -n1);
+              uid=$2;
+              [ -n "$uid" ] || exit 0;
+              [ -S "/run/user/$uid/bus" ] || exit 0;
+              username=$(id -nu "$uid" 2>/dev/null) || exit 0; XDG_RUNTIME_DIR="/run/user/$uid" DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$uid/bus" runuser -u "$username" -- systemctl --user stop pipewire.socket pipewire-pulse.socket pipewire.service pipewire-pulse.service wireplumber.service 2>/dev/null || true
+            '')
+            ''/run/current-system/sw/bin/env bash -c "echo 0 | tee /sys/class/leds/:white:kbd_backlight/brightness"''
+            "/run/current-system/sw/bin/rmmod hci_bcm4377"
+            "/run/current-system/sw/bin/rmmod brcmfmac_wcc"
+            "/run/current-system/sw/bin/rmmod brcmfmac"
+            "/run/current-system/sw/bin/rmmod brcmutil"
+            "/run/current-system/sw/bin/rmmod appletbdrm"
+            "/run/current-system/sw/bin/rmmod hid_appletb_kbd"
+            "/run/current-system/sw/bin/rmmod hid_appletb_bl"
             "/run/current-system/sw/bin/rmmod -f apple-bce"
           ];
           ExecStop = [
             "/run/current-system/sw/bin/modprobe apple-bce"
-            "/run/current-system/sw/bin/modprobe hci_bcm4377"
+            "/run/current-system/sw/bin/modprobe brcmutil"
             "/run/current-system/sw/bin/modprobe brcmfmac"
             "/run/current-system/sw/bin/modprobe brmcfmac_wcc"
+            "/run/current-system/sw/bin/modprobe hci_bcm4377"
+            "/run/current-system/sw/bin/modprobe hid_appletb_bl"
+            "/run/current-system/sw/bin/modprobe hid_appletb_kbd"
+            "/run/current-system/sw/bin/modprobe appletbdrm"
+            "/run/current-system/sw/bin/sleep 2"
+            ''/run/current-system/sw/bin/env bash -c "echo 255 | tee /sys/class/leds/:white:kbd_backlight/brightness"''
+            (pkgs.writeShellScript "t2linux-resume-audio" ''
+              set -- $(loginctl list-sessions --no-legend 2>/dev/null | head -n1);
+              uid=$2;
+              [ -n "$uid" ] || exit 0; [ -S "/run/user/$uid/bus" ] || exit 0;
+              username=$(id -nu "$uid" 2>/dev/null) || exit 0;
+              XDG_RUNTIME_DIR="/run/user/$uid" DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$uid/bus" runuser -u "$username" -- systemctl --user start pipewire.socket pipewire-pulse.socket wireplumber.service 2>/dev/null || true
+            '')
+
           ];
           ExecStopPost = [
             "+/run/current-system/sw/bin/systemctl restart systemd-timesyncd"
+            "+/run/current-system/sw/bin/systemctl restart upower"
             #"/run/current-system/sw/bin/niri msg action power-off-monitors"
           ];
         };
         wantedBy = [ "sleep.target" ];
       };
+      "t2-wakeup-guard" = {
+        unitConfig.Description = "Disable problematic ACPI wake sources";
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = pkgs.writeShellScript "acpi-source-disable" ''
+            grep -q "^ARPT[[:space:]].*\\*enabled" /proc/acpi/wakeup && echo ARPT > /proc/acpi/wakeup || true
+            grep -q "^RP01[[:space:]].*\\*enabled" /proc/acpi/wakeup && echo RP01 > /proc/acpi/wakeup || true
+            grep -q "^TRP0[[:space:]].*\\*enabled" /proc/acpi/wakeup && echo TRP0 > /proc/acpi/wakeup || true
+            grep -q "^TRP1[[:space:]].*\\*enabled" /proc/acpi/wakeup && echo TRP1 > /proc/acpi/wakeup || true
+          '';
+        };
+        wantedBy = [
+          "multi-user.target"
+          "sleep.target"
+        ];
+      };
+
       fs-timestamp = {
         unitConfig.Description = "Write fs timestamp to file";
         serviceConfig = {
