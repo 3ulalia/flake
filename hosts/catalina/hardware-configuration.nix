@@ -3,7 +3,6 @@
 {
   config,
   lib,
-  inputs,
   pkgs,
   modulesPath,
   ...
@@ -12,36 +11,38 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
+  boot = {
 
-  boot.initrd.availableKernelModules = [
-    "xhci_pci"
-    "nvme"
-    "usbhid"
-    "usb_storage"
-    "sd_mod"
-  ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [
-    "kvm-intel"
-    "amdgpu"
-    "apple_bce"
-    "hid_apple"
-    "apple_gmux"
-  ];
-  boot.kernelParams = [
-    "brcmfmac.feature_disable=0x82000"
-    "brcmfmac.roamoff=1"
-    "apple_gmux.force_igd=y"
-    "i915.enable_guc=3"
-    "i915.enable_fbc=1"
-    "mem_sleep_default=s2idle"
-    "rtc_cmos.use_acpi_alarm=1"
-    "pcie_ports=compat"
-    "pcie_aspm=off"
-  ];
-  boot.blacklistedKernelModules = [
-    "rtc_cmos"
-  ];
+    initrd.availableKernelModules = [
+      "xhci_pci"
+      "nvme"
+      "usbhid"
+      "usb_storage"
+      "sd_mod"
+    ];
+    initrd.kernelModules = [ ];
+    kernelModules = [
+      "kvm-intel"
+      "amdgpu"
+      "apple_bce"
+      "hid_apple"
+      "apple_gmux"
+    ];
+    kernelParams = [
+      "brcmfmac.feature_disable=0x82000"
+      "brcmfmac.roamoff=1"
+      "apple_gmux.force_igd=y"
+      "i915.enable_guc=3"
+      "i915.enable_fbc=1"
+      "mem_sleep_default=s2idle"
+      "rtc_cmos.use_acpi_alarm=1"
+      "pcie_ports=compat"
+      "pcie_aspm=off"
+    ];
+    blacklistedKernelModules = [
+      "rtc_cmos"
+    ];
+  };
 
   services.udev.extraRules = ''
     KERNEL=="card2", SUBSYSTEM=="drm", DRIVERS=="amdgpu", ATTR{device/power_dpm_force_performance_level}="low"

@@ -46,7 +46,7 @@
     wireshark.package = pkgs.wireshark;
 
     obs-studio = {
-      enable = true;
+      enable = false;
       plugins = [ pkgs.obs-studio-plugins.wlrobs ];
     };
   };
