@@ -3,34 +3,39 @@
   eulib,
   lib,
   ...
-}: let
+}:
+let
   inherit (builtins) length;
-  inherit (lib) mkOption mkIf mkAliasDefinitions trace types;
+  inherit (lib)
+    mkOption
+    mkIf
+    mkAliasDefinitions
+    trace
+    types
+    ;
   inherit (eulib.helpers) list-to-attrs;
   inherit (eulib.options) mkOpt;
-in {
+in
+{
   options.eula.modules.services.hibernate = {
     enable = mkOpt types.bool false;
-    resume-offset =
-      (mkOpt types.int 0)
-      // {
-        description = ''
-          The offset into the swapfile to resume from.
-          Determined from this link according to your FS type:
-          https://wiki.archlinux.org/title/Power_management/Suspend_and_hibernate#Acquire_swap_file_offset'';
-      };
+    resume-offset = (mkOpt types.int 0) // {
+      description = ''
+        The offset into the swapfile to resume from.
+        Determined from this link according to your FS type:
+        https://wiki.archlinux.org/title/Power_management/Suspend_and_hibernate#Acquire_swap_file_offset'';
+    };
     resume-device = mkOpt types.str "/dev/disk/by-label/nixos";
   };
 
   config = mkIf config.eula.modules.services.hibernate.enable {
     boot = {
-      kernelParams = ["resume_offset=${toString config.eula.modules.services.hibernate.resume-offset}"];
+      kernelParams = [ "resume_offset=${toString config.eula.modules.services.hibernate.resume-offset}" ];
       resumeDevice = config.eula.modules.services.hibernate.resume-device;
     };
-    systemd.sleep.extraConfig = ''
-      [Sleep]
-      HibernateMode=shutdown
-    '';
+    systemd.sleep.settings.Sleep = {
+      HibernateMode = "shutdown";
+    };
 
     assertions = [
       {
