@@ -13,24 +13,6 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  /*
-    nixpkgs.overlays = [
-      (self: super: {
-        linuxKernel = super.linuxKernel // {
-          packagesFor =
-            kernel:
-            (super.linuxKernel.packagesFor kernel).extend (
-              kFinal: kPrev: with kFinal; {
-                apple-bce = callPackage ./apple-bce.nix { };
-                hid-apple = callPackage ./t2-kbd-tb.nix { };
-                hid-appletb-kbd = callPackage ./t2-kbd-tb.nix { };
-                hid-appletb-bl = callPackage ./t2-kbd-tb.nix { };
-              }
-            );
-        };
-      })
-    ];
-  */
   boot = {
 
     initrd.availableKernelModules = [
@@ -67,23 +49,6 @@
     blacklistedKernelModules = [
       "rtc_cmos"
     ];
-    /*
-        extraModulePackages = [
-          (lib.hiPrio (
-            pkgs.callPackage ./module-patch.nix {
-              inherit (config.boot) kernelPackages;
-              module = "drivers/platform/x86/apple-gmux";
-              patches = [ ./0001-apple-gmux-fix-power-for-t2.patch ];
-            }
-          ))
-        ];
-      kernelPatches = [
-        {
-          patch = ./0001-apple-gmux-fix-power-for-t2.patch;
-          name = "rui's patch";
-        }
-      ];
-    */
 
   };
 
