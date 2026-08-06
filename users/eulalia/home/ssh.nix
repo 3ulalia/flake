@@ -1,6 +1,5 @@
-{ config, ... }:
+{ config, secrets, ... }:
 let
-  secrets = config.eula.extras.read-sops ../../../secrets/eval-secrets.nix;
 in
 {
   programs.ssh = {

@@ -1,19 +1,28 @@
 {
-	"data": "ENC[AES256_GCM,data:oLkG/MNvccOY4EVGLpIw1sOA1ngL7z7+JI7Dk+5JgqVyr0teKwv2smKoHalbwNWWLKpvy4RtHrVGHLT4VXmYT4D5iIUWYU+W8kzLtPyKes7HPidQqy7k+JNYIdIQYyDvOrYS303mR/bRBcGPG8AoCcij9iSKMkGs8gAQxlXou7AoQk2igTN7vFm30R+xisTEP2URdEPh0vo39T9Al2lpOfGi0srvegIE4WDFuGVZQlBkK4mKQ9C35k/NlGd1fxK2uVBKiO0I7clr0MDrSFpFZ94BAZvusojG/H4zLgB9xHDWTqqtnIDlHUbZVnX/h1tklWINUCUUEuGj6KtRIk7hgKxMufw/jiFXFKIy5+n41qH7nLlZdYSG4t9kYVI0QtwDDQHqnRLF5yNS+Ju0h/mGp4UJQAXMEj2lESvITec5us1kFKDP3goXDsZGPJK6drsRiyMshM322J66ucvCShMxymtbJCxJJZLNan4ClLJyF3wXEtQ0S1CDxI+NtOYfFmLysqmSBO01qTCfjExbfE81ZPlOe4Ln2wkuKEcHzbieZgN57fmYanwS7/11h0m2/nxUlwg988K1GwxrJpVdmH0AFTXBKc2rltASN6XbPnWZyjyfQTtPKBVLplDMR74p2dRsOZmJ4VTFNlq/hemW7OUxOUZCctIP9OLSER+tMWQ4vsrDxIMVQ3Yt4XMHKLDTGAijlDIFTATbknnAtEkMjcRA1QugbNwkrnEHV8oOhj7Epf0j8cjiF+1FBC64dPymgxhn0K9h7bpG/R4Us7QH7TIk8WsXz8nlW6Ez9GwjdHYPS+Eg5fOb0Pdico+LC3uKEyRmO9Br0LpJGXUwDHY+NfeqDLpYAhz/zREe4WvtRIrR3ma+jgp2Rx0r9qjiqVMjdKVoDDz+Pmsj5BSdGDMOV6UTMwnaQ4jbvbolAtc/9f46Ro47sv31p9Lfxpx2pDN/Z4ahKsNje/T9F9Lzy8DSf4o/rgymu0EgzrXrS9cqyYLuJka7uvWqf12CM8gpNELL0PD0y99yv84oOvrW1hGQTItANjzZBQ+t7/Ivy1MCQOZFlBJBwiJe8tY=,iv:rkIiFNg7o25m7/av1d5WQPGQ+RkPQ8sOqsi8R7im1qw=,tag:ByByQzDvx1HALRUyaTDEdQ==,type:str]",
-	"sops": {
-		"age": [
-			{
-				"recipient": "age1xknjh9nldw2addpgrz27exrs0q93c6wp99wdcwcmj72xapf8ypjqddft4m",
-				"enc": "-----BEGIN AGE ENCRYPTED FILE-----\nYWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBISlI1U1FlcXdxTk40Wkg3\ncm9NYW0yRytWbm1GN1RSWVZBdFNKUmZyUFRjClRyV1MrL3Z6UEUwWjIzVzcrTWFz\nb2F6aXRJUG5zanQxc2gxZEFBa2JUSVEKLS0tIFlIZWZzS0FUVGl1YXlEZW5DbVV0\nTGsyYWNTcmZyTmU3MGVaNTVlWC81cVEK1cF9JitFSG1NFQ1lBEWEAZyFKYFHT7fJ\nhE6OD+IA76HWN/E7cKvy7qq+dXxEbhXag6mLXYvEIjyzNRGll5La1Q==\n-----END AGE ENCRYPTED FILE-----\n"
-			},
-			{
-				"recipient": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDTVytCp3QF/PtqJ9LH4zYyT/UJC5JyhmEsD3YBBQKko eulalia@catalina",
-				"enc": "-----BEGIN AGE ENCRYPTED FILE-----\nYWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IHNzaC1lZDI1NTE5IG5HRDhDQSB0UkVU\na0lzdUFsZzdyZWErRWRGUkVHVnIwcnhUN291L0dmcEJnaDMwcVFZCnkxdEQrLzE4\nQnc2SDRMZE9xanNmaGc2aHRjYzlmL3ZtOFduRzdMVUhkdzgKLS0tIFRqWHEyVHJY\nMUU3ZGxIelF4elRpZ1RQYXhRRDJCanI0Q2F5dkt1dEpyNVkKlEO30GB7rzc2WOGf\ns19fwU2orAOv9MDsusReJZKDPcfZtUDMNuIJdhckM/n3ljf4rMMqL/90jM4cHHQT\npyKZ4Q==\n-----END AGE ENCRYPTED FILE-----\n"
-			}
-		],
-		"lastmodified": "2026-01-26T03:43:57Z",
-		"mac": "ENC[AES256_GCM,data:BiqJ9QUoDJDT6uZ1JypPMWGJFBxfrt4yajvVFfi8ikSjWIOB+6dyOszJ6axthDZcfQo1A1EFeffJE0i62NgblFny+5VvV28Mzma3W+wtl+13AbqSD2Pn8v064Lp4/uKTfmCW0lVZYgW9bUdRmj+Vjt7IKc4WkNsW+fPjjfWeSP0=,iv:4g+pgzo5xSRY5DQ5xx/FhEI7tumUDYxpPqqH40koyVc=,tag:BCm29Nbca4sCXBl7Xo5Rig==,type:str]",
-		"unencrypted_suffix": "_unencrypted",
-		"version": "3.11.0"
-	}
+  email = {
+    professional = {
+      realname = "hazel";
+      address = "hazel@allalike.org";
+      password = "limendcoconut";
+    };
+    school = {
+      realname = "Hazel Bershatsky";
+      address = "bershatsky.c@northeastern.edu";
+      password = "1.AVkAgcLuqKOqrk2sm5o5i5IV53wvFgjSDwBCqEryWk2wtYRZAJRZAA.AgABBAIAAADW6jl31mB3T7ugrWTT8pFeAwDs_wUA9P_DZEKPm0xnN4Vqy9NdWgWpXeMRIVnkV7HqqxLavhv1TehlI2GLRlUn_a5GqFgj5HUXuv1xl6WqbOtCNM5EpIM-Jgw01sXJgilxvagLV_-vwgWNxisdh>";
+    };
+    personal = {
+      realname = "H";
+      address = "cybershats@gmail.com";
+      password = "lvom sqaa ngms czvb";
+    };
+  };
+  git = {
+    school = {
+      hostname = "github.khoury.northeastern.edu";
+    };
+  };
+  ssh.explorer = {
+    hostname = "login.explorer.northeastern.edu";
+    user = "bershatsky.c";
+  };
 }

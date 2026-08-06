@@ -1,6 +1,7 @@
-{config, ...}: let
-  secrets = config.eula.extras.read-sops ../../../secrets/eval-secrets.nix;
-in {
+{ config, secrets, ... }:
+let
+in
+{
   programs.git = {
     # sane defaults
     settings = {
@@ -12,13 +13,15 @@ in {
     };
     includes =
       map
-      (
-        x: {
+        (x: {
           path = config.sops.secrets."git-config/gh-${x}".path;
           condition = "hasconfig:remote.*.url:git@gh-${x}*/**";
-        }
-      )
-      ["per" "pro" "sch"];
+        })
+        [
+          "per"
+          "pro"
+          "sch"
+        ];
   };
 
   programs.ssh.matchBlocks = {
@@ -49,18 +52,18 @@ in {
   };
 
   sops.secrets = {
-    "ssh/gh-per" = {};
-    "ssh/gh-sch" = {};
-    "ssh/gh-pro" = {};
-    "ssh/gl-pro" = {};
+    "ssh/gh-per" = { };
+    "ssh/gh-sch" = { };
+    "ssh/gh-pro" = { };
+    "ssh/gl-pro" = { };
   };
 
   programs.gh.settings.git_protocol = "ssh";
 
   sops.secrets = {
-    "git-config/gh-per" = {};
-    "git-config/gh-pro" = {};
-    "git-config/gh-sch" = {};
-    "git-config/gl-pro" = {};
+    "git-config/gh-per" = { };
+    "git-config/gh-pro" = { };
+    "git-config/gh-sch" = { };
+    "git-config/gl-pro" = { };
   };
 }

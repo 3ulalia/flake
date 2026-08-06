@@ -100,6 +100,7 @@
       eulib = import ./lib {
         lib = nixpkgs.lib;
       };
+      secrets = import ./secrets/eval-secrets.nix;
     in
     flake-utils.lib.eachDefaultSystem (system: {
       formatter = nixpkgs.legacyPackages.${system}.alejandra;
@@ -110,7 +111,7 @@
       # nixosHosts are generated with nix(-darwin, pkgs).lib.(darwin, nixos)System
       #   which is called on an attribute set containing a `system` attribute and a `modules` list.
       {
-        nixosConfigurations = eulib.hosts.generate-systems ./hosts { inherit eulib inputs; } [
+        nixosConfigurations = eulib.hosts.generate-systems ./hosts { inherit eulib inputs secrets; } [
           ./hosts
           ./modules/nixos
           ./users
