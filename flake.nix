@@ -31,7 +31,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-hardware.url = "github:LukeChannings/nixos-hardware";
+    nixos-hardware.url = "github:soopyc/nixos-hardware/apple-t2-updates";
 
     disko = {
       url = "github:nix-community/disko";

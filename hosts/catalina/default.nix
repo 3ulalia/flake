@@ -67,17 +67,6 @@
 
     mbpfan.enable = true;
     mbpfan.aggressive = true;
-    #systemd.network.config = {
-    #networkConfig = { DHCP = true; };
-    #dhcpV4Config  = { "UseDomains" = true; };
-    #dhcpV6Config  = { UseDomains = true; };
-    #};
-    # TODO: this is a dumb hack. the above (network.config) line should work when this is closed:
-    # https://github.com/NixOS/nixpkgs/issues/375960
-    # how it's possible that NixOS, an operating system that relies almost entirely on systemd,
-    # can have _no one_ assigned to maintain systemd for NixOS astounds me.
-    #systemd.network.networks."40-wlp5s0".dhcpV4Config = { UseDNS = true; UseDomains = true;};
-    #systemd.network.networks."40-wlp5s0".dhcpV6Config = { UseDNS = true; UseDomains = true;};
 
     tailscale = {
       enable = true;
@@ -121,8 +110,6 @@
   };
   systemd = {
 
-    #systemd.services."user@1000".serviceConfig.LimitNOFILE = "32768";
-    user.extraConfig = "DefaultLimitNOFILE=32768";
     targets = {
       network-online.wantedBy = lib.mkForce [ ];
     };
@@ -131,36 +118,6 @@
       NetworkManager-wait-online.enable = false;
       NetworkManager-wait-online.wantedBy = lib.mkForce [ ];
 
-      "suspend-fix-t2" = {
-        enable = true;
-        unitConfig = {
-          Description = "Disable and Re-Enable Apple BCE Module (and Wi-Fi)";
-          Before = "sleep.target";
-          StopWhenUnneeded = "yes";
-        };
-        serviceConfig = {
-          User = "root";
-          Type = "oneshot";
-          RemainAfterExit = "yes";
-          ExecStart = [
-            "/run/current-system/sw/bin/modprobe -r brcmfmac_wcc"
-            "/run/current-system/sw/bin/modprobe -r brcmfmac"
-            "/run/current-system/sw/bin/modprobe -r hci_bcm4377"
-            "/run/current-system/sw/bin/rmmod -f apple-bce"
-          ];
-          ExecStop = [
-            "/run/current-system/sw/bin/modprobe apple-bce"
-            "/run/current-system/sw/bin/modprobe hci_bcm4377"
-            "/run/current-system/sw/bin/modprobe brcmfmac"
-            "/run/current-system/sw/bin/modprobe brmcfmac_wcc"
-          ];
-          ExecStopPost = [
-            "+/run/current-system/sw/bin/systemctl restart systemd-timesyncd"
-            #"/run/current-system/sw/bin/niri msg action power-off-monitors"
-          ];
-        };
-        wantedBy = [ "sleep.target" ];
-      };
       fs-timestamp = {
         unitConfig.Description = "Write fs timestamp to file";
         serviceConfig = {

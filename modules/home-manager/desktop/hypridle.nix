@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   locker = config.eula.modules.home-manager.desktop.apps.locker;
   swcmd = "${locker.pkg}/bin/${locker.pkg.pname}";
   notif-id = "${config.xdg.stateHome}/idlenotif";
@@ -14,19 +15,29 @@
 
   notif = pkgs.writeShellApplication {
     name = "idle-notify";
-    runtimeInputs = [pkgs.libnotify pkgs.coreutils];
+    runtimeInputs = [
+      pkgs.libnotify
+      pkgs.coreutils
+    ];
     text = ''
       notify-send -e -p -t 11000 'so sleepy' 'display will lock in 10 seconds...' > ${notif-id}
     '';
   };
   notif-dismiss = pkgs.writeShellApplication {
     name = "idle-dismiss";
-    runtimeInputs = [pkgs.mako pkgs.coreutils];
+    runtimeInputs = [
+      pkgs.mako
+      pkgs.coreutils
+    ];
     text = "makoctl dismiss -n \"$(cat ${notif-id})\"";
   };
   bright-fade = pkgs.writeShellApplication {
     name = "bright-fade";
-    runtimeInputs = [pkgs.brightnessctl pkgs.coreutils pkgs.libnotify];
+    runtimeInputs = [
+      pkgs.brightnessctl
+      pkgs.coreutils
+      pkgs.libnotify
+    ];
     text = ''
       ${brightness-cmd} --save
       cb=$(${brightness-cmd} | cut -d, -f4 | cut -d% -f1)
@@ -45,9 +56,10 @@
   };
   conf = config.eula.modules.home-manager.desktop.apps.idle;
   configure-huh = (conf.pkg == pkgs.hypridle) && conf.opinionated && conf.enable;
-in {
-  
-  config.home.packages = lib.mkIf configure-huh [pkgs.libnotify];
+in
+{
+
+  config.home.packages = lib.mkIf configure-huh [ pkgs.libnotify ];
 
   config.services.hypridle = lib.mkIf configure-huh {
     enable = true;
@@ -81,7 +93,7 @@ in {
         }
         {
           timeout = 900;
-          on-timeout = "${pkgs.systemd}/bin/systemctl hibernate";
+          on-timeout = "${pkgs.systemd}/bin/systemctl sleep";
         }
       ];
     };
