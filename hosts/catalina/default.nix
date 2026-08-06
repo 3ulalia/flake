@@ -252,6 +252,8 @@
   environment.systemPackages = [
     pkgs.libftdi1
     pkgs.vivado
+    pkgs.vitis
+    pkgs.vitis_hls
   ];
 
   virtualisation.docker.enable = true;
