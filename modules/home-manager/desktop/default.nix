@@ -1,10 +1,8 @@
 {
   config,
   eulib,
-  inputs,
   pkgs,
   lib,
-  osConfig,
   ...
 }:
 let
@@ -116,11 +114,12 @@ in
       };
 
       home.pointerCursor = {
+        enable = true;
         gtk.enable = cursor-cfg.compat;
         x11.enable = cursor-cfg.compat;
         package = cursor-cfg.pkg;
-        name = cursor-cfg.name;
-        size = cursor-cfg.size;
+        inherit (cursor-cfg) name;
+        inherit (cursor-cfg) size;
       };
     };
 }
