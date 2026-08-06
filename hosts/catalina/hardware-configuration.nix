@@ -12,6 +12,25 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
+
+  /*
+    nixpkgs.overlays = [
+      (self: super: {
+        linuxKernel = super.linuxKernel // {
+          packagesFor =
+            kernel:
+            (super.linuxKernel.packagesFor kernel).extend (
+              kFinal: kPrev: with kFinal; {
+                apple-bce = callPackage ./apple-bce.nix { };
+                hid-apple = callPackage ./t2-kbd-tb.nix { };
+                hid-appletb-kbd = callPackage ./t2-kbd-tb.nix { };
+                hid-appletb-bl = callPackage ./t2-kbd-tb.nix { };
+              }
+            );
+        };
+      })
+    ];
+  */
   boot = {
 
     initrd.availableKernelModules = [
@@ -20,6 +39,7 @@
       "usbhid"
       "usb_storage"
       "sd_mod"
+      "i915"
     ];
     initrd.kernelModules = [ ];
     kernelModules = [
@@ -35,17 +55,39 @@
       "apple_gmux.force_igd=y"
       "i915.enable_guc=3"
       "i915.enable_fbc=1"
-      "mem_sleep_default=s2idle"
+      "mem_sleep_default=deep"
       "rtc_cmos.use_acpi_alarm=1"
+      "pcie_aspm=off"
+      "pm_async=off"
+      "ignore_loglevel"
+      "no_console_suspend"
+      "pm_debug_messages"
+      "amdgpu.runpm=0"
     ];
     blacklistedKernelModules = [
       "rtc_cmos"
     ];
+    /*
+        extraModulePackages = [
+          (lib.hiPrio (
+            pkgs.callPackage ./module-patch.nix {
+              inherit (config.boot) kernelPackages;
+              module = "drivers/platform/x86/apple-gmux";
+              patches = [ ./0001-apple-gmux-fix-power-for-t2.patch ];
+            }
+          ))
+        ];
+      kernelPatches = [
+        {
+          patch = ./0001-apple-gmux-fix-power-for-t2.patch;
+          name = "rui's patch";
+        }
+      ];
+    */
+
   };
 
-  services.udev.extraRules = ''
-    KERNEL=="card2", SUBSYSTEM=="drm", DRIVERS=="amdgpu", ATTR{device/power_dpm_force_performance_level}="low"
-  '';
+  #services.udev.extraRules = ''KERNEL=="card2", SUBSYSTEM=="drm", DRIVERS=="amdgpu", ATTR{device/power_dpm_force_performance_level}="low"'';
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
