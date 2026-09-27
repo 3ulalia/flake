@@ -6,7 +6,6 @@ Currently, there are hosts configured for:
 
 * my personal linux-tomfoolery machine (ThinkPad E14)
 * my daily-driver laptop (MacBook Pro 16", 2019)
-* my daily-driver laptop, but it's running NixOS because I'm a psycho
 * any given server that I want to provision
 
 ## Structure
@@ -32,7 +31,3 @@ Although the initial goal for this configuration was to avoid the use of `home-m
 It's important to emphasize the distinction between options that are influenced by the presence of a user, as opposed to options that are applied globally. While it is tempting to allow for more power to be granted to the user side - for example, implementing some kind of logic like "any machine that has this user on it should have these global options" - that way lies danger, as there's not a clear line to draw between "things that can be influenced by the presence of a user" and "things that can be influenced by the specification of a machine, or by the global config file". The _last_ thing we want to do is run into conflicts in configuration - that's kind of the whole point. 
 
 So as much as we can, we will configure global options on an all-machines basis or a per-machine basis, and configure user-specific options on an all-users basis or a per-user basis. This does lose us some specificity of options, but it's worth it to avoid the design complexity. 
-
---
-TODO: figure out if there is a sane difference between "user-level options that are configured the same way for all users" and "global options" :p
---
