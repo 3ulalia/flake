@@ -79,6 +79,17 @@
       enable = false;
     };
 
+    printing = {
+      enable = true;
+      drivers = with pkgs; [
+        cups-filters
+        cups-browsed
+        gutenprint
+      ];
+    };
+
+    ipp-usb.enable = true;
+
     udev.packages = [
       pkgs.apio-udev-rules
       (pkgs.callPackage ./xilinx-udev-rules/default.nix { inherit pkgs; })
