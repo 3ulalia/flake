@@ -27,7 +27,8 @@
     };
 
     niri = {
-      url = "github:sodiboo/niri-flake"; # TODO stop the madness
+      #url = "github:sodiboo/niri-flake"; # TODO stop the madness
+      url = "github:epireyn/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
