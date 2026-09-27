@@ -45,6 +45,7 @@
       "no_console_suspend"
       "pm_debug_messages"
       "amdgpu.runpm=0"
+      "net.ipv4.ip_forward=0"
     ];
     blacklistedKernelModules = [
       "rtc_cmos"
@@ -59,7 +60,7 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  networking.interfaces.enp4s0f1u1.useDHCP = lib.mkDefault false;
+  # networking.interfaces.enp4s0f1u1.useDHCP = lib.mkDefault false;
   # networking.interfaces.enp9s0u2u1c2.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp5s0.useDHCP = lib.mkDefault true;
 

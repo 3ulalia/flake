@@ -168,18 +168,13 @@
       "wlp5s0".useDHCP = true;
       "wlp5s0".wakeOnLan.enable = false;
 
-      "enp4s0f1u1".wakeOnLan.enable = false;
-      "enp4s0f1u1".useDHCP = false;
+      # "enp4s0f1u1".wakeOnLan.enable = false;
+      # "enp4s0f1u1".useDHCP = false;
     };
 
     dhcpcd.wait = "if-carrier-up";
-    #networking.useNetworkd = true;
-    #systemd.network.networks."40-enp4s0f1u1" = {
-    #  linkConfig.RequiredForOnline = "no";
-    #  enable = false;
-    #};
-    networkmanager.unmanaged = [ "enp4s0f1u1" ];
-    networkmanager.wifi.scanRandMacAddress = false;
+    # networkmanager.unmanaged = [ "enp4s0f1u1" ];
+    # networkmanager.wifi.scanRandMacAddress = false;
 
     # wg-quick.interfaces.wg0.configFile = "/home/eulalia/Downloads/documents/creds/11/wireguard/11-one.conf";
   };
