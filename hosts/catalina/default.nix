@@ -23,6 +23,7 @@
 
   users.groups = {
     plugdev = { };
+    dialout = { };
   };
 
   hardware.firmware = [
@@ -92,6 +93,7 @@
 
     udev.packages = [
       pkgs.apio-udev-rules
+      pkgs.teensy-udev-rules
       (pkgs.callPackage ./xilinx-udev-rules/default.nix { inherit pkgs; })
     ];
 
@@ -121,6 +123,7 @@
       #USB_ALLOWLIST="05ac:8102 05ac:8103 05ac:8302 05ac:8262 05ac:8514";
     };
   };
+
   systemd = {
 
     targets = {
@@ -248,6 +251,7 @@
               "docker"
               "audio"
               "plugdev"
+              "dialout"
             ];
           };
         };
