@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  lib,
   pkgs,
   ...
 }:
@@ -13,12 +14,12 @@
 
   eula.modules.home-manager.impermanence.directories = [
     ".mozilla/firefox/${config.home.username}"
-    "${config.xdg.configHome}/mozilla/firefox" # old and new
+    (lib.removePrefix "${config.home.homeDirectory}/" "${config.xdg.configHome}/mozilla/firefox") # old and new
     # TODO: maybe I can reference programs.firefox.configPath directly?
   ];
 
   programs.firefox = {
-    configPath = "${config.xdg.configHome}/mozilla/firefox";
+    #configPath = "${config.xdg.configHome}/mozilla/firefox";
     profiles.${config.home.username} = {
       extensions.packages = with inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system}; [
         ublock-origin
