@@ -7,6 +7,11 @@
 
     flake-utils.url = "github:numtide/flake-utils";
 
+    nix-cavalry = {
+      url = "github:hexadecimal233/nix-cavalry";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     lix-module = {
       url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.1-2.tar.gz";
       inputs = {

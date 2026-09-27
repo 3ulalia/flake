@@ -266,13 +266,17 @@
     pkgs.vivado
     pkgs.vitis
     pkgs.vitis_hls
+    pkgs.cavalry
   ];
 
   virtualisation.docker.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.overlays = [ inputs.nix-xilinx.overlay ];
+  nixpkgs.overlays = [
+    inputs.nix-xilinx.overlay
+    inputs.nix-cavalry.overlays.default
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
