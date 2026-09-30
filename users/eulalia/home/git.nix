@@ -54,6 +54,12 @@
         identityFile = config.sops.secrets."ssh/gt-nxc".path;
         identitiesOnly = true;
       };
+      codeberg = {
+        host = "cb-per";
+        hostname = "codeberg.org";
+        identityFile = config.sops.secrets."ssh/cb-per".path;
+        identitiesOnly = true;
+      };
     };
 
     gh.settings.git_protocol = "ssh";
@@ -65,10 +71,12 @@
     "ssh/gh-pro" = { };
     "ssh/gl-pro" = { };
     "ssh/gt-nxc" = { };
+    "ssh/cb-per" = { };
     "git-config/gh-per" = { };
     "git-config/gh-pro" = { };
     "git-config/gh-sch" = { };
     "git-config/gl-pro" = { };
     "git-config/gt-nxc" = { };
+    "git-config/cb-per" = { };
   };
 }
